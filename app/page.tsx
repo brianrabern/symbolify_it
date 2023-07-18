@@ -33,6 +33,7 @@ export default function Home() {
 
   const handleConnectiveClick = (connective: string) => {
     setUserFormula(userFormula + connective);
+    document.getElementById("userInput")?.focus();
   };
 
   function areObjectsEqual(obj1: object, obj2: object) {
@@ -55,7 +56,15 @@ export default function Home() {
 
   const handleCheck = () => {
     const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
-    console.log(parser.feed(userFormula).results[0]);
+    try {
+      parser.feed(userFormula);
+      const result = parser.results[0];
+      console.log("Parsing successful:", result);
+    } catch (error: any) {
+      // Handle syntax errors here
+      console.error("Syntax Error:", error.message);
+    }
+
     console.log("SOA", userSoa, "Formula", userFormula);
 
     let soa = {};
@@ -65,12 +74,12 @@ export default function Home() {
     }
     console.log(areObjectsEqual(soa, problems[0].soa));
 
-    if (areObjectsEqual(soa, problems[0].soa)) {
-      console.log("soa correct");
-    }
-    if (userFormula === problems[0].form) {
-      console.log(" form correct");
-    }
+    // if (areObjectsEqual(soa, problems[0].soa)) {
+    //   console.log("soa correct");
+    // }
+    // if (userFormula === problems[0].form) {
+    //   console.log(" form correct");
+    // }
   };
 
   return (
@@ -80,7 +89,7 @@ export default function Home() {
 
       {/* scheme of abbreviation */}
       <div className="bg-gray-800 p-4 rounded-md w-full flex flex-col items-center">
-        <h2 className="py-2 text-2xl font-bold text-blue-500">
+        <h2 className="py-2 text-2xl font-bold text-gray-500">
           Scheme of Abbreviation
         </h2>
         {userSoa.map((entry, index) => (
@@ -119,11 +128,11 @@ export default function Home() {
 
       {/* formula input */}
       <div className="mt-2 bg-gray-800 p-4 rounded-md w-full flex flex-col items-center">
-        <h2 className="py-2 text-2xl font-bold text-blue-500">Formula</h2>
+        <h2 className="py-2 text-2xl font-bold text-gray-500">Formula</h2>
         <div>
           <input
-            style={{ color: "black" }}
-            className="border-2 border-color-1 rounded-md p-2"
+            id="userInput"
+            className="text-black border-2 border-color-1 rounded-md p-2"
             value={userFormula}
             onChange={(e) => setUserFormula(e.target.value)}
             placeholder="Formula"
@@ -177,7 +186,7 @@ export default function Home() {
       </div>
 
       <button
-        className="px-6 py-3 bg-cyan-500 text-white rounded-md shadow-md font-medium"
+        className="px-4 py-2 mt-4 bg-blue-500 text-white rounded-md"
         onClick={handleCheck}
       >
         Check
