@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "sentence": "Hazel doesn't love Ewan.",
+    "soa": { "a": "Hazel", "b": "Ewan", "F": "[1] loves [2]" },
+    "form": "¬F(a,b)"
+  },
+
+  {
+    "id": 2,
+    "sentence": "Hazel loves Ewan.",
+    "soa": { "a": "Hazel", "b": "Ewan", "F": "[1] loves [2]" },
+    "form": "F(a,b)"
+  }
+]

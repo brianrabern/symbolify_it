@@ -1,113 +1,187 @@
-import Image from 'next/image'
+"use client";
+
+import React, { useState } from "react";
+import problems from "./problems.json";
+import { lexiconData } from "./lexicon.js";
+import nearley from "nearley";
+import grammar from "./predicate_logic.js";
 
 export default function Home() {
+  const [userFormula, setUserFormula] = useState("");
+  const [userSoa, setUserSoa] = useState([{ symbol: "", lexicon: "" }]);
+
+  const names: string[] = lexiconData[0]?.Names || [];
+  const monadic: string[] = lexiconData[1]?.monadicPredicates || [];
+  const binary: string[] = lexiconData[2]?.binaryPredicates || [];
+  const lexiconOptions = [...names, ...monadic, ...binary];
+
+  const handleSymbolChange = (index: number, value: string) => {
+    const updatedUserSoa = [...userSoa];
+    updatedUserSoa[index].symbol = value;
+    setUserSoa(updatedUserSoa);
+  };
+
+  const handleLexiconChange = (index: number, value: string) => {
+    const updatedUserSoa = [...userSoa];
+    updatedUserSoa[index].lexicon = value;
+    setUserSoa(updatedUserSoa);
+  };
+
+  const handleAddEntry = () => {
+    setUserSoa([...userSoa, { symbol: "", lexicon: "" }]);
+  };
+
+  const handleConnectiveClick = (connective: string) => {
+    setUserFormula(userFormula + connective);
+  };
+
+  function areObjectsEqual(obj1: object, obj2: object) {
+    const keys1 = Object.keys(obj1);
+    const keys2 = Object.keys(obj2);
+
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+
+    for (const key of keys1) {
+      // @ts-ignore
+      if (obj1[key] !== obj2[key]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  const handleCheck = () => {
+    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
+    console.log(parser.feed(userFormula).results[0]);
+    console.log("SOA", userSoa, "Formula", userFormula);
+
+    let soa = {};
+    for (let entry of userSoa) {
+      // @ts-ignore
+      soa[entry.symbol] = entry.lexicon;
+    }
+    console.log(areObjectsEqual(soa, problems[0].soa));
+
+    if (areObjectsEqual(soa, problems[0].soa)) {
+      console.log("soa correct");
+    }
+    if (userFormula === problems[0].form) {
+      console.log(" form correct");
+    }
+  };
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+      {/* sentence to be symbolized */}
+      <h1 className="text-6xl font-bold">"Hazel doesn't love Ewan."</h1>
+
+      {/* scheme of abbreviation */}
+      <div className="bg-gray-800 p-4 rounded-md w-full flex flex-col items-center">
+        <h2 className="py-2 text-2xl font-bold text-blue-500">
+          Scheme of Abbreviation
+        </h2>
+        {userSoa.map((entry, index) => (
+          <div key={index} className="flex space-x-4 py-1">
+            <input
+              className="text-black border border-gray-300 rounded-md p-2 w-24"
+              type="text"
+              value={entry.symbol}
+              onChange={(e) => handleSymbolChange(index, e.target.value)}
+              placeholder="Symbol"
             />
-          </a>
+            <span className="mx-4 text-2xl font-bold">:</span>
+            <select
+              className="text-black border border-gray-300 rounded-md p-2"
+              value={entry.lexicon}
+              onChange={(e) => handleLexiconChange(index, e.target.value)}
+            >
+              <option value="" disabled>
+                Expression
+              </option>
+              {lexiconOptions.map((option) => (
+                <option key={option} value={option}>
+                  {option}
+                </option>
+              ))}
+            </select>
+          </div>
+        ))}
+        <button
+          className="px-4 py-2 mt-4 bg-blue-500 text-white rounded-md"
+          onClick={handleAddEntry}
+        >
+          Add Entry
+        </button>
+      </div>
+
+      {/* formula input */}
+      <div className="mt-2 bg-gray-800 p-4 rounded-md w-full flex flex-col items-center">
+        <h2 className="py-2 text-2xl font-bold text-blue-500">Formula</h2>
+        <div>
+          <input
+            style={{ color: "black" }}
+            className="border-2 border-color-1 rounded-md p-2"
+            value={userFormula}
+            onChange={(e) => setUserFormula(e.target.value)}
+            placeholder="Formula"
+          />
+        </div>
+        {/* symbol buttons */}
+        <div className="flex space-x-1 py-2">
+          <button
+            onClick={() => handleConnectiveClick("¬")}
+            className="text-xs px-1 py-1 border rounded-md"
+          >
+            ¬
+          </button>
+          <button
+            onClick={() => handleConnectiveClick("∧")}
+            className="text-xs px-1 py-1 border rounded-md"
+          >
+            ∧
+          </button>
+          <button
+            onClick={() => handleConnectiveClick("∨")}
+            className="text-xs px-1 py-1 border rounded-md"
+          >
+            ∨
+          </button>
+          <button
+            onClick={() => handleConnectiveClick("→")}
+            className="text-xs px-1 py-1 border rounded-md"
+          >
+            →
+          </button>
+          <button
+            onClick={() => handleConnectiveClick("↔")}
+            className="text-xs px-1 py-1 border rounded-md"
+          >
+            ↔
+          </button>
+          <button
+            onClick={() => handleConnectiveClick("∀")}
+            className="text-xs px-1 py-1 border rounded-md"
+          >
+            ∀
+          </button>
+          <button
+            onClick={() => handleConnectiveClick("∃")}
+            className="text-xs px-1 py-1 border rounded-md"
+          >
+            ∃
+          </button>
         </div>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+      <button
+        className="px-6 py-3 bg-cyan-500 text-white rounded-md shadow-md font-medium"
+        onClick={handleCheck}
+      >
+        Check
+      </button>
     </main>
-  )
+  );
 }
