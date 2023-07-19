@@ -54,6 +54,21 @@ export default function Home() {
     return true;
   }
 
+  const answer1 = {
+    form: "¬F(a,b)",
+    soa: { a: "Hazel", b: "Ewan", F: "[1] loves [2]" },
+  };
+  const answer2 = {
+    form: "¬G(c,d)",
+    soa: { c: "Hazel", d: "Ewan", G: "[1] loves [2]" },
+  };
+  const answer3 = {
+    form: "¬H(e,a)",
+    soa: { a: "Hazel", e: "Ewan", H: "[1] loves [2]" },
+  };
+
+  function isVariant(userAnswer: object, sysAnswer: object) {}
+
   const handleCheck = () => {
     const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
     try {
