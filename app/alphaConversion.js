@@ -56,7 +56,7 @@ function variablesMap(formula) {
   // Assign values to variables
   for (let i = 0; i < variables.length; i++) {
     const variable = variables[i];
-    const value = "v" + (i + 1);
+    const value = "x" + (i + 1);
     map[variable] = value;
   }
 
