@@ -28,7 +28,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/lexicon.js"
+    "app/lexiconPred.js"
   ],
   "exclude": ["node_modules"]
 }

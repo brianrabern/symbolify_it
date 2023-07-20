@@ -1,0 +1,511 @@
+[
+  {
+    "id": 72,
+    "sentence": "Sam is mortal.",
+    "soa": { "F": "[1] is mortal", "a": "Sam" },
+    "form": "Fa"
+  },
+  {
+    "id": 73,
+    "sentence": "Ava is happy, and so is Sam. ",
+    "soa": { "F": "[1] is happy", "a": "Ava", "b": "Sam" },
+    "form": "Fa∧Fb"
+  },
+  {
+    "id": 74,
+    "sentence": "Ansel or Ruth will walk.",
+    "soa": { "F": "[1] will walk", "a": "Ansel", "b": "Ruth" },
+    "form": "Fa∨Fb"
+  },
+  {
+    "id": 75,
+    "sentence": "If Sam is not a knight, then he is not honest.",
+    "soa": { "F": "[1] is a knight", "G": "[1] is honest", "a": "Sam" },
+    "form": "¬Fa→¬Ga"
+  },
+  {
+    "id": 76,
+    "sentence": "Ava is an elf but Ruth isn't.",
+    "soa": { "F": "[1] is an elf", "a": "Ava", "b": "Ruth" },
+    "form": "Fa∧¬Fb"
+  },
+  {
+    "id": 77,
+    "sentence": "Neither Sam nor Ruth sang, yet they are both happy.",
+    "soa": { "F": "[1] sang", "G": "[1] is happy", "a": "Sam", "b": "Ruth" },
+    "form": "(¬Fa∧¬Fb)∧(Ga∧Gb)"
+  },
+  {
+    "id": 78,
+    "sentence": "All humans are mortal.",
+    "soa": { "F": "[1] is a human", "G": "[1] is mortal" },
+    "form": "∀x(Fx→Gx)"
+  },
+  {
+    "id": 79,
+    "sentence": "Everything is wet.",
+    "soa": { "F": "[1] is wet" },
+    "form": "∀xFx"
+  },
+  {
+    "id": 80,
+    "sentence": "Something is not wet.",
+    "soa": { "F": "[1] is wet" },
+    "form": "∃x¬Fx"
+  },
+  {
+    "id": 81,
+    "sentence": "Some knights are sad.",
+    "soa": { "F": "[1] is a knight", "G": "[1] is sad" },
+    "form": "∃x(Fx∧Gx)"
+  },
+  {
+    "id": 82,
+    "sentence": "No knaves are honest.",
+    "soa": { "F": "[1] is a knave", "G": "[1] is honest" },
+    "form": "¬∃x(Fx∧Gx)"
+  },
+  {
+    "id": 83,
+    "sentence": "Not all teachers are honest.",
+    "soa": { "F": "[1] is a teacher", "G": "[1] is honest" },
+    "form": "∃x(Fx∧¬Gx)"
+  },
+  {
+    "id": 84,
+    "sentence": "Every monkey isn't wet.",
+    "soa": { "F": "[1] is a monkey", "G": "[1] is wet" },
+    "form": "¬∀x(Fx→Gx)"
+  },
+  {
+    "id": 85,
+    "sentence": "Some knights are not happy.",
+    "soa": { "F": "[1] is a knight", "G": "[1] is happy" },
+    "form": "∃x(Fx∧¬Gx)"
+  },
+  {
+    "id": 86,
+    "sentence": "Only humans are guilty.",
+    "soa": { "F": "[1] is a human", "G": "[1] is guilty" },
+    "form": "∀x(Gx→Fx)"
+  },
+  {
+    "id": 87,
+    "sentence": "A monkey sang.",
+    "soa": { "F": "[1] is a monkey", "G": "[1] sang" },
+    "form": "∃x(Fx∧Gx)"
+  },
+  {
+    "id": 88,
+    "sentence": "Some people ate but Ava didn't.",
+    "soa": { "F": "[1] is a person", "G": "[1] ate", "a": "Ava" },
+    "form": "∃x(Fx∧Gx)∧¬Ga"
+  },
+  {
+    "id": 89,
+    "sentence": "Every wet elf is guilty.",
+    "soa": { "F": "[1] is wet", "G": "[1] is an elf", "H": "[1] is guilty" },
+    "form": "∀x((Fx∧Gx)→Hx)"
+  },
+  {
+    "id": 90,
+    "sentence": "Something is round and something is square, but nothing is both round and square.",
+    "soa": { "F": "[1] is round", "G": "[1] is square" },
+    "form": "(∃xFx∧∃xGx)∧¬∃x(Fx∧Gx)"
+  },
+  {
+    "id": 91,
+    "sentence": "Every monkey is either happy or wet.",
+    "soa": { "F": "[1] is a monkey", "G": "[1] is happy", "H": "[1] is wet" },
+    "form": "∀x(Fx→(Gx∨Hx))"
+  },
+  {
+    "id": 92,
+    "sentence": "Some monkeys climb but not all who climb are monkeys.",
+    "soa": { "F": "[1] is a monkey", "G": "[1] climbs" },
+    "form": "∃x(Fx∧Gx)∧¬∀x(Gx→Fx)"
+  },
+  {
+    "id": 93,
+    "sentence": "Some students study but some don't. ",
+    "soa": { "F": "[1] is a student", "G": "[1] studies" },
+    "form": "∃x(Fx∧Gx)∧∃x(Fx∧¬Gx)"
+  },
+  {
+    "id": 94,
+    "sentence": "Everything is a round square.",
+    "soa": { "F": "[1] is round", "G": "[1] is square" },
+    "form": "∀x(Fx∧Gx)"
+  },
+  {
+    "id": 95,
+    "sentence": "If every wet monkey ate, then some monkey sang.",
+    "soa": {
+      "F": "[1] is wet",
+      "G": "[1] is a monkey",
+      "H": "[1] ate",
+      "B": "[1] sang"
+    },
+    "form": "∀x((Fx∧Gx)→Hx)→∃x(Gx∧Bx)"
+  },
+  {
+    "id": 96,
+    "sentence": "There is something such that, if it is wet, then everything is wet.",
+    "soa": { "F": "[1] is wet" },
+    "form": "∃x(Fx→∀yFy)"
+  },
+  {
+    "id": 97,
+    "sentence": "Either all happy elves are guilty, or all guilty elves are happy.",
+    "soa": { "F": "[1] is happy", "G": "[1] is an elf", "H": "[1] is guilty" },
+    "form": "∀x((Fx∧Gx)→Hx)∨∀x((Hx∧Gx)→Fx)"
+  },
+  {
+    "id": 98,
+    "sentence": "Some monkeys ate and drank, but only wet monkeys swam.",
+    "soa": {
+      "F": "[1] is a monkey",
+      "G": "[1] ate",
+      "H": "[1] drank",
+      "A": "[1] is wet",
+      "B": "[1] swam"
+    },
+    "form": "∃x(Fx∧(Gx∧Hx))∧∀x(Bx→(Fx∧Ax))"
+  },
+  {
+    "id": 99,
+    "sentence": "All elves who are mean will bite.",
+    "soa": { "F": "[1] is an elf", "G": "[1] is mean", "H": "[1] will bite" },
+    "form": "∀x((Fx∧Gx)→Hx)"
+  },
+  {
+    "id": 100,
+    "sentence": "No wet monkey is happy.",
+    "soa": { "F": "[1] is wet", "G": "[1] is a monkey", "H": "[1] is happy" },
+    "form": "¬∃x((Fx∧Gx)∧Hx)"
+  },
+  {
+    "id": 101,
+    "sentence": "Every guilty elf is sad and mean. ",
+    "soa": {
+      "F": "[1] is guilty",
+      "G": "[1] is an elf",
+      "H": "[1] is sad",
+      "A": "[1] is mean"
+    },
+    "form": "∀x((Fx∧Gx)→(Hx∧Ax))"
+  },
+  {
+    "id": 102,
+    "sentence": "Only knights are honest.",
+    "soa": { "F": "[1] is a knight", "G": "[1] is honest" },
+    "form": "∀x(Gx→Fx)"
+  },
+  {
+    "id": 103,
+    "sentence": "Some elf is not both mortal and happy. ",
+    "soa": { "F": "[1] is an elf", "G": "[1] is mortal", "H": "[1] is happy" },
+    "form": "∃x(Fx∧¬(Gx∧Hx))"
+  },
+  {
+    "id": 104,
+    "sentence": "No student is happy unless every student will pass.",
+    "soa": {
+      "F": "[1] is a student",
+      "G": "[1] is happy",
+      "H": "[1] will pass"
+    },
+    "form": "¬∃x(Fx∧Gx)∨∀x(Fx→Hx)"
+  },
+  {
+    "id": 105,
+    "sentence": "Each student is happy unless they won't pass. ",
+    "soa": {
+      "F": "[1] is a student",
+      "G": "[1] is happy",
+      "H": "[1] will pass"
+    },
+    "form": "∀x((Fx→Gx)∨¬Hx)"
+  },
+  {
+    "id": 106,
+    "sentence": "All and only knights are honest.",
+    "soa": { "F": "[1] is a knight", "G": "[1] is honest" },
+    "form": "∀x(Gx↔Fx)"
+  },
+  {
+    "id": 107,
+    "sentence": "If a person is honest, they are happy.",
+    "soa": {
+      "F": "[1] is a person",
+      "G": "[1] is honest",
+      "H": "[1] is happy"
+    },
+    "form": "∀x((Fx∧Gx)→Hx)"
+  },
+  {
+    "id": 108,
+    "sentence": "Sam loves Ava.",
+    "soa": { "F": "[1] loves [2]", "a": "Sam", "b": "Ava" },
+    "form": "Fab"
+  },
+  {
+    "id": 109,
+    "sentence": "Ava doesn't love Sam.",
+    "soa": { "F": "[1] loves [2]", "a": "Ava", "b": "Sam" },
+    "form": "¬Fab"
+  },
+  {
+    "id": 110,
+    "sentence": "Ruth admires Alfred or Sam, but she doesn't admire herself.",
+    "soa": { "F": "[1] admires [2]", "a": "Ruth", "b": "Alfred", "c": "Sam" },
+    "form": "(Fab∨Fac)∧¬Faa"
+  },
+  {
+    "id": 111,
+    "sentence": "Something sees Ava.",
+    "soa": { "F": "[1] sees [2]", "a": "Ava" },
+    "form": "∃xFxa"
+  },
+  {
+    "id": 112,
+    "sentence": "Every student loves Sam.",
+    "soa": { "F": "[1] loves [2]", "G": "[1] is a student", "a": "Sam" },
+    "form": "∀x(Gx→Fxa)"
+  },
+  {
+    "id": 113,
+    "sentence": "An elf loves Ava.",
+    "soa": { "F": "[1] is an elf", "G": "[1] loves [2]", "a": "Ava" },
+    "form": "∃x(Fx∧Gxa)"
+  },
+  {
+    "id": 114,
+    "sentence": "No teacher talked to Ruth",
+    "soa": { "F": "[1] is a teacher", "G": "[1] talked to [2]", "a": "Ruth" },
+    "form": "¬∃x(Fx∧Gxa)"
+  },
+  {
+    "id": 115,
+    "sentence": "A student loves a student.",
+    "soa": { "F": "[1] is a student", "G": "[1] loves [2]" },
+    "form": "∃x∃y((Fx∧Fy)∧Gxy)"
+  },
+  {
+    "id": 116,
+    "sentence": "Every elf sees every monkey.",
+    "soa": {
+      "F": "[1] is an elf",
+      "G": "[1] is a monkey",
+      "H": "[1] sees [2]"
+    },
+    "form": "∀x∀y((Fx∧Gy)→Hxy)"
+  },
+  {
+    "id": 117,
+    "sentence": "A student didn't wave to a teacher.",
+    "soa": {
+      "F": "[1] is a student",
+      "G": "[1] is a teacher",
+      "H": "[1] waved to [2]"
+    },
+    "form": "∃x∃y((Fx∧Gy)∧¬Hxy)"
+  },
+  {
+    "id": 118,
+    "sentence": "Every monkey sees a student.",
+    "soa": {
+      "F": "[1] is a monkey",
+      "G": "[1] is a student",
+      "H": "[1] sees [2]"
+    },
+    "form": "∀x(Fx→∃y(Gy∧Hxy))"
+  },
+  {
+    "id": 119,
+    "sentence": "Some monkey sees itself.",
+    "soa": { "F": "[1] is a monkey", "H": "[1] sees [2]" },
+    "form": "∃x(Fx∧Hxx)"
+  },
+  {
+    "id": 120,
+    "sentence": "No student sees every monkey.",
+    "soa": {
+      "F": "[1] is a student",
+      "G": "[1] is a monkey",
+      "H": "[1] sees [2]"
+    },
+    "form": "¬∃x(Fx∧∀y(Gy→Hxy))"
+  },
+  {
+    "id": 121,
+    "sentence": "Some knight talked to every knave.",
+    "soa": {
+      "F": "[1] is a knight",
+      "G": "[1] is a knave",
+      "H": "[1] talked to [2]"
+    },
+    "form": "∃x(Fx∧∀y(Gy→Hxy))"
+  },
+  {
+    "id": 122,
+    "sentence": "A happy elf kissed a student.",
+    "soa": {
+      "F": "[1] is happy",
+      "G": "[1] is an elf",
+      "H": "[1] kissed [2]",
+      "I": "[1] is a student"
+    },
+    "form": "∃x∃y((Fx∧Gx)∧(Iy∧Hxy))"
+  },
+  {
+    "id": 123,
+    "sentence": "Neither Ava nor Ruth kissed an elf.",
+    "soa": {
+      "F": "[1] kissed [2]",
+      "G": "[1] is an elf",
+      "a": "Ava",
+      "b": "Ruth"
+    },
+    "form": "¬∃x(Gx∧(Fax∨Fbx))"
+  },
+  {
+    "id": 124,
+    "sentence": "Alfred, but not Sam, talked to a knight.",
+    "soa": {
+      "F": "[1] is a knight",
+      "G": "[1] talked to [2]",
+      "a": "Alfred",
+      "b": "Sam"
+    },
+    "form": "∃x(Fx∧Gax)∧¬∃x(Fx∧Gbx)"
+  },
+  {
+    "id": 125,
+    "sentence": "Some knight and some knave admire each other.",
+    "soa": {
+      "F": "[1] is a knight",
+      "G": "[1] is a knave",
+      "H": "[1] admires [2]"
+    },
+    "form": "∃x∃y((Fx∧Gy)∧(Hxy∧Hyx))"
+  },
+  {
+    "id": 126,
+    "sentence": "Alfred didn't talk to a happy elf and he didn't swim.",
+    "soa": {
+      "F": "[1] talked to [2]",
+      "G": "[1] is happy",
+      "H": "[1] is an elf",
+      "I": "[1] swam",
+      "a": "Alfred"
+    },
+    "form": "¬∃x((Gx∧Hx)∧Fax)∧¬Ia"
+  },
+  {
+    "id": 127,
+    "sentence": "Some student admires every teacher.",
+    "soa": {
+      "F": "[1] is a student",
+      "G": "[1] is a teacher",
+      "H": "[1] admires [2]"
+    },
+    "form": "∃x(Fx∧∀y(Gy→Hxy))"
+  },
+  {
+    "id": 128,
+    "sentence": "Ruth is an admirer of those who have no admirers.",
+    "soa": { "F": "[1] admires [2]", "G": "[1] is a person", "a": "Ruth" },
+    "form": "∀x(¬∃yFyx→Fax)"
+  },
+  {
+    "id": 129,
+    "sentence": "Every monkey sees every human and every human sees a monkey.",
+    "soa": {
+      "F": "[1] is a monkey",
+      "G": "[1] is a human",
+      "H": "[1] sees [2]"
+    },
+    "form": "(∀x∀y((Fx∧Gy)→Hxy)∧∀x(Gx→∃y(Fy∧Hxy)))"
+  },
+  {
+    "id": 130,
+    "sentence": "Every human waved to every elf but not every elf waved to every human.",
+    "soa": {
+      "F": "[1] is a human",
+      "G": "[1] is an elf",
+      "H": "[1] waved to [2]"
+    },
+    "form": "(∀x∀y((Fx∧Gy)→Hxy)∧∃x∃y((Gx∧Fy)∧¬Hxy))"
+  },
+  {
+    "id": 131,
+    "sentence": "Some number is less than every number.",
+    "soa": {
+      "F": "[1] is a number",
+      "G": "[1] is less than [2]",
+      "H": "[1] is greater than [2]"
+    },
+    "form": "∃x(Fx∧∀y(Fy→Gxy))"
+  },
+  {
+    "id": 132,
+    "sentence": "Every number is less than some number.",
+    "soa": {
+      "F": "[1] is a number",
+      "G": "[1] is less than [2]",
+      "H": "[1] is greater than [2]"
+    },
+    "form": "∀x(Fx→∃y(Fy∧Gxy))"
+  },
+  {
+    "id": 133,
+    "sentence": "Some number doesn’t have a number as its successor.",
+    "soa": { "F": "[1] is a number", "G": "[1] is a successor of [2]" },
+    "form": "∃x(Fx∧¬∃y(Fy∧Gyx))"
+  },
+  {
+    "id": 134,
+    "sentence": "Every number has a successor.",
+    "soa": { "F": "[1] is a number", "G": "[1] is a successor of [2]" },
+    "form": "∀x(Fx→∃y(Fy∧Gyx))"
+  },
+  {
+    "id": 135,
+    "sentence": "Either some number is greater than every number or every number has a successor.",
+    "soa": {
+      "F": "[1] is a number",
+      "G": "[1] is a successor of [2]",
+      "H": "[1] is greater than [2]"
+    },
+    "form": "∃x(Fx∧∀y(Fy→Hxy))∨∀x(Fx→∃y(Fy∧Gyx))"
+  },
+  {
+    "id": 136,
+    "sentence": "Some knight loves every knave that loves it",
+    "soa": {
+      "F": "[1] is a knight",
+      "G": "[1] is a knave",
+      "H": "[1] loves [2]"
+    },
+    "form": "∃x(Fx∧∀y((Gy∧Hyx)→Hxy))"
+  },
+  {
+    "id": 137,
+    "sentence": "No person who is either student or a teacher talked to Alfred.",
+    "soa": {
+      "F": "[1] is a person",
+      "G": "[1] is a student",
+      "H": "[1] is a teacher",
+      "I": "[1] talked to [2]",
+      "a": "Alfred"
+    },
+    "form": "¬∃x((Fx∧(Gx∨Hx))∧Ixa)"
+  },
+  {
+    "id": 138,
+    "sentence": "Alfred admires all and only those who do not admire themselves.",
+    "soa": { "F": "[1] admires [2]", "G": "[1] is a person", "a": "Alfred" },
+    "form": "∀x(Fax↔¬Fxa)"
+  }
+]

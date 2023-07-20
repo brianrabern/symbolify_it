@@ -1,0 +1,1859 @@
+[
+  {
+    "id": "7k9fvRKnfrcUyRF9I7vQQ",
+    "name": "S1:1",
+    "tag": "smb",
+    "textToSymbolise": "Sam studies.",
+    "checkConfig": {
+      "sentences": ["P"],
+      "soa": [{ "l": "P", "t": "Sam studies" }]
+    }
+  },
+  {
+    "id": "zgQS8METUTEY9JyOjXrFV",
+    "name": "S1:2",
+    "tag": "smb",
+    "textToSymbolise": "Ava didn’t sing.",
+    "checkConfig": {
+      "sentences": ["~P"],
+      "soa": [{ "l": "P", "t": "Ava sang" }]
+    }
+  },
+  {
+    "id": "gprMwVqnbOzK0eE9zMxYp",
+    "name": "S1:3",
+    "tag": "smb",
+    "textToSymbolise": "Ava failed to not eat.",
+    "checkConfig": {
+      "sentences": ["~~P"],
+      "soa": [{ "l": "P", "t": "Ava ate" }]
+    }
+  },
+  {
+    "id": "xezLGqRGw7y5Ao69pEmHs",
+    "name": "S1:4",
+    "tag": "smb",
+    "textToSymbolise": "Alfred is a knight.",
+    "checkConfig": {
+      "sentences": ["P"],
+      "soa": [{ "l": "P", "t": "Alfred is a knight" }]
+    }
+  },
+  {
+    "id": "9tKtMCzPXzhIypbi6PYg2",
+    "name": "S1:5",
+    "tag": "smb",
+    "textToSymbolise": "Ava will stand only if Emily sits.",
+    "checkConfig": {
+      "sentences": ["P -> Q"],
+      "soa": [
+        { "l": "P", "t": "Ava will stand" },
+        { "l": "Q", "t": "Emily sits" }
+      ]
+    }
+  },
+  {
+    "id": "GXwlTK_zDNpLwa6bd40DJ",
+    "name": "S1:6",
+    "tag": "smb",
+    "textToSymbolise": "Provided that Ava studies, she will pass.",
+    "checkConfig": {
+      "sentences": ["P -> Q"],
+      "soa": [
+        { "l": "P", "t": "Ava studies" },
+        { "l": "Q", "t": "Ava will pass" }
+      ]
+    }
+  },
+  {
+    "id": "rQ5zalFDYpXGN6pYBjv9l",
+    "name": "S1:7",
+    "tag": "smb",
+    "textToSymbolise": "If Sam is a knight, then he is honest.",
+    "checkConfig": {
+      "sentences": ["P -> Q"],
+      "soa": [
+        { "l": "P", "t": "Sam is a knight" },
+        { "l": "Q", "t": "Sam is honest" }
+      ]
+    }
+  },
+  {
+    "id": "MDqt-vibQwwS9DecCBqYY",
+    "name": "S1:8",
+    "tag": "smb",
+    "textToSymbolise": "If Sam is not a knight, then he is not honest.",
+    "checkConfig": {
+      "sentences": ["~P -> ~Q"],
+      "soa": [
+        { "l": "P", "t": "Sam is a knight" },
+        { "l": "Q", "t": "Sam is honest" }
+      ]
+    }
+  },
+  {
+    "id": "UAwW7tqIjjVLi0k3A1Xq3",
+    "name": "S1:9",
+    "tag": "smb",
+    "textToSymbolise": "If Sam is a knave, then he is not honest.",
+    "checkConfig": {
+      "sentences": ["P -> ~Q"],
+      "soa": [
+        { "l": "P", "t": "Sam is a knave" },
+        { "l": "Q", "t": "Sam is honest" }
+      ]
+    }
+  },
+  {
+    "id": "w75HkIAVqBXyYnrv7DqTL",
+    "name": "S1:10",
+    "tag": "smb",
+    "textToSymbolise": "If Sam is not a knave, then he is a knight.",
+    "checkConfig": {
+      "sentences": ["~P -> Q"],
+      "soa": [
+        { "l": "P", "t": "Sam is a knave" },
+        { "l": "Q", "t": "Sam is a knight" }
+      ]
+    }
+  },
+  {
+    "id": "Eoi4vGgEJffIlawflJ6aC",
+    "name": "S1:11",
+    "tag": "smb",
+    "textToSymbolise": "If Ava will pass if she concentrates, then she is happy.",
+    "checkConfig": {
+      "sentences": ["(Q -> P) -> R"],
+      "soa": [
+        { "l": "P", "t": "Ava will pass" },
+        { "l": "Q", "t": "Ava concentrates" },
+        { "l": "R", "t": "Ava is happy" }
+      ]
+    }
+  },
+  {
+    "id": "20CMggbvTLEb_27YJX27j",
+    "name": "S1:12",
+    "tag": "smb",
+    "textToSymbolise": "Ava won’t pass if she drank.",
+    "checkConfig": {
+      "sentences": ["Q -> ~P"],
+      "soa": [
+        { "l": "P", "t": "Ava will pass" },
+        { "l": "Q", "t": "Ava drank" }
+      ]
+    }
+  },
+  {
+    "id": "mRUBUWspaWz2S_ck4dBUM",
+    "name": "S1:13",
+    "tag": "smb",
+    "textToSymbolise": "Ava will pass if she didn't drink.",
+    "checkConfig": {
+      "sentences": ["~Q -> P"],
+      "soa": [
+        { "l": "P", "t": "Ava will pass" },
+        { "l": "Q", "t": "Ava drank" }
+      ]
+    }
+  },
+  {
+    "id": "j_qdUPJNbVB1CUAZ6zUU8",
+    "name": "S1:14",
+    "tag": "smb",
+    "textToSymbolise": "If Ava is happy only if Sam didn’t sing, then Sam won't stand if Ava sits.",
+    "checkConfig": {
+      "sentences": ["(P -> ~Q) -> (S -> ~R)"],
+      "soa": [
+        { "l": "P", "t": "Ava is happy" },
+        { "l": "Q", "t": "Sam sang" },
+        { "l": "R", "t": "Sam will stand" },
+        { "l": "S", "t": "Ava sits" }
+      ]
+    }
+  },
+  {
+    "id": "9h7DQ6kLoxqG2MXI9Fulu",
+    "name": "S1:15",
+    "tag": "smb",
+    "textToSymbolise": "It is not the case that Ruth is happy.",
+    "checkConfig": {
+      "sentences": ["~P"],
+      "soa": [{ "l": "P", "t": "Ruth is happy" }]
+    }
+  },
+  {
+    "id": "7KdX8s5oyUsaBYaPqVF9z",
+    "name": "S1:16",
+    "tag": "smb",
+    "textToSymbolise": "Ansel will bite only if he is sad.",
+    "checkConfig": {
+      "sentences": ["P -> Q"],
+      "soa": [
+        { "l": "P", "t": "Ansel will bite" },
+        { "l": "Q", "t": "Ansel is sad" }
+      ]
+    }
+  },
+  {
+    "id": "-kc4mUJhHFLCv5chLXe3H",
+    "name": "S1:17",
+    "tag": "smb",
+    "textToSymbolise": "It is not the case that Ansel won't bite.",
+    "checkConfig": {
+      "sentences": ["~~P"],
+      "soa": [{ "l": "P", "t": "Ansel will bite" }]
+    }
+  },
+  {
+    "id": "82SVA_v2I_ZYda9j1dTFc",
+    "name": "S1:18",
+    "tag": "smb",
+    "textToSymbolise": "If Sam sits, then it is not the case that he doesn't sit.",
+    "checkConfig": {
+      "sentences": ["P -> ~~P"],
+      "soa": [{ "l": "P", "t": "Sam sits" }]
+    }
+  },
+  {
+    "id": "sbxqnaM9B1CDpJRoqf8SH",
+    "name": "S1:19",
+    "tag": "smb",
+    "textToSymbolise": "It is not the case that it is not the case that Sam is honest.",
+    "checkConfig": {
+      "sentences": ["~~P"],
+      "soa": [{ "l": "P", "t": "Sam is honest" }]
+    }
+  },
+  {
+    "id": "-AdSCUD10X2qBpPUl1Ryi",
+    "name": "S1:20",
+    "tag": "smb",
+    "textToSymbolise": "If Sam is a human, then he is mortal.",
+    "checkConfig": {
+      "sentences": ["P -> Q"],
+      "soa": [
+        { "l": "P", "t": "Sam is a human" },
+        { "l": "Q", "t": "Sam is mortal" }
+      ]
+    }
+  },
+  {
+    "id": "pcDKbxZ-vlaHg8M834j-W",
+    "name": "S1:21",
+    "tag": "smb",
+    "textToSymbolise": "If Alfred isn't wet, then he didn't swim.",
+    "checkConfig": {
+      "sentences": ["~P -> ~Q"],
+      "soa": [
+        { "l": "P", "t": "Alfred is wet" },
+        { "l": "Q", "t": "Alfred swam" }
+      ]
+    }
+  },
+  {
+    "id": "vw75762UertnHYF9o_F45",
+    "name": "S1:22",
+    "tag": "smb",
+    "textToSymbolise": "Ruth sang only if she didn't swim.",
+    "checkConfig": {
+      "sentences": ["P -> ~Q"],
+      "soa": [
+        { "l": "P", "t": "Ruth sang" },
+        { "l": "Q", "t": "Ruth swam" }
+      ]
+    }
+  },
+  {
+    "id": "xrn_Wd4KeiPDEqNAfER3A",
+    "name": "S1:23",
+    "tag": "smb",
+    "textToSymbolise": "Ava waved to Sam only if Sam waved to Ava.",
+    "checkConfig": {
+      "sentences": ["P -> Q"],
+      "soa": [
+        { "l": "P", "t": "Ava waved to Sam" },
+        { "l": "Q", "t": "Sam waved to Ava" }
+      ]
+    }
+  },
+  {
+    "id": "aojWWTFdxV85CrUOIEC2o",
+    "name": "S1:24",
+    "tag": "smb",
+    "textToSymbolise": "If Alfred didn't wave to Emily, then she is sad.",
+    "checkConfig": {
+      "sentences": ["~P -> Q"],
+      "soa": [
+        { "l": "P", "t": "Alfred waved to Emily" },
+        { "l": "Q", "t": "Emily is sad" }
+      ]
+    }
+  },
+  {
+    "id": "e3_VsPaX5udhFXlShWC4J",
+    "name": "S1:25",
+    "tag": "smb",
+    "textToSymbolise": "Sam is a knight only if he is honest.",
+    "checkConfig": {
+      "sentences": ["P -> Q"],
+      "soa": [
+        { "l": "P", "t": "Sam is a knight" },
+        { "l": "Q", "t": "Sam is honest" }
+      ]
+    }
+  },
+  {
+    "id": "IwsCthX8tszZhSzwIbA6T",
+    "name": "S1:26",
+    "tag": "smb",
+    "textToSymbolise": "Alfred will walk if Ruth will.",
+    "checkConfig": {
+      "sentences": ["Q -> P"],
+      "soa": [
+        { "l": "P", "t": "Alfred will walk" },
+        { "l": "Q", "t": "Ruth will walk" }
+      ]
+    }
+  },
+  {
+    "id": "WOk-uDJdiCs9JfIDn3YkS",
+    "name": "S1:27",
+    "tag": "smb",
+    "textToSymbolise": "Ava won't run if Sam won't.",
+    "checkConfig": {
+      "sentences": ["~Q -> ~P"],
+      "soa": [
+        { "l": "P", "t": "Ava will run" },
+        { "l": "Q", "t": "Sam will run" }
+      ]
+    }
+  },
+  {
+    "id": "xwF21UcBdflcK7X3G3IVp",
+    "name": "S1:28",
+    "tag": "smb",
+    "textToSymbolise": "If Alfred doesn't study, he will pass only if he concentrates.",
+    "checkConfig": {
+      "sentences": ["~P -> (Q -> R)"],
+      "soa": [
+        { "l": "P", "t": "Alfred studies" },
+        { "l": "Q", "t": "Alfred will pass" },
+        { "l": "R", "t": "Alfred concentrates" }
+      ]
+    }
+  },
+  {
+    "id": "2TjZ7D6Sjj_62I0YoEUoT",
+    "name": "S1:29",
+    "tag": "smb",
+    "textToSymbolise": "If Sam sits, then if Ava doesn't sit, Ruth will stand.",
+    "checkConfig": {
+      "sentences": ["P -> (~Q -> R)"],
+      "soa": [
+        { "l": "P", "t": "Sam sits" },
+        { "l": "Q", "t": "Ava sits" },
+        { "l": "R", "t": "Ruth will stand" }
+      ]
+    }
+  },
+  {
+    "id": "Sa0AH80XPu10OiQu8XvsJ",
+    "name": "S1:30",
+    "tag": "smb",
+    "textToSymbolise": "If Alfred won't stand if Ruth won't, then Sam won't.",
+    "checkConfig": {
+      "sentences": ["(~Q -> ~P) -> ~R"],
+      "soa": [
+        { "l": "P", "t": "Alfred will stand" },
+        { "l": "Q", "t": "Ruth will stand" },
+        { "l": "R", "t": "Sam will stand" }
+      ]
+    }
+  },
+  {
+    "id": "AdHh90XG3h0F8luUygNNj",
+    "name": "S2:1",
+    "tag": "smb",
+    "textToSymbolise": "Ava is happy and Sam is happy",
+    "checkConfig": {
+      "sentences": ["P /\\ Q"],
+      "soa": [
+        { "l": "P", "t": "Ava is happy" },
+        { "l": "Q", "t": "Sam is happy" }
+      ]
+    }
+  },
+  {
+    "id": "e6_D8AJl3d3Zkm3UGbYBG",
+    "name": "S2:2",
+    "tag": "smb",
+    "textToSymbolise": "Either Ruth studies or she won’t pass.",
+    "checkConfig": {
+      "sentences": ["P \\/ ~Q"],
+      "soa": [
+        { "l": "P", "t": "Ruth studies" },
+        { "l": "Q", "t": "Ruth will pass" }
+      ]
+    }
+  },
+  {
+    "id": "6FLVMlXXNp7eTs84NzsWP",
+    "name": "S2:3",
+    "tag": "smb",
+    "textToSymbolise": "Sam is happy, but he won’t pass.",
+    "checkConfig": {
+      "sentences": ["P /\\ ~Q"],
+      "soa": [
+        { "l": "P", "t": "Sam is happy" },
+        { "l": "Q", "t": "Sam will pass" }
+      ]
+    }
+  },
+  {
+    "id": "8PExe_RXBhXbGwIYLALXb",
+    "name": "S2:4",
+    "tag": "smb",
+    "textToSymbolise": "Sam is not honest if he is a knave.",
+    "checkConfig": {
+      "sentences": ["P -> ~Q"],
+      "soa": [
+        { "l": "P", "t": "Sam is a knave" },
+        { "l": "Q", "t": "Sam is honest" }
+      ]
+    }
+  },
+  {
+    "id": "dnMX77PXB3fyjj8RsRCI-",
+    "name": "S2:5",
+    "tag": "smb",
+    "textToSymbolise": "Ava will pass just in case she studies.",
+    "checkConfig": {
+      "sentences": ["P <-> Q"],
+      "soa": [
+        { "l": "P", "t": "Ava will pass" },
+        { "l": "Q", "t": "Ava studies" }
+      ]
+    }
+  },
+  {
+    "id": "XuiToZaw8zUwtnR3JPL4o",
+    "name": "S2:6",
+    "tag": "smb",
+    "textToSymbolise": "Sam and Ansel are elves.",
+    "checkConfig": {
+      "sentences": ["P /\\ Q"],
+      "soa": [
+        { "l": "P", "t": "Sam is an elf" },
+        { "l": "Q", "t": "Ansel is an elf" }
+      ]
+    }
+  },
+  {
+    "id": "Vv30EVw9M9P6x6Qp1wfKR",
+    "name": "S2:7",
+    "tag": "smb",
+    "textToSymbolise": "Emily didn't drink or sing.",
+    "checkConfig": {
+      "sentences": ["~(P \\/ Q)"],
+      "soa": [
+        { "l": "P", "t": "Emily drank" },
+        { "l": "Q", "t": "Emily sang" }
+      ]
+    }
+  },
+  {
+    "id": "cuGz3DmA72wGpgHpmhHNm",
+    "name": "S2:8",
+    "tag": "smb",
+    "textToSymbolise": "Both Alfred and Sam swam.",
+    "checkConfig": {
+      "sentences": ["P /\\ Q"],
+      "soa": [
+        { "l": "P", "t": "Alfred swam" },
+        { "l": "Q", "t": "Sam swam" }
+      ]
+    }
+  },
+  {
+    "id": "fd74hr20S4PxaPYGpJz_V",
+    "name": "S2:9",
+    "tag": "smb",
+    "textToSymbolise": "Ansel is a mean elf and he will bite.",
+    "checkConfig": {
+      "sentences": ["(P /\\ Q) /\\ R"],
+      "soa": [
+        { "l": "P", "t": "Ansel is mean" },
+        { "l": "Q", "t": "Ansel is an elf" },
+        { "l": "R", "t": "Ansel will bite" }
+      ]
+    }
+  },
+  {
+    "id": "VYhOraut38JK2KiuH1cNX",
+    "name": "S2:10",
+    "tag": "smb",
+    "textToSymbolise": "Ruth talked to Alfred and he isn't guilty, if she swam.",
+    "checkConfig": {
+      "sentences": ["P -> (Q /\\ ~R)"],
+      "soa": [
+        { "l": "P", "t": "Ruth swam" },
+        { "l": "Q", "t": "Ruth talked to Alfred" },
+        { "l": "R", "t": "Alfred is guilty" }
+      ]
+    }
+  },
+  {
+    "id": "73_WkgUN5KAcQGl_hYA9Q",
+    "name": "S2:11",
+    "tag": "smb",
+    "textToSymbolise": "Sam is happy only if he ate and drank.",
+    "checkConfig": {
+      "sentences": ["P -> (Q /\\ R)"],
+      "soa": [
+        { "l": "P", "t": "Sam is happy" },
+        { "l": "Q", "t": "Sam ate" },
+        { "l": "R", "t": "Sam drank" }
+      ]
+    }
+  },
+  {
+    "id": "vjzySzrMroSDnIiQ6UDVg",
+    "name": "S2:12",
+    "tag": "smb",
+    "textToSymbolise": "Ruth admires Ava or Emily, but she doesn't admire herself.",
+    "checkConfig": {
+      "sentences": ["(P \\/ Q) /\\ ~R"],
+      "soa": [
+        { "l": "P", "t": "Ruth admires Ava" },
+        { "l": "Q", "t": "Ruth admires Emily" },
+        { "l": "R", "t": "Ruth admires Ruth" }
+      ]
+    }
+  },
+  {
+    "id": "C0u5y-K7el1PFTUV677rw",
+    "name": "S2:13",
+    "tag": "smb",
+    "textToSymbolise": "Sam will stand if he is an honest person.",
+    "checkConfig": {
+      "sentences": ["(P /\\ Q) -> R"],
+      "soa": [
+        { "l": "P", "t": "Sam is honest" },
+        { "l": "Q", "t": "Sam is a person" },
+        { "l": "R", "t": "Sam will stand" }
+      ]
+    }
+  },
+  {
+    "id": "96bTnUHwDty0D7UORe3YQ",
+    "name": "S2:14",
+    "tag": "smb",
+    "textToSymbolise": "Neither Ava nor Ruth kissed Sam.",
+    "checkConfig": {
+      "sentences": ["~P /\\ ~Q"],
+      "soa": [
+        { "l": "P", "t": "Ava kissed Sam" },
+        { "l": "Q", "t": "Ruth kissed Sam" }
+      ]
+    }
+  },
+  {
+    "id": "b-zLmj3cvgvenxrT2KxEY",
+    "name": "S2:15",
+    "tag": "smb",
+    "textToSymbolise": "Alfred, but not Sam, talked to Ruth.",
+    "checkConfig": {
+      "sentences": ["P /\\ ~Q"],
+      "soa": [
+        { "l": "P", "t": "Alfred talked to Ruth" },
+        { "l": "Q", "t": "Sam talked to Ruth" }
+      ]
+    }
+  },
+  {
+    "id": "7m8701ptPXKAAwE8-NB_K",
+    "name": "S2:16",
+    "tag": "smb",
+    "textToSymbolise": "Ava will pass just in case neither Sam nor Emily studies.",
+    "checkConfig": {
+      "sentences": ["P <-> ~(Q \\/ R)"],
+      "soa": [
+        { "l": "P", "t": "Ava will pass" },
+        { "l": "Q", "t": "Sam studies" },
+        { "l": "R", "t": "Emily studies" }
+      ]
+    }
+  },
+  {
+    "id": "br7Xn7WZacFacrIkgI69w",
+    "name": "S2:17",
+    "tag": "smb",
+    "textToSymbolise": "Both Sam and Emily will pass if Ava will. ",
+    "checkConfig": {
+      "sentences": ["P -> (Q /\\ R)"],
+      "soa": [
+        { "l": "P", "t": "Ava will pass" },
+        { "l": "Q", "t": "Sam will pass" },
+        { "l": "R", "t": "Emily will pass" }
+      ]
+    }
+  },
+  {
+    "id": "wkVWYFQccXNbbW-zjnPDU",
+    "name": "S2:18",
+    "tag": "smb",
+    "textToSymbolise": "Sam will run or walk but he won't stand.",
+    "checkConfig": {
+      "sentences": ["(P \\/ Q) /\\ ~R"],
+      "soa": [
+        { "l": "P", "t": "Sam will run" },
+        { "l": "Q", "t": "Sam will walk" },
+        { "l": "R", "t": "Sam will stand" }
+      ]
+    }
+  },
+  {
+    "id": "PswODqol8c9DzTjJNr-RN",
+    "name": "S2:19",
+    "tag": "smb",
+    "textToSymbolise": "Sam is an honest person but he isn't a happy person.  ",
+    "checkConfig": {
+      "sentences": ["(P /\\ Q) /\\ ~R"],
+      "soa": [
+        { "l": "P", "t": "Sam is honest" },
+        { "l": "Q", "t": "Sam is a person" },
+        { "l": "R", "t": "Sam is happy" }
+      ]
+    }
+  },
+  {
+    "id": "D8w-L-9ebidNZE36MDQP5",
+    "name": "S2:20",
+    "tag": "smb",
+    "textToSymbolise": "Not both Sam and Ava drank.",
+    "checkConfig": {
+      "sentences": ["~(P /\\ Q)"],
+      "soa": [
+        { "l": "P", "t": "Sam drank" },
+        { "l": "Q", "t": "Ava drank" }
+      ]
+    }
+  },
+  {
+    "id": "BEYHwIXOSL7R6CPjpeqTP",
+    "name": "S2:21",
+    "tag": "smb",
+    "textToSymbolise": "Alfred, who didn't swim, is wet.",
+    "checkConfig": {
+      "sentences": ["P /\\ ~Q"],
+      "soa": [
+        { "l": "P", "t": "Alfred is wet" },
+        { "l": "Q", "t": "Alfred swam" }
+      ]
+    }
+  },
+  {
+    "id": "iht56hNneEAAU2NVGoIhu",
+    "name": "S2:22",
+    "tag": "smb",
+    "textToSymbolise": "Either Emily or Ruth talked to Sam.",
+    "checkConfig": {
+      "sentences": ["P \\/ Q"],
+      "soa": [
+        { "l": "P", "t": "Emily talked to Sam" },
+        { "l": "Q", "t": "Ruth talked to Sam" }
+      ]
+    }
+  },
+  {
+    "id": "eSsVx9S-yAZXeuETRi1x2",
+    "name": "S2:23",
+    "tag": "smb",
+    "textToSymbolise": "Neither Emily nor Ruth talked to Sam.",
+    "checkConfig": {
+      "sentences": ["~(P \\/ Q)"],
+      "soa": [
+        { "l": "P", "t": "Emily talked to Sam" },
+        { "l": "Q", "t": "Ruth talked to Sam" }
+      ]
+    }
+  },
+  {
+    "id": "grj8oPOVttGVjMLDAnH_B",
+    "name": "S2:24",
+    "tag": "smb",
+    "textToSymbolise": "Alfred kissed Ruth and sang, or he drank.",
+    "checkConfig": {
+      "sentences": ["(P /\\ Q) \\/ R"],
+      "soa": [
+        { "l": "P", "t": "Alfred kissed Ruth" },
+        { "l": "Q", "t": "Alfred sang" },
+        { "l": "R", "t": "Alfred drank" }
+      ]
+    }
+  },
+  {
+    "id": "sX1otumX5mPqoT61kqhzM",
+    "name": "S2:25",
+    "tag": "smb",
+    "textToSymbolise": "Ava drank but didn't sing.",
+    "checkConfig": {
+      "sentences": ["P /\\ ~Q"],
+      "soa": [
+        { "l": "P", "t": "Ava drank" },
+        { "l": "Q", "t": "Ava sang" }
+      ]
+    }
+  },
+  {
+    "id": "8CAzc-uWqOci9cMxDsS-P",
+    "name": "S2:26",
+    "tag": "smb",
+    "textToSymbolise": "Ruth will run just in case Ava does.",
+    "checkConfig": {
+      "sentences": ["P <-> Q"],
+      "soa": [
+        { "l": "P", "t": "Ruth will run" },
+        { "l": "Q", "t": "Ava will run" }
+      ]
+    }
+  },
+  {
+    "id": "5Z6Hsb5Vq_1t2JUrDtoVy",
+    "name": "S2:27",
+    "tag": "smb",
+    "textToSymbolise": "Sam is a monkey who will bite but he isn't mean.",
+    "checkConfig": {
+      "sentences": ["(P /\\ Q) /\\ ~R"],
+      "soa": [
+        { "l": "P", "t": "Sam is a monkey" },
+        { "l": "Q", "t": "Sam will bite" },
+        { "l": "R", "t": "Sam is mean" }
+      ]
+    }
+  },
+  {
+    "id": "dZq1CPtcONeRAusTWlywd",
+    "name": "S2:28",
+    "tag": "smb",
+    "textToSymbolise": "Alfred isn't honest, but Ruth loves him anyway.",
+    "checkConfig": {
+      "sentences": ["~P /\\ Q"],
+      "soa": [
+        { "l": "P", "t": "Alfred is honest" },
+        { "l": "Q", "t": "Ruth loves Alfred" }
+      ]
+    }
+  },
+  {
+    "id": "GmpBwTJGTifAjk3rpxDCj",
+    "name": "S2:29",
+    "tag": "smb",
+    "textToSymbolise": "Ava is sad and wet or she isn't guilty.",
+    "checkConfig": {
+      "sentences": ["(P /\\ Q) \\/ ~R"],
+      "soa": [
+        { "l": "P", "t": "Ava is sad" },
+        { "l": "Q", "t": "Ava is wet" },
+        { "l": "R", "t": "Ava is guilty" }
+      ]
+    }
+  },
+  {
+    "id": "lY87bX_-_0-Ev5CiR_HSU",
+    "name": "S2:30",
+    "tag": "smb",
+    "textToSymbolise": "Ava climbs or she sits and concentrates.",
+    "checkConfig": {
+      "sentences": ["P \\/ (Q /\\ R)"],
+      "soa": [
+        { "l": "P", "t": "Ava climbs" },
+        { "l": "Q", "t": "Ava sits" },
+        { "l": "R", "t": "Ava concentrates" }
+      ]
+    }
+  },
+  {
+    "id": "iEVZBr6qFRZIi8fmcTIDy",
+    "name": "S2:31",
+    "tag": "smb",
+    "textToSymbolise": "If neither Ava nor Sam will run, either Emily or Ruth will walk.",
+    "checkConfig": {
+      "sentences": ["~(P \\/ Q) -> (R \\/ S)"],
+      "soa": [
+        { "l": "P", "t": "Ava will run" },
+        { "l": "Q", "t": "Sam will run" },
+        { "l": "R", "t": "Emily will walk" },
+        { "l": "S", "t": "Ruth will walk" }
+      ]
+    }
+  },
+  {
+    "id": "t1ACUKaeC3JdCzS3aPhxO",
+    "name": "S2:32",
+    "tag": "smb",
+    "textToSymbolise": "Alfred didn't talk to Ruth and he didn't sing, but he will pass.",
+    "checkConfig": {
+      "sentences": ["(~P /\\ ~Q) /\\ R"],
+      "soa": [
+        { "l": "P", "t": "Alfred talked to Ruth" },
+        { "l": "Q", "t": "Alfred sang" },
+        { "l": "R", "t": "Alfred will pass" }
+      ]
+    }
+  },
+  {
+    "id": "oFMGAf8g091T6eUbvK2Rd",
+    "name": "S2:33",
+    "tag": "smb",
+    "textToSymbolise": "Either Ava or Ruth will stand, but not both.",
+    "checkConfig": {
+      "sentences": ["(P \\/ Q) /\\ ~(P /\\ Q)"],
+      "soa": [
+        { "l": "P", "t": "Ava will stand" },
+        { "l": "Q", "t": "Ruth will stand" }
+      ]
+    }
+  },
+  {
+    "id": "1uHSoRyTX-e5Tnz328T16",
+    "name": "S2:34",
+    "tag": "smb",
+    "textToSymbolise": "Neither Alfred nor Sam will run, but if either Ava or Emily will, Ruth won't.",
+    "checkConfig": {
+      "sentences": ["(~P /\\ ~Q) /\\ ((R \\/ S) -> ~T)"],
+      "soa": [
+        { "l": "P", "t": "Alfred will run" },
+        { "l": "Q", "t": "Sam will run" },
+        { "l": "R", "t": "Ava will run" },
+        { "l": "S", "t": "Emily will run" },
+        { "l": "T", "t": "Ruth will run" }
+      ]
+    }
+  },
+  {
+    "id": "DRoNoBD5SI9k2jbDULEjv",
+    "name": "S2:35",
+    "tag": "smb",
+    "textToSymbolise": "Sam won't stand if and only if he won't walk.",
+    "checkConfig": {
+      "sentences": ["~P <-> ~Q"],
+      "soa": [
+        { "l": "P", "t": "Sam will stand" },
+        { "l": "Q", "t": "Sam will walk" }
+      ]
+    }
+  },
+  {
+    "id": "VhdOfu_cTbv_QKRn0OHXU",
+    "name": "S2:36",
+    "tag": "smb",
+    "textToSymbolise": "Either Ava ate and Sam didn't, or Ruth ate and Alfred didn't.",
+    "checkConfig": {
+      "sentences": ["(P /\\ ~Q) \\/ (R /\\ ~S)"],
+      "soa": [
+        { "l": "P", "t": "Ava ate" },
+        { "l": "Q", "t": "Sam ate" },
+        { "l": "R", "t": "Ruth ate" },
+        { "l": "S", "t": "Alfred ate" }
+      ]
+    }
+  },
+  {
+    "id": "UAI2IXLw6rqsDdZ78fFmw",
+    "name": "S2:37",
+    "tag": "smb",
+    "textToSymbolise": "Alfred will run unless he ate.",
+    "checkConfig": {
+      "sentences": ["P \\/ Q"],
+      "soa": [
+        { "l": "P", "t": "Alfred will run" },
+        { "l": "Q", "t": "Alfred ate" }
+      ]
+    }
+  },
+  {
+    "id": "QGy7CPG3WpbQ6vmvh5EIH",
+    "name": "S2:38",
+    "tag": "smb",
+    "textToSymbolise": "Alfred is a teacher but he is not a mean teacher.",
+    "checkConfig": {
+      "sentences": ["P /\\ ~(Q /\\ P)"],
+      "soa": [
+        { "l": "P", "t": "Alfred is a teacher" },
+        { "l": "Q", "t": "Alfred is mean" }
+      ]
+    }
+  },
+  {
+    "id": "oP149k-C2GsCFTxysqKeY",
+    "name": "S2:39",
+    "tag": "smb",
+    "textToSymbolise": "If neither Sam nor Alfred sits, Emily won't either.",
+    "checkConfig": {
+      "sentences": ["~(P \\/ Q) -> ~R"],
+      "soa": [
+        { "l": "P", "t": "Sam sits" },
+        { "l": "Q", "t": "Alfred sits" },
+        { "l": "R", "t": "Emily sits" }
+      ]
+    }
+  },
+  {
+    "id": "2sx8WLVK6VKFjVnvjjUCP",
+    "name": "S2:40",
+    "tag": "smb",
+    "textToSymbolise": "Neither Sam nor Alfred nor Emily will run. ",
+    "checkConfig": {
+      "sentences": ["(~P /\\ ~Q) /\\ ~R"],
+      "soa": [
+        { "l": "P", "t": "Sam will run" },
+        { "l": "Q", "t": "Alfred will run" },
+        { "l": "R", "t": "Emily will run" }
+      ]
+    }
+  },
+  {
+    "id": "T_di-uAikJW-m69g_lfQ_",
+    "name": "S2:41",
+    "tag": "smb",
+    "textToSymbolise": "Ava didn't talk to Ruth unless both swam.",
+    "checkConfig": {
+      "sentences": ["~P \\/ (Q /\\ R)"],
+      "soa": [
+        { "l": "P", "t": "Ava talked to Ruth" },
+        { "l": "Q", "t": "Ruth swam" },
+        { "l": "R", "t": "Ava swam" }
+      ]
+    }
+  },
+  {
+    "id": "ht9DuZKvJq744Cdi5VOoS",
+    "name": "S3:1",
+    "tag": "smb",
+    "textToSymbolise": "Sam is mortal.",
+    "checkConfig": {
+      "sentences": ["Fa"],
+      "soa": [
+        { "l": "F", "t": "[1] is mortal" },
+        { "l": "a", "t": "Sam" }
+      ]
+    }
+  },
+
+  {
+    "id": "7upn67ZMCn2Ci2ri-SKRL",
+    "name": "S3:2",
+    "tag": "smb",
+    "textToSymbolise": "Ava is happy, and so is Sam. ",
+    "checkConfig": {
+      "sentences": ["Fa /\\ Fb"],
+      "soa": [
+        { "l": "F", "t": "[1] is happy" },
+        { "l": "a", "t": "Ava" },
+        { "l": "b", "t": "Sam" }
+      ]
+    }
+  },
+  {
+    "id": "YVs674s34vbZR1wsb1d9f",
+    "name": "S3:3",
+    "tag": "smb",
+    "textToSymbolise": "Ansel or Ruth will walk.",
+    "checkConfig": {
+      "sentences": ["Fa \\/ Fb"],
+      "soa": [
+        { "l": "F", "t": "[1] will walk" },
+        { "l": "a", "t": "Ansel" },
+        { "l": "b", "t": "Ruth" }
+      ]
+    }
+  },
+  {
+    "id": "tJGSIq8NIb_b1jJfCH-Yg",
+    "name": "S3:4",
+    "tag": "smb",
+    "textToSymbolise": "If Sam is not a knight, then he is not honest.",
+    "checkConfig": {
+      "sentences": ["~Fa -> ~Ga"],
+      "soa": [
+        { "l": "F", "t": "[1] is a knight" },
+        { "l": "G", "t": "[1] is honest" },
+        { "l": "a", "t": "Sam" }
+      ]
+    }
+  },
+  {
+    "id": "nHAD8YMkVq9KQ8sh7ztQY",
+    "name": "S3:5",
+    "tag": "smb",
+    "textToSymbolise": "Ava is an elf but Ruth isn't.",
+    "checkConfig": {
+      "sentences": ["Fa /\\ ~Fb"],
+      "soa": [
+        { "l": "F", "t": "[1] is an elf" },
+        { "l": "a", "t": "Ava" },
+        { "l": "b", "t": "Ruth" }
+      ]
+    }
+  },
+  {
+    "id": "kpB5YVSoeITXIRRPIEbC0",
+    "name": "S3:6",
+    "tag": "smb",
+    "textToSymbolise": "Neither Sam nor Ruth sang, yet they are both happy.",
+    "checkConfig": {
+      "sentences": ["(~Fa /\\ ~Fb) /\\ (Ga /\\ Gb)"],
+      "soa": [
+        { "l": "F", "t": "[1] sang" },
+        { "l": "G", "t": "[1] is happy" },
+        { "l": "a", "t": "Sam" },
+        { "l": "b", "t": "Ruth" }
+      ]
+    }
+  },
+  {
+    "id": "m8xVsSJzMHt3Yl-GaKVK7",
+    "name": "S3:7",
+    "tag": "smb",
+    "textToSymbolise": "All humans are mortal.",
+    "checkConfig": {
+      "sentences": ["!x(Fx -> Gx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a human" },
+        { "l": "G", "t": "[1] is mortal" }
+      ]
+    }
+  },
+  {
+    "id": "c5o-lZtHYG4i4jqdAP2wq",
+    "name": "S3:8",
+    "tag": "smb",
+    "textToSymbolise": "Everything is wet.",
+    "checkConfig": {
+      "sentences": ["!xFx"],
+      "soa": [{ "l": "F", "t": "[1] is wet" }]
+    }
+  },
+  {
+    "id": "Bu18r2_9cpoLR2Pwapd1Z",
+    "name": "S3:9",
+    "tag": "smb",
+    "textToSymbolise": "Something is not wet.",
+    "checkConfig": {
+      "sentences": ["?x~Fx"],
+      "soa": [{ "l": "F", "t": "[1] is wet" }]
+    }
+  },
+  {
+    "id": "nXEWMIZP9KFJeHMzAnqEU",
+    "name": "S3:10",
+    "tag": "smb",
+    "textToSymbolise": "Some knights are sad.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ Gx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a knight" },
+        { "l": "G", "t": "[1] is sad" }
+      ]
+    }
+  },
+  {
+    "id": "7HTm95YE2UnoCrrrpf_3Q",
+    "name": "S3:11",
+    "tag": "smb",
+    "textToSymbolise": "No knaves are honest.",
+    "checkConfig": {
+      "sentences": ["~?x(Fx /\\ Gx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a knave" },
+        { "l": "G", "t": "[1] is honest" }
+      ]
+    }
+  },
+  {
+    "id": "yEb8GRpyLqEwQAbiJf4DE",
+    "name": "S3:12",
+    "tag": "smb",
+    "textToSymbolise": "Not all teachers are honest.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ ~Gx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a teacher" },
+        { "l": "G", "t": "[1] is honest" }
+      ]
+    }
+  },
+  {
+    "id": "e9URDh872xIEHatQZVs1G",
+    "name": "S3:13",
+    "tag": "smb",
+    "textToSymbolise": "Every monkey isn't wet.",
+    "checkConfig": {
+      "sentences": ["~!x(Fx -> Gx)", "!x(Fx -> ~Gx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a monkey" },
+        { "l": "G", "t": "[1] is wet" }
+      ]
+    }
+  },
+  {
+    "id": "uHeLdO0paqbjnppxBkjMC",
+    "name": "S3:14",
+    "tag": "smb",
+    "textToSymbolise": "Some knights are not happy.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ ~Gx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a knight" },
+        { "l": "G", "t": "[1] is happy" }
+      ]
+    }
+  },
+  {
+    "id": "CnbqVgg5V26fJqqBtpafn",
+    "name": "S3:15",
+    "tag": "smb",
+    "textToSymbolise": "Only humans are guilty.",
+    "checkConfig": {
+      "sentences": ["!x(Gx -> Fx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a human" },
+        { "l": "G", "t": "[1] is guilty" }
+      ]
+    }
+  },
+  {
+    "id": "wY13sV1zr4st4BuH7wwRi",
+    "name": "S3:16",
+    "tag": "smb",
+    "textToSymbolise": "A monkey sang.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ Gx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a monkey" },
+        { "l": "G", "t": "[1] sang" }
+      ]
+    }
+  },
+  {
+    "id": "rX2rUZvcSp8gZ2fCljLUZ",
+    "name": "S3:17",
+    "tag": "smb",
+    "textToSymbolise": "Some people ate but Ava didn't.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ Gx) /\\ ~Ga"],
+      "soa": [
+        { "l": "F", "t": "[1] is a person" },
+        { "l": "G", "t": "[1] ate" },
+        { "l": "a", "t": "Ava" }
+      ]
+    }
+  },
+  {
+    "id": "K-DGhVRIUhchX22pE8dY6",
+    "name": "S3:18",
+    "tag": "smb",
+    "textToSymbolise": "Every wet elf is guilty.",
+    "checkConfig": {
+      "sentences": ["!x((Fx /\\ Gx) -> Hx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is wet" },
+        { "l": "G", "t": "[1] is an elf" },
+        { "l": "H", "t": "[1] is guilty" }
+      ]
+    }
+  },
+  {
+    "id": "KayBUZ15sm49hJWBKtpw0",
+    "name": "S3:19",
+    "tag": "smb",
+    "textToSymbolise": "Something is round and something is square, but nothing is both round and square.",
+    "checkConfig": {
+      "sentences": ["(?xFx /\\ ?xGx) /\\ ~?x(Fx /\\ Gx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is round" },
+        { "l": "G", "t": "[1] is square" }
+      ]
+    }
+  },
+  {
+    "id": "cq2mOYqVbiRWum-RhNniu",
+    "name": "S3:20",
+    "tag": "smb",
+    "textToSymbolise": "Every monkey is either happy or wet.",
+    "checkConfig": {
+      "sentences": ["!x(Fx -> (Gx \\/ Hx))"],
+      "soa": [
+        { "l": "F", "t": "[1] is a monkey" },
+        { "l": "G", "t": "[1] is happy" },
+        { "l": "H", "t": "[1] is wet" }
+      ]
+    }
+  },
+  {
+    "id": "EmlPdWEZjgk9mjFlUP_Zx",
+    "name": "S3:21",
+    "tag": "smb",
+    "textToSymbolise": "Some monkeys climb but not all who climb are monkeys.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ Gx) /\\ ~!x(Gx -> Fx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a monkey" },
+        { "l": "G", "t": "[1] climbs" }
+      ]
+    }
+  },
+  {
+    "id": "wjlUWjmArV6FeYeN4vSnP",
+    "name": "S3:22",
+    "tag": "smb",
+    "textToSymbolise": "Some students study but some don't. ",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ Gx) /\\ ?x(Fx /\\ ~Gx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a student" },
+        { "l": "G", "t": "[1] studies" }
+      ]
+    }
+  },
+  {
+    "id": "Zybg4G9P-lwP9t04NUaGA",
+    "name": "S3:23",
+    "tag": "smb",
+    "textToSymbolise": "Everything is a round square.",
+    "checkConfig": {
+      "sentences": ["!x(Fx /\\ Gx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is round" },
+        { "l": "G", "t": "[1] is square" }
+      ]
+    }
+  },
+  {
+    "id": "vdB7C0QLTDd6rMTvsnS_6",
+    "name": "S3:24",
+    "tag": "smb",
+    "textToSymbolise": "If every wet monkey ate, then some monkey sang.",
+    "checkConfig": {
+      "sentences": ["!x((Fx /\\ Gx) -> Hx) -> ?x(Gx /\\ Bx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is wet" },
+        { "l": "G", "t": "[1] is a monkey" },
+        { "l": "H", "t": "[1] ate" },
+        { "l": "B", "t": "[1] sang" }
+      ]
+    }
+  },
+  {
+    "id": "sD1XVQhy9SoCjWAVp_Nal",
+    "name": "S3:25",
+    "tag": "smb",
+    "textToSymbolise": "There is something such that, if it is wet, then everything is wet.",
+    "checkConfig": {
+      "sentences": ["?x(Fx -> !yFy)"],
+      "soa": [{ "l": "F", "t": "[1] is wet" }]
+    }
+  },
+  {
+    "id": "HW2sYNVNN9H0uhakP_gsW",
+    "name": "S3:26",
+    "tag": "smb",
+    "textToSymbolise": "Either all happy elves are guilty, or all guilty elves are happy.",
+    "checkConfig": {
+      "sentences": ["!x((Fx /\\ Gx) -> Hx) \\/ !x((Hx /\\ Gx) -> Fx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is happy" },
+        { "l": "G", "t": "[1] is an elf" },
+        { "l": "H", "t": "[1] is guilty" }
+      ]
+    }
+  },
+  {
+    "id": "-Ik63Z_qka-CB4-wyMBvZ",
+    "name": "S3:27",
+    "tag": "smb",
+    "textToSymbolise": "Some monkeys ate and drank, but only wet monkeys swam.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ (Gx /\\ Hx)) /\\ !x(Bx -> (Fx /\\ Ax))"],
+      "soa": [
+        { "l": "F", "t": "[1] is a monkey" },
+        { "l": "G", "t": "[1] ate" },
+        { "l": "H", "t": "[1] drank" },
+        { "l": "A", "t": "[1] is wet" },
+        { "l": "B", "t": "[1] swam" }
+      ]
+    }
+  },
+  {
+    "id": "0BFEIvEJpsrA2tqzL9auv",
+    "name": "S3:28",
+    "tag": "smb",
+    "textToSymbolise": "All elves who are mean will bite.",
+    "checkConfig": {
+      "sentences": ["!x((Fx /\\ Gx) -> Hx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is an elf" },
+        { "l": "G", "t": "[1] is mean" },
+        { "l": "H", "t": "[1] will bite" }
+      ]
+    }
+  },
+  {
+    "id": "n1zh56M0mKvwDjaTSIqTo",
+    "name": "S3:29",
+    "tag": "smb",
+    "textToSymbolise": "No wet monkey is happy.",
+    "checkConfig": {
+      "sentences": ["~?x((Fx /\\ Gx) /\\ Hx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is wet" },
+        { "l": "G", "t": "[1] is a monkey" },
+        { "l": "H", "t": "[1] is happy" }
+      ]
+    }
+  },
+  {
+    "id": "3J7pK199jhRaG-0Q1pGgK",
+    "name": "S3:30",
+    "tag": "smb",
+    "textToSymbolise": "Every guilty elf is sad and mean. ",
+    "checkConfig": {
+      "sentences": ["!x((Fx /\\ Gx) -> (Hx /\\ Ax))"],
+      "soa": [
+        { "l": "F", "t": "[1] is guilty" },
+        { "l": "G", "t": "[1] is an elf" },
+        { "l": "H", "t": "[1] is sad" },
+        { "l": "A", "t": "[1] is mean" }
+      ]
+    }
+  },
+  {
+    "id": "pqa3uBt_wMujvOxappFQP",
+    "name": "S3:31",
+    "tag": "smb",
+    "textToSymbolise": "Only knights are honest.",
+    "checkConfig": {
+      "sentences": ["!x(Gx -> Fx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a knight" },
+        { "l": "G", "t": "[1] is honest" }
+      ]
+    }
+  },
+  {
+    "id": "IerPTCueLdO3TihyiBJL6",
+    "name": "S3:32",
+    "tag": "smb",
+    "textToSymbolise": "Some elf is not both mortal and happy. ",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ ~(Gx /\\ Hx))"],
+      "soa": [
+        { "l": "F", "t": "[1] is an elf" },
+        { "l": "G", "t": "[1] is mortal" },
+        { "l": "H", "t": "[1] is happy" }
+      ]
+    }
+  },
+  {
+    "id": "pXO4ihHd36D1mMGtId2bf",
+    "name": "S3:33",
+    "tag": "smb",
+    "textToSymbolise": "No student is happy unless every student will pass.",
+    "checkConfig": {
+      "sentences": ["~?x(Fx /\\ Gx) \\/ !x(Fx -> Hx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a student" },
+        { "l": "G", "t": "[1] is happy" },
+        { "l": "H", "t": "[1] will pass" }
+      ]
+    }
+  },
+  {
+    "id": "WnguzNqM4J6qccftyidNn",
+    "name": "S3:34",
+    "tag": "smb",
+    "textToSymbolise": "Each student is happy unless they won't pass. ",
+    "checkConfig": {
+      "sentences": ["!x((Fx -> Gx) \\/ ~Hx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a student" },
+        { "l": "G", "t": "[1] is happy" },
+        { "l": "H", "t": "[1] will pass" }
+      ]
+    }
+  },
+  {
+    "id": "Oe3mjjF2pFnnxWr6HcT4I",
+    "name": "S3:35",
+    "tag": "smb",
+    "textToSymbolise": "All and only knights are honest.",
+    "checkConfig": {
+      "sentences": ["!x(Gx <-> Fx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a knight" },
+        { "l": "G", "t": "[1] is honest" }
+      ]
+    }
+  },
+  {
+    "id": "R41hgaRCxYAwB7YORPsML",
+    "name": "S3:36",
+    "tag": "smb",
+    "textToSymbolise": "If a person is honest, they are happy.",
+    "checkConfig": {
+      "sentences": ["!x((Fx /\\ Gx) -> Hx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a person" },
+        { "l": "G", "t": "[1] is honest" },
+        { "l": "H", "t": "[1] is happy" }
+      ]
+    }
+  },
+  {
+    "id": "8TPRJGFsED8pqgkkF-BOQ",
+    "name": "S4:1",
+    "tag": "smb",
+    "textToSymbolise": "Sam loves Ava.",
+    "checkConfig": {
+      "sentences": ["Fab"],
+      "soa": [
+        { "l": "F", "t": "[1] loves [2]" },
+        { "l": "a", "t": "Sam" },
+        { "l": "b", "t": "Ava" }
+      ]
+    }
+  },
+  {
+    "id": "5Dt6Ymq6q2LrQpzyOZ9GG",
+    "name": "S4:2",
+    "tag": "smb",
+    "textToSymbolise": "Ava doesn't love Sam.",
+    "checkConfig": {
+      "sentences": ["~Fab"],
+      "soa": [
+        { "l": "F", "t": "[1] loves [2]" },
+        { "l": "a", "t": "Ava" },
+        { "l": "b", "t": "Sam" }
+      ]
+    }
+  },
+  {
+    "id": "LqyRzF53x7xXoNI35ELJG",
+    "name": "S4:3",
+    "tag": "smb",
+    "textToSymbolise": "Ruth admires Alfred or Sam, but she doesn't admire herself.",
+    "checkConfig": {
+      "sentences": ["(Fab \\/ Fac) /\\ ~Faa"],
+      "soa": [
+        { "l": "F", "t": "[1] admires [2]" },
+        { "l": "a", "t": "Ruth" },
+        { "l": "b", "t": "Alfred" },
+        { "l": "c", "t": "Sam" }
+      ]
+    }
+  },
+  {
+    "id": "Eil1GNvq9Q43BwLsoiuXm",
+    "name": "S4:4",
+    "tag": "smb",
+    "textToSymbolise": "Something sees Ava.",
+    "checkConfig": {
+      "sentences": ["?xFxa"],
+      "soa": [
+        { "l": "F", "t": "[1] sees [2]" },
+        { "l": "a", "t": "Ava" }
+      ]
+    }
+  },
+  {
+    "id": "XUmY1Cr7KTnhxZ9yTDbg0",
+    "name": "S4:5",
+    "tag": "smb",
+    "textToSymbolise": "Every student loves Sam.",
+    "checkConfig": {
+      "sentences": ["!x(Gx -> Fxa)"],
+      "soa": [
+        { "l": "F", "t": "[1] loves [2]" },
+        { "l": "G", "t": "[1] is a student" },
+        { "l": "a", "t": "Sam" }
+      ]
+    }
+  },
+  {
+    "id": "urJYq0wajCtZcOUd0lTfX",
+    "name": "S4:6",
+    "tag": "smb",
+    "textToSymbolise": "An elf loves Ava.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ Gxa)"],
+      "soa": [
+        { "l": "F", "t": "[1] is an elf" },
+        { "l": "G", "t": "[1] loves [2]" },
+        { "l": "a", "t": "Ava" }
+      ]
+    }
+  },
+  {
+    "id": "0rYHiZAoVQ1HEjSYiBQIh",
+    "name": "S4:7",
+    "tag": "smb",
+    "textToSymbolise": "No teacher talked to Ruth",
+    "checkConfig": {
+      "sentences": ["~?x(Fx /\\ Gxa)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a teacher" },
+        { "l": "G", "t": "[1] talked to [2]" },
+        { "l": "a", "t": "Ruth" }
+      ]
+    }
+  },
+  {
+    "id": "PO0G-Ez2LnAqQ2-3XcIRU",
+    "name": "S4:8",
+    "tag": "smb",
+    "textToSymbolise": "A student loves a student.",
+    "checkConfig": {
+      "sentences": ["?x?y((Fx /\\ Fy) /\\ Gxy)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a student" },
+        { "l": "G", "t": "[1] loves [2]" }
+      ]
+    }
+  },
+  {
+    "id": "vL9W-Ujk3bp14AS2oQTFt",
+    "name": "S4:9",
+    "tag": "smb",
+    "textToSymbolise": "Every elf sees every monkey.",
+    "checkConfig": {
+      "sentences": ["!x!y((Fx /\\ Gy) -> Hxy)"],
+      "soa": [
+        { "l": "F", "t": "[1] is an elf" },
+        { "l": "G", "t": "[1] is a monkey" },
+        { "l": "H", "t": "[1] sees [2]" }
+      ]
+    }
+  },
+  {
+    "id": "hSxRXyFPIcFzC7zmEoYM_",
+    "name": "S4:10",
+    "tag": "smb",
+    "textToSymbolise": "A student didn't wave to a teacher.",
+    "checkConfig": {
+      "sentences": ["?x?y((Fx /\\ Gy) /\\ ~Hxy)", "~?x?y((Fx /\\ Gy) /\\ Hxy)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a student" },
+        { "l": "G", "t": "[1] is a teacher" },
+        { "l": "H", "t": "[1] waved to [2]" }
+      ]
+    }
+  },
+  {
+    "id": "ovTUQj1mE4Fbdl98laqd-",
+    "name": "S4:11",
+    "tag": "smb",
+    "textToSymbolise": "Every monkey sees a student.",
+    "checkConfig": {
+      "sentences": ["!x(Fx -> ?y(Gy /\\ Hxy))", "?y(Gy /\\ !x(Fx -> Hxy))"],
+      "soa": [
+        { "l": "F", "t": "[1] is a monkey" },
+        { "l": "G", "t": "[1] is a student" },
+        { "l": "H", "t": "[1] sees [2]" }
+      ]
+    }
+  },
+  {
+    "id": "5C5Op6oFGoodBTGQAJZtL",
+    "name": "S4:12",
+    "tag": "smb",
+    "textToSymbolise": "Some monkey sees itself.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ Hxx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a monkey" },
+        { "l": "H", "t": "[1] sees [2]" }
+      ]
+    }
+  },
+  {
+    "id": "Puv6DwH0Uz9rTBgDyJlAa",
+    "name": "S4:13",
+    "tag": "smb",
+    "textToSymbolise": "No student sees every monkey.",
+    "checkConfig": {
+      "sentences": ["~?x(Fx /\\ !y(Gy -> Hxy))"],
+      "soa": [
+        { "l": "F", "t": "[1] is a student" },
+        { "l": "G", "t": "[1] is a monkey" },
+        { "l": "H", "t": "[1] sees [2]" }
+      ]
+    }
+  },
+  {
+    "id": "YeL37JajPxjEtLMKzQ1Ka",
+    "name": "S4:14",
+    "tag": "smb",
+    "textToSymbolise": "Some knight talked to every knave.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ !y(Gy -> Hxy))"],
+      "soa": [
+        { "l": "F", "t": "[1] is a knight" },
+        { "l": "G", "t": "[1] is a knave" },
+        { "l": "H", "t": "[1] talked to [2]" }
+      ]
+    }
+  },
+  {
+    "id": "Bllgvzlmry6LdIfp-Y0Ml",
+    "name": "S4:15",
+    "tag": "smb",
+    "textToSymbolise": "A happy elf kissed a student.",
+    "checkConfig": {
+      "sentences": ["?x?y((Fx /\\ Gx) /\\ (Iy /\\ Hxy))"],
+      "soa": [
+        { "l": "F", "t": "[1] is happy" },
+        { "l": "G", "t": "[1] is an elf" },
+        { "l": "H", "t": "[1] kissed [2]" },
+        { "l": "I", "t": "[1] is a student" }
+      ]
+    }
+  },
+  {
+    "id": "MaqytG1OAmKeqw_kURiFY",
+    "name": "S4:16",
+    "tag": "smb",
+    "textToSymbolise": "Neither Ava nor Ruth kissed an elf.",
+    "checkConfig": {
+      "sentences": ["~?x(Gx /\\ (Fax \\/ Fbx))"],
+      "soa": [
+        { "l": "F", "t": "[1] kissed [2]" },
+        { "l": "G", "t": "[1] is an elf" },
+        { "l": "a", "t": "Ava" },
+        { "l": "b", "t": "Ruth" }
+      ]
+    }
+  },
+  {
+    "id": "VLTE8JpupRdJFOB-zVgAr",
+    "name": "S4:17",
+    "tag": "smb",
+    "textToSymbolise": "Alfred, but not Sam, talked to a knight.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ Gax) /\\ ~?x(Fx /\\ Gbx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a knight" },
+        { "l": "G", "t": "[1] talked to [2]" },
+        { "l": "a", "t": "Alfred" },
+        { "l": "b", "t": "Sam" }
+      ]
+    }
+  },
+  {
+    "id": "qzpQucfofmBAYzs3eMokb",
+    "name": "S4:18",
+    "tag": "smb",
+    "textToSymbolise": "Some knight and some knave admire each other.",
+    "checkConfig": {
+      "sentences": ["?x?y((Fx /\\ Gy) /\\ (Hxy /\\ Hyx))"],
+      "soa": [
+        { "l": "F", "t": "[1] is a knight" },
+        { "l": "G", "t": "[1] is a knave" },
+        { "l": "H", "t": "[1] admires [2]" }
+      ]
+    }
+  },
+  {
+    "id": "FSo8Q27FeJga4m2owXYmM",
+    "name": "S4:19",
+    "tag": "smb",
+    "textToSymbolise": "Alfred didn't talk to a happy elf and he didn't swim.",
+    "checkConfig": {
+      "sentences": ["~?x((Gx /\\ Hx) /\\ Fax) /\\ ~Ia"],
+      "soa": [
+        { "l": "F", "t": "[1] talked to [2]" },
+        { "l": "G", "t": "[1] is happy" },
+        { "l": "H", "t": "[1] is an elf" },
+        { "l": "I", "t": "[1] swam" },
+        { "l": "a", "t": "Alfred" }
+      ]
+    }
+  },
+  {
+    "id": "rAlutt477wlWxVfb8hwaP",
+    "name": "S4:20",
+    "tag": "smb",
+    "textToSymbolise": "Some student admires every teacher.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ !y(Gy -> Hxy))"],
+      "soa": [
+        { "l": "F", "t": "[1] is a student" },
+        { "l": "G", "t": "[1] is a teacher" },
+        { "l": "H", "t": "[1] admires [2]" }
+      ]
+    }
+  },
+  {
+    "id": "R4d4N3WqSr1gbo6CnCFfw",
+    "name": "S4:21",
+    "tag": "smb",
+    "textToSymbolise": "Ruth is an admirer of those who have no admirers.",
+    "checkConfig": {
+      "sentences": ["!x(~?yFyx -> Fax)", "!x(Gx -> (~?yFyx -> Fax))"],
+      "soa": [
+        { "l": "F", "t": "[1] admires [2]" },
+        { "l": "G", "t": "[1] is a person" },
+        { "l": "a", "t": "Ruth" }
+      ]
+    }
+  },
+  {
+    "id": "VYn_vmRJl554wx2dX8wL8",
+    "name": "S4:22",
+    "tag": "smb",
+    "textToSymbolise": "Every monkey sees every human and every human sees a monkey.",
+    "checkConfig": {
+      "sentences": [
+        "(!x!y((Fx /\\ Gy) -> Hxy) /\\ !x(Gx -> ?y(Fy /\\ Hxy)))",
+        "(!x!y((Fx /\\ Gy) -> Hxy) /\\ ?y(Fy /\\ !x(Gx -> Hxy)))"
+      ],
+      "soa": [
+        { "l": "F", "t": "[1] is a monkey" },
+        { "l": "G", "t": "[1] is a human" },
+        { "l": "H", "t": "[1] sees [2]" }
+      ]
+    }
+  },
+  {
+    "id": "_7OzSTVx6im-JEIz9QUr2",
+    "name": "S4:23",
+    "tag": "smb",
+    "textToSymbolise": "Every human waved to every elf but not every elf waved to every human.",
+    "checkConfig": {
+      "sentences": [
+        "(!x!y((Fx /\\ Gy) -> Hxy) /\\ ?x?y((Gx /\\ Fy) /\\ ~Hxy))"
+      ],
+      "soa": [
+        { "l": "F", "t": "[1] is a human" },
+        { "l": "G", "t": "[1] is an elf" },
+        { "l": "H", "t": "[1] waved to [2]" }
+      ]
+    }
+  },
+  {
+    "id": "kzJ-iIzDkwfiW92M3FLbJ",
+    "name": "S4:24",
+    "tag": "smb",
+    "textToSymbolise": "Some number is less than every number.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ !y(Fy -> Gxy))", "?x(Fx /\\ !y(Fy -> Hyx))"],
+      "soa": [
+        { "l": "F", "t": "[1] is a number" },
+        { "l": "G", "t": "[1] is less than [2]" },
+        { "l": "H", "t": "[1] is greater than [2]" }
+      ]
+    }
+  },
+  {
+    "id": "q4Ft-ScrrotYsjF-7PzYP",
+    "name": "S4:25",
+    "tag": "smb",
+    "textToSymbolise": "Every number is less than some number.",
+    "checkConfig": {
+      "sentences": ["!x(Fx -> ?y(Fy /\\ Gxy))", "!x(Fx -> ?y(Fy /\\ Hyx))"],
+      "soa": [
+        { "l": "F", "t": "[1] is a number" },
+        { "l": "G", "t": "[1] is less than [2]" },
+        { "l": "H", "t": "[1] is greater than [2]" }
+      ]
+    }
+  },
+  {
+    "id": "eBM6LLUww0J8Y_85LOFlr",
+    "name": "S4:26",
+    "tag": "smb",
+    "textToSymbolise": "Some number doesn’t have a number as its successor.",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ ~?y(Fy /\\ Gyx))"],
+      "soa": [
+        { "l": "F", "t": "[1] is a number" },
+        { "l": "G", "t": "[1] is a successor of [2]" }
+      ]
+    }
+  },
+  {
+    "id": "kc_wy_e8VHiTmgfF35q9i",
+    "name": "S4:27",
+    "tag": "smb",
+    "textToSymbolise": "Every number has a successor.",
+    "checkConfig": {
+      "sentences": ["!x(Fx -> ?y(Fy /\\ Gyx))", "!x(Fx -> ?yGyx)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a number" },
+        { "l": "G", "t": "[1] is a successor of [2]" }
+      ]
+    }
+  },
+  {
+    "id": "rZxEKBGAWNGJvdn9IQIdK",
+    "name": "S4:28",
+    "tag": "smb",
+    "textToSymbolise": "Either some number is greater than every number or every number has a successor.",
+    "checkConfig": {
+      "sentences": [
+        "?x(Fx /\\ !y(Fy -> Hxy)) \\/ !x(Fx -> ?y(Fy /\\ Gyx))",
+        "?x(Fx /\\ !y(Fy -> Hxy)) \\/ !x(Fx -> ?yGyx)"
+      ],
+      "soa": [
+        { "l": "F", "t": "[1] is a number" },
+        { "l": "G", "t": "[1] is a successor of [2]" },
+        { "l": "H", "t": "[1] is greater than [2]" }
+      ]
+    }
+  },
+  {
+    "id": "yV-PTkY7VFH907S8dbNSv",
+    "name": "S4:29",
+    "tag": "smb",
+    "textToSymbolise": "Some knight loves every knave that loves it",
+    "checkConfig": {
+      "sentences": ["?x(Fx /\\ !y((Gy /\\ Hyx) -> Hxy))"],
+      "soa": [
+        { "l": "F", "t": "[1] is a knight" },
+        { "l": "G", "t": "[1] is a knave" },
+        { "l": "H", "t": "[1] loves [2]" }
+      ]
+    }
+  },
+  {
+    "id": "JnedBOrpUjSHSxjauM0Sj",
+    "name": "S4:30",
+    "tag": "smb",
+    "textToSymbolise": "No person who is either student or a teacher talked to Alfred.",
+    "checkConfig": {
+      "sentences": ["~?x((Fx /\\ (Gx \\/ Hx)) /\\ Ixa)"],
+      "soa": [
+        { "l": "F", "t": "[1] is a person" },
+        { "l": "G", "t": "[1] is a student" },
+        { "l": "H", "t": "[1] is a teacher" },
+        { "l": "I", "t": "[1] talked to [2]" },
+        { "l": "a", "t": "Alfred" }
+      ]
+    }
+  },
+  {
+    "id": "ectjWq53HuRrSIjXyK0gz",
+    "name": "S4:31",
+    "tag": "smb",
+    "textToSymbolise": "Alfred admires all and only those who do not admire themselves.",
+    "checkConfig": {
+      "sentences": ["!x(Fax <-> ~Fxa)", "!x(Gx -> (Fax <-> ~Fxa))"],
+      "soa": [
+        { "l": "F", "t": "[1] admires [2]" },
+        { "l": "G", "t": "[1] is a person" },
+        { "l": "a", "t": "Alfred" }
+      ]
+    }
+  }
+]

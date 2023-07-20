@@ -1,6 +1,6 @@
-export const lexiconData = [
+export const lexiconDataPred = [
   {
-    Names: ["Ava", "Alfred", "Sam", "Ewan", "Ansel", "Ruth", "Hazel"],
+    Names: ["Ava", "Alfred", "Sam", "Emily", "Ansel", "Ruth"],
   },
   {
     monadicPredicates: [
