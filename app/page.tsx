@@ -13,9 +13,32 @@ import grammarProp from "./propositional_logic.js";
 import { lexiconDataProp } from "./lexiconProp";
 import { GrCaretNext } from "react-icons/gr";
 
+type SOA = {
+  [key: string]: string;
+};
+
+type Problem = {
+  id: number;
+  sentence: string;
+  soa: SOA | any;
+  form: string;
+};
+
+type ProbCol = Problem[];
+
+type Entry = {
+  symbol: string;
+  lexicon: string;
+};
+
 export default function Home() {
+  const predProblemsA: ProbCol = predProblems as ProbCol;
+  const propProblemsA: ProbCol = propProblems as ProbCol;
+
   const [logic, setLogic] = useState("prop");
-  const [problemCollection, setProblemCollection] = useState(propProblems);
+  const [problemCollection, setProblemCollection] = useState<ProbCol>(
+    propProblemsA as ProbCol
+  );
   const [selectedProblem, setSelectedProblem] = useState(1);
   const [userFormula, setUserFormula] = useState("");
   const [userSoa, setUserSoa] = useState([{ symbol: "", lexicon: "" }]);
@@ -40,12 +63,11 @@ export default function Home() {
   const toggleLogic = (event: any) => {
     if (logic === "prop") {
       setLogic("pred");
-      // @ts-ignore
-      setProblemCollection(predProblems);
+      setProblemCollection(predProblemsA as ProbCol);
       setSelectedProblem(propProblems.length + 1);
     } else {
       setLogic("prop");
-      setProblemCollection(propProblems);
+      setProblemCollection(propProblemsA as ProbCol);
     }
     console.log(logic);
     setUserFormula("");
@@ -75,8 +97,8 @@ export default function Home() {
     } else {
       do {
         randomIndex = getRandomNumber(
-          propProblems.length + 1,
-          propProblems.length + predProblems.length
+          propProblemsA.length + 1,
+          propProblemsA.length + predProblemsA.length
         );
       } while (randomIndex === selectedProblem);
       setSelectedProblem(randomIndex);
@@ -87,24 +109,23 @@ export default function Home() {
   const handleNext = () => {
     setUserFormula("");
     setUserSoa([{ symbol: "", lexicon: "" }]);
-    if (logic === "prop" && selectedProblem < propProblems.length) {
+    if (logic === "prop" && selectedProblem < propProblemsA.length) {
       setSelectedProblem(selectedProblem + 1);
-    } else if (logic === "prop" && selectedProblem === propProblems.length) {
+    } else if (logic === "prop" && selectedProblem === propProblemsA.length) {
       setLogic("pred");
-      // @ts-ignore
-      setProblemCollection(predProblems);
-      setSelectedProblem(propProblems.length + 1);
+      setProblemCollection(predProblemsA);
+      setSelectedProblem(propProblemsA.length + 1);
     } else if (
       logic === "pred" &&
-      selectedProblem < propProblems.length + predProblems.length
+      selectedProblem < propProblemsA.length + predProblemsA.length
     ) {
       setSelectedProblem(selectedProblem + 1);
     } else if (
       logic === "pred" &&
-      selectedProblem === propProblems.length + predProblems.length
+      selectedProblem === propProblemsA.length + predProblemsA.length
     ) {
       setLogic("prop");
-      setProblemCollection(propProblems);
+      setProblemCollection(propProblemsA);
       setSelectedProblem(1);
     }
   };
@@ -132,9 +153,8 @@ export default function Home() {
 
   const handleCheck = () => {
     let results;
-    let userSoaFlat = {};
+    let userSoaFlat: SOA = {};
     for (let entry of userSoa) {
-      // @ts-ignore
       userSoaFlat[entry.symbol] = entry.lexicon;
     }
 
@@ -387,8 +407,7 @@ export default function Home() {
               onChange={(selectedOption) =>
                 handleLexiconChange(
                   index,
-                  // @ts-ignore
-                  selectedOption ? selectedOption.value : null
+                  selectedOption ? selectedOption.value : ""
                 )
               }
               options={lexiconOptionsSelect}
