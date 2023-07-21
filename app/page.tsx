@@ -38,12 +38,9 @@ export default function Home() {
   }
 
   const toggleLogic = (event: any) => {
-    // setError(false);
-    // setErrorText("");
-    // setSuccess(false);
-    // setSuccessText("");
     if (logic === "prop") {
       setLogic("pred");
+      // @ts-ignore
       setProblemCollection(predProblems);
       setSelectedProblem(propProblems.length + 1);
     } else {
@@ -94,6 +91,7 @@ export default function Home() {
       setSelectedProblem(selectedProblem + 1);
     } else if (logic === "prop" && selectedProblem === propProblems.length) {
       setLogic("pred");
+      // @ts-ignore
       setProblemCollection(predProblems);
       setSelectedProblem(propProblems.length + 1);
     } else if (
@@ -166,11 +164,6 @@ export default function Home() {
             "That is well-formed but there is something wrong with your symbolization or scheme..."
           );
         }
-        // console logs for debugging
-        // console.log("SOA1: ", userSoaFlat, ", Formula: ", userFormula);
-        // console.log("alphaConUserProp1: ", alphaConUserProp);
-        // console.log("alphaConSysProp1: ", alphaConSysProp);
-        // console.log("variants1?:", alphaConUserProp == alphaConSysProp);
       } catch (error: any) {
         // if there's an error, try parsing with added parentheses
         try {
@@ -218,7 +211,7 @@ export default function Home() {
         selectedProblemObj?.soa,
         selectedProblemObj?.form
       );
-      // check if user formula is well-formed using nearley parser for propositional logic
+      // check if user formula is well-formed using nearley parser
       try {
         const parser = new nearley.Parser(
           nearley.Grammar.fromCompiled(grammarPred)
@@ -238,11 +231,6 @@ export default function Home() {
             "That is well-formed but there is something wrong with your symbolization or scheme..."
           );
         }
-        // console logs for debugging
-        // console.log("SOA1: ", userSoaFlat, ", Formula: ", userFormula);
-        // console.log("alphaConUserProp1: ", alphaConUserProp);
-        // console.log("alphaConSysProp1: ", alphaConSysProp);
-        // console.log("variants1?:", alphaConUserProp == alphaConSysProp);
       } catch (error: any) {
         // if there's an error, try parsing with added parentheses
         try {
@@ -320,10 +308,7 @@ export default function Home() {
     { value: "strawberry", label: "Strawberry" },
     { value: "vanilla", label: "Vanilla" },
   ];
-  // const MyComponent = () => <Select options={options} />;
 
-  console.log(userSoa);
-  /////////////
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>
@@ -402,31 +387,12 @@ export default function Home() {
               onChange={(selectedOption) =>
                 handleLexiconChange(
                   index,
+                  // @ts-ignore
                   selectedOption ? selectedOption.value : null
                 )
               }
-              // value={lexiconOptionsSelect.find(
-              //   (option) => option.value === entry.lexicon
-              // )}
-              // onChange={(selectedOption) =>
-              //   handleLexiconChange(index, selectedOption.value)
-              // }
               options={lexiconOptionsSelect}
             />
-            {/* <select
-              className="text-black border border-gray-300 rounded-md p-2"
-              value={entry.lexicon}
-              onChange={(e) => handleLexiconChange(index, e.target.value)}
-            >
-              <option value="" disabled>
-                Expression
-              </option>
-              {lexiconOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select> */}
           </div>
         ))}
         <button
