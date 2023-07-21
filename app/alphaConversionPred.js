@@ -1,6 +1,6 @@
 import { lexiconDataPred } from "./lexiconPred.js";
 
-export function alphaConversion(soa, formula) {
+export function alphaConversionPred(soa, formula) {
   const expRenamed = renamingMap(lexiconDataPred);
   const variablesRenamed = variablesMap(formula);
 
@@ -11,7 +11,7 @@ export function alphaConversion(soa, formula) {
   for (const key in variablesRenamed) {
     formula = formula.replaceAll(key, variablesRenamed[key]);
   }
-
+  formula = formula.replace(/\s/g, "");
   return formula;
 }
 

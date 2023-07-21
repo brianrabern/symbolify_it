@@ -9,31 +9,31 @@
     "id": 73,
     "sentence": "Ava is happy, and so is Sam. ",
     "soa": { "F": "[1] is happy", "a": "Ava", "b": "Sam" },
-    "form": "Fa∧Fb"
+    "form": "(Fa∧Fb)"
   },
   {
     "id": 74,
     "sentence": "Ansel or Ruth will walk.",
     "soa": { "F": "[1] will walk", "a": "Ansel", "b": "Ruth" },
-    "form": "Fa∨Fb"
+    "form": "(Fa∨Fb)"
   },
   {
     "id": 75,
     "sentence": "If Sam is not a knight, then he is not honest.",
     "soa": { "F": "[1] is a knight", "G": "[1] is honest", "a": "Sam" },
-    "form": "¬Fa→¬Ga"
+    "form": "(¬Fa→¬Ga)"
   },
   {
     "id": 76,
     "sentence": "Ava is an elf but Ruth isn't.",
     "soa": { "F": "[1] is an elf", "a": "Ava", "b": "Ruth" },
-    "form": "Fa∧¬Fb"
+    "form": "(Fa∧¬Fb)"
   },
   {
     "id": 77,
     "sentence": "Neither Sam nor Ruth sang, yet they are both happy.",
     "soa": { "F": "[1] sang", "G": "[1] is happy", "a": "Sam", "b": "Ruth" },
-    "form": "(¬Fa∧¬Fb)∧(Ga∧Gb)"
+    "form": "((¬Fa∧¬Fb)∧(Ga∧Gb))"
   },
   {
     "id": 78,
@@ -99,7 +99,7 @@
     "id": 88,
     "sentence": "Some people ate but Ava didn't.",
     "soa": { "F": "[1] is a person", "G": "[1] ate", "a": "Ava" },
-    "form": "∃x(Fx∧Gx)∧¬Ga"
+    "form": "(∃x(Fx∧Gx)∧¬Ga)"
   },
   {
     "id": 89,
@@ -111,7 +111,7 @@
     "id": 90,
     "sentence": "Something is round and something is square, but nothing is both round and square.",
     "soa": { "F": "[1] is round", "G": "[1] is square" },
-    "form": "(∃xFx∧∃xGx)∧¬∃x(Fx∧Gx)"
+    "form": "((∃xFx∧∃xGx)∧¬∃x(Fx∧Gx))"
   },
   {
     "id": 91,
@@ -123,13 +123,13 @@
     "id": 92,
     "sentence": "Some monkeys climb but not all who climb are monkeys.",
     "soa": { "F": "[1] is a monkey", "G": "[1] climbs" },
-    "form": "∃x(Fx∧Gx)∧¬∀x(Gx→Fx)"
+    "form": "(∃x(Fx∧Gx)∧¬∀x(Gx→Fx))"
   },
   {
     "id": 93,
     "sentence": "Some students study but some don't. ",
     "soa": { "F": "[1] is a student", "G": "[1] studies" },
-    "form": "∃x(Fx∧Gx)∧∃x(Fx∧¬Gx)"
+    "form": "(∃x(Fx∧Gx)∧∃x(Fx∧¬Gx))"
   },
   {
     "id": 94,
@@ -146,7 +146,7 @@
       "H": "[1] ate",
       "B": "[1] sang"
     },
-    "form": "∀x((Fx∧Gx)→Hx)→∃x(Gx∧Bx)"
+    "form": "(∀x((Fx∧Gx)→Hx)→∃x(Gx∧Bx))"
   },
   {
     "id": 96,
@@ -158,7 +158,7 @@
     "id": 97,
     "sentence": "Either all happy elves are guilty, or all guilty elves are happy.",
     "soa": { "F": "[1] is happy", "G": "[1] is an elf", "H": "[1] is guilty" },
-    "form": "∀x((Fx∧Gx)→Hx)∨∀x((Hx∧Gx)→Fx)"
+    "form": "(∀x((Fx∧Gx)→Hx)∨∀x((Hx∧Gx)→Fx))"
   },
   {
     "id": 98,
@@ -170,7 +170,7 @@
       "A": "[1] is wet",
       "B": "[1] swam"
     },
-    "form": "∃x(Fx∧(Gx∧Hx))∧∀x(Bx→(Fx∧Ax))"
+    "form": "(∃x(Fx∧(Gx∧Hx))∧∀x(Bx→(Fx∧Ax)))"
   },
   {
     "id": 99,
@@ -215,7 +215,7 @@
       "G": "[1] is happy",
       "H": "[1] will pass"
     },
-    "form": "¬∃x(Fx∧Gx)∨∀x(Fx→Hx)"
+    "form": "(¬∃x(Fx∧Gx)∨∀x(Fx→Hx))"
   },
   {
     "id": 105,
@@ -259,7 +259,7 @@
     "id": 110,
     "sentence": "Ruth admires Alfred or Sam, but she doesn't admire herself.",
     "soa": { "F": "[1] admires [2]", "a": "Ruth", "b": "Alfred", "c": "Sam" },
-    "form": "(Fab∨Fac)∧¬Faa"
+    "form": "((Fab∨Fac)∧¬Faa)"
   },
   {
     "id": 111,
@@ -378,7 +378,7 @@
       "a": "Alfred",
       "b": "Sam"
     },
-    "form": "∃x(Fx∧Gax)∧¬∃x(Fx∧Gbx)"
+    "form": "(∃x(Fx∧Gax)∧¬∃x(Fx∧Gbx))"
   },
   {
     "id": 125,
@@ -400,7 +400,7 @@
       "I": "[1] swam",
       "a": "Alfred"
     },
-    "form": "¬∃x((Gx∧Hx)∧Fax)∧¬Ia"
+    "form": "(¬∃x((Gx∧Hx)∧Fax)∧¬Ia)"
   },
   {
     "id": 127,
@@ -478,7 +478,7 @@
       "G": "[1] is a successor of [2]",
       "H": "[1] is greater than [2]"
     },
-    "form": "∃x(Fx∧∀y(Fy→Hxy))∨∀x(Fx→∃y(Fy∧Gyx))"
+    "form": "(∃x(Fx∧∀y(Fy→Hxy))∨∀x(Fx→∃y(Fy∧Gyx)))"
   },
   {
     "id": 136,

@@ -27,37 +27,37 @@
     "id": 5,
     "sentence": "Ava will stand only if Emily sits.",
     "soa": { "P": "Ava will stand", "Q": "Emily sits" },
-    "form": "P→Q"
+    "form": "(P→Q)"
   },
   {
     "id": 6,
     "sentence": "Provided that Ava studies, she will pass.",
     "soa": { "P": "Ava studies", "Q": "Ava will pass" },
-    "form": "P→Q"
+    "form": "(P→Q)"
   },
   {
     "id": 7,
     "sentence": "If Sam is a knight, then he is honest.",
     "soa": { "P": "Sam is a knight", "Q": "Sam is honest" },
-    "form": "P→Q"
+    "form": "(P→Q)"
   },
   {
     "id": 8,
     "sentence": "If Sam is not a knight, then he is not honest.",
     "soa": { "P": "Sam is a knight", "Q": "Sam is honest" },
-    "form": "¬P→¬Q"
+    "form": "(¬P→¬Q)"
   },
   {
     "id": 9,
     "sentence": "If Sam is a knave, then he is not honest.",
     "soa": { "P": "Sam is a knave", "Q": "Sam is honest" },
-    "form": "P→¬Q"
+    "form": "(P→¬Q)"
   },
   {
     "id": 10,
     "sentence": "If Sam is not a knave, then he is a knight.",
     "soa": { "P": "Sam is a knave", "Q": "Sam is a knight" },
-    "form": "¬P→Q"
+    "form": "(¬P→Q)"
   },
   {
     "id": 11,
@@ -67,19 +67,19 @@
       "Q": "Ava concentrates",
       "R": "Ava is happy"
     },
-    "form": "(Q→P)→R"
+    "form": "((Q→P)→R)"
   },
   {
     "id": 12,
     "sentence": "Ava won’t pass if she drank.",
     "soa": { "P": "Ava will pass", "Q": "Ava drank" },
-    "form": "Q→¬P"
+    "form": "(Q→¬P)"
   },
   {
     "id": 13,
     "sentence": "Ava will pass if she didn't drink.",
     "soa": { "P": "Ava will pass", "Q": "Ava drank" },
-    "form": "¬Q→P"
+    "form": "(¬Q→P)"
   },
   {
     "id": 14,
@@ -90,7 +90,7 @@
       "R": "Sam will stand",
       "S": "Ava sits"
     },
-    "form": "(P→¬Q)→(S→¬R)"
+    "form": "((P→¬Q)→(S→¬R))"
   },
   {
     "id": 15,
@@ -102,7 +102,7 @@
     "id": 16,
     "sentence": "Ansel will bite only if he is sad.",
     "soa": { "P": "Ansel will bite", "Q": "Ansel is sad" },
-    "form": "P→Q"
+    "form": "(P→Q)"
   },
   {
     "id": 17,
@@ -114,7 +114,7 @@
     "id": 18,
     "sentence": "If Sam sits, then it is not the case that he doesn't sit.",
     "soa": { "P": "Sam sits" },
-    "form": "P→¬¬P"
+    "form": "(P→¬¬P)"
   },
   {
     "id": 19,
@@ -126,49 +126,49 @@
     "id": 20,
     "sentence": "If Sam is a human, then he is mortal.",
     "soa": { "P": "Sam is a human", "Q": "Sam is mortal" },
-    "form": "P→Q"
+    "form": "(P→Q)"
   },
   {
     "id": 21,
     "sentence": "If Alfred isn't wet, then he didn't swim.",
     "soa": { "P": "Alfred is wet", "Q": "Alfred swam" },
-    "form": "¬P→¬Q"
+    "form": "(¬P→¬Q)"
   },
   {
     "id": 22,
     "sentence": "Ruth sang only if she didn't swim.",
     "soa": { "P": "Ruth sang", "Q": "Ruth swam" },
-    "form": "P→¬Q"
+    "form": "(P→¬Q)"
   },
   {
     "id": 23,
     "sentence": "Ava waved to Sam only if Sam waved to Ava.",
     "soa": { "P": "Ava waved to Sam", "Q": "Sam waved to Ava" },
-    "form": "P→Q"
+    "form": "(P→Q)"
   },
   {
     "id": 24,
     "sentence": "If Alfred didn't wave to Emily, then she is sad.",
     "soa": { "P": "Alfred waved to Emily", "Q": "Emily is sad" },
-    "form": "¬P→Q"
+    "form": "(¬P→Q)"
   },
   {
     "id": 25,
     "sentence": "Sam is a knight only if he is honest.",
     "soa": { "P": "Sam is a knight", "Q": "Sam is honest" },
-    "form": "P→Q"
+    "form": "(P→Q)"
   },
   {
     "id": 26,
     "sentence": "Alfred will walk if Ruth will.",
     "soa": { "P": "Alfred will walk", "Q": "Ruth will walk" },
-    "form": "Q→P"
+    "form": "(Q→P)"
   },
   {
     "id": 27,
     "sentence": "Ava won't run if Sam won't.",
     "soa": { "P": "Ava will run", "Q": "Sam will run" },
-    "form": "¬Q→¬P"
+    "form": "(¬Q→¬P)"
   },
   {
     "id": 28,
@@ -178,13 +178,13 @@
       "Q": "Alfred will pass",
       "R": "Alfred concentrates"
     },
-    "form": "¬P→(Q→R)"
+    "form": "(¬P→(Q→R))"
   },
   {
     "id": 29,
     "sentence": "If Sam sits, then if Ava doesn't sit, Ruth will stand.",
     "soa": { "P": "Sam sits", "Q": "Ava sits", "R": "Ruth will stand" },
-    "form": "P→(¬Q→R)"
+    "form": "(P→(¬Q→R))"
   },
   {
     "id": 30,
@@ -194,43 +194,43 @@
       "Q": "Ruth will stand",
       "R": "Sam will stand"
     },
-    "form": "(¬Q→¬P)→¬R"
+    "form": "((¬Q→¬P)→¬R)"
   },
   {
     "id": 31,
     "sentence": "Ava is happy and Sam is happy",
     "soa": { "P": "Ava is happy", "Q": "Sam is happy" },
-    "form": "P∧Q"
+    "form": "(P∧Q)"
   },
   {
     "id": 32,
     "sentence": "Either Ruth studies or she won’t pass.",
     "soa": { "P": "Ruth studies", "Q": "Ruth will pass" },
-    "form": "P∨¬Q"
+    "form": "(P∨¬Q)"
   },
   {
     "id": 33,
     "sentence": "Sam is happy, but he won’t pass.",
     "soa": { "P": "Sam is happy", "Q": "Sam will pass" },
-    "form": "P∧¬Q"
+    "form": "(P∧¬Q)"
   },
   {
     "id": 34,
     "sentence": "Sam is not honest if he is a knave.",
     "soa": { "P": "Sam is a knave", "Q": "Sam is honest" },
-    "form": "P→¬Q"
+    "form": "(P→¬Q)"
   },
   {
     "id": 35,
     "sentence": "Ava will pass just in case she studies.",
     "soa": { "P": "Ava will pass", "Q": "Ava studies" },
-    "form": "P↔Q"
+    "form": "(P↔Q)"
   },
   {
     "id": 36,
     "sentence": "Sam and Ansel are elves.",
     "soa": { "P": "Sam is an elf", "Q": "Ansel is an elf" },
-    "form": "P∧Q"
+    "form": "(P∧Q)"
   },
   {
     "id": 37,
@@ -242,7 +242,7 @@
     "id": 38,
     "sentence": "Both Alfred and Sam swam.",
     "soa": { "P": "Alfred swam", "Q": "Sam swam" },
-    "form": "P∧Q"
+    "form": "(P∧Q)"
   },
   {
     "id": 39,
@@ -252,7 +252,7 @@
       "Q": "Ansel is an elf",
       "R": "Ansel will bite"
     },
-    "form": "(P∧Q)∧R"
+    "form": "((P∧Q)∧R)"
   },
   {
     "id": 40,
@@ -262,13 +262,13 @@
       "Q": "Ruth talked to Alfred",
       "R": "Alfred is guilty"
     },
-    "form": "P→(Q∧¬R)"
+    "form": "(P→(Q∧¬R))"
   },
   {
     "id": 41,
     "sentence": "Sam is happy only if he ate and drank.",
     "soa": { "P": "Sam is happy", "Q": "Sam ate", "R": "Sam drank" },
-    "form": "P→(Q∧R)"
+    "form": "(P→(Q∧R))"
   },
   {
     "id": 42,
@@ -278,7 +278,7 @@
       "Q": "Ruth admires Emily",
       "R": "Ruth admires Ruth"
     },
-    "form": "(P∨Q)∧¬R"
+    "form": "((P∨Q)∧¬R)"
   },
   {
     "id": 43,
@@ -288,25 +288,25 @@
       "Q": "Sam is a person",
       "R": "Sam will stand"
     },
-    "form": "(P∧Q)→R"
+    "form": "((P∧Q)→R)"
   },
   {
     "id": 44,
     "sentence": "Neither Ava nor Ruth kissed Sam.",
     "soa": { "P": "Ava kissed Sam", "Q": "Ruth kissed Sam" },
-    "form": "¬P∧¬Q"
+    "form": "(¬P∧¬Q)"
   },
   {
     "id": 45,
     "sentence": "Alfred, but not Sam, talked to Ruth.",
     "soa": { "P": "Alfred talked to Ruth", "Q": "Sam talked to Ruth" },
-    "form": "P∧¬Q"
+    "form": "(P∧¬Q)"
   },
   {
     "id": 46,
     "sentence": "Ava will pass just in case neither Sam nor Emily studies.",
     "soa": { "P": "Ava will pass", "Q": "Sam studies", "R": "Emily studies" },
-    "form": "P↔¬(Q∨R)"
+    "form": "(P↔¬(Q∨R))"
   },
   {
     "id": 47,
@@ -316,13 +316,13 @@
       "Q": "Sam will pass",
       "R": "Emily will pass"
     },
-    "form": "P→(Q∧R)"
+    "form": "(P→(Q∧R))"
   },
   {
     "id": 48,
     "sentence": "Sam will run or walk but he won't stand.",
     "soa": { "P": "Sam will run", "Q": "Sam will walk", "R": "Sam will stand" },
-    "form": "(P∨Q)∧¬R"
+    "form": "((P∨Q)∧¬R)"
   },
   {
     "id": 49,
@@ -332,7 +332,7 @@
       "Q": "Sam is a person",
       "R": "Sam is happy"
     },
-    "form": "(P∧Q)∧¬R"
+    "form": "((P∧Q)∧¬R)"
   },
   {
     "id": 50,
@@ -344,13 +344,13 @@
     "id": 51,
     "sentence": "Alfred, who didn't swim, is wet.",
     "soa": { "P": "Alfred is wet", "Q": "Alfred swam" },
-    "form": "P∧¬Q"
+    "form": "(P∧¬Q)"
   },
   {
     "id": 52,
     "sentence": "Either Emily or Ruth talked to Sam.",
     "soa": { "P": "Emily talked to Sam", "Q": "Ruth talked to Sam" },
-    "form": "P∨Q"
+    "form": "(P∨Q)"
   },
   {
     "id": 53,
@@ -366,43 +366,43 @@
       "Q": "Alfred sang",
       "R": "Alfred drank"
     },
-    "form": "(P∧Q)∨R"
+    "form": "((P∧Q)∨R)"
   },
   {
     "id": 55,
     "sentence": "Ava drank but didn't sing.",
     "soa": { "P": "Ava drank", "Q": "Ava sang" },
-    "form": "P∧¬Q"
+    "form": "(P∧¬Q)"
   },
   {
     "id": 56,
     "sentence": "Ruth will run just in case Ava does.",
     "soa": { "P": "Ruth will run", "Q": "Ava will run" },
-    "form": "P↔Q"
+    "form": "(P↔Q)"
   },
   {
     "id": 57,
     "sentence": "Sam is a monkey who will bite but he isn't mean.",
     "soa": { "P": "Sam is a monkey", "Q": "Sam will bite", "R": "Sam is mean" },
-    "form": "(P∧Q)∧¬R"
+    "form": "((P∧Q)∧¬R)"
   },
   {
     "id": 58,
     "sentence": "Alfred isn't honest, but Ruth loves him anyway.",
     "soa": { "P": "Alfred is honest", "Q": "Ruth loves Alfred" },
-    "form": "¬P∧Q"
+    "form": "(¬P∧Q)"
   },
   {
     "id": 59,
     "sentence": "Ava is sad and wet or she isn't guilty.",
     "soa": { "P": "Ava is sad", "Q": "Ava is wet", "R": "Ava is guilty" },
-    "form": "(P∧Q)∨¬R"
+    "form": "((P∧Q)∨¬R)"
   },
   {
     "id": 60,
     "sentence": "Ava climbs or she sits and concentrates.",
     "soa": { "P": "Ava climbs", "Q": "Ava sits", "R": "Ava concentrates" },
-    "form": "P∨(Q∧R)"
+    "form": "(P∨(Q∧R))"
   },
   {
     "id": 61,
@@ -413,7 +413,7 @@
       "R": "Emily will walk",
       "S": "Ruth will walk"
     },
-    "form": "¬(P∨Q)→(R∨S)"
+    "form": "(¬(P∨Q)→(R∨S))"
   },
   {
     "id": 62,
@@ -423,13 +423,13 @@
       "Q": "Alfred sang",
       "R": "Alfred will pass"
     },
-    "form": "(¬P∧¬Q)∧R"
+    "form": "((¬P∧¬Q)∧R)"
   },
   {
     "id": 63,
     "sentence": "Either Ava or Ruth will stand, but not both.",
     "soa": { "P": "Ava will stand", "Q": "Ruth will stand" },
-    "form": "(P∨Q)∧¬(P∧Q)"
+    "form": "((P∨Q)∧¬(P∧Q))"
   },
   {
     "id": 64,
@@ -441,13 +441,13 @@
       "S": "Emily will run",
       "T": "Ruth will run"
     },
-    "form": "(¬P∧¬Q)∧((R∨S)→¬T)"
+    "form": "((¬P∧¬Q)∧((R∨S)→¬T))"
   },
   {
     "id": 65,
     "sentence": "Sam won't stand if and only if he won't walk.",
     "soa": { "P": "Sam will stand", "Q": "Sam will walk" },
-    "form": "¬P↔¬Q"
+    "form": "(¬P↔¬Q)"
   },
   {
     "id": 66,
@@ -458,25 +458,25 @@
       "R": "Ruth ate",
       "S": "Alfred ate"
     },
-    "form": "(P∧¬Q)∨(R∧¬S)"
+    "form": "((P∧¬Q)∨(R∧¬S))"
   },
   {
     "id": 67,
     "sentence": "Alfred will run unless he ate.",
     "soa": { "P": "Alfred will run", "Q": "Alfred ate" },
-    "form": "P∨Q"
+    "form": "(P∨Q)"
   },
   {
     "id": 68,
     "sentence": "Alfred is a teacher but he is not a mean teacher.",
     "soa": { "P": "Alfred is a teacher", "Q": "Alfred is mean" },
-    "form": "P∧¬(Q∧P)"
+    "form": "(P∧¬(Q∧P))"
   },
   {
     "id": 69,
     "sentence": "If neither Sam nor Alfred sits, Emily won't either.",
     "soa": { "P": "Sam sits", "Q": "Alfred sits", "R": "Emily sits" },
-    "form": "¬(P∨Q)→¬R"
+    "form": "(¬(P∨Q)→¬R)"
   },
   {
     "id": 70,
@@ -486,12 +486,12 @@
       "Q": "Alfred will run",
       "R": "Emily will run"
     },
-    "form": "(¬P∧¬Q)∧¬R"
+    "form": "((¬P∧¬Q)∧¬R)"
   },
   {
     "id": 71,
     "sentence": "Ava didn't talk to Ruth unless both swam.",
     "soa": { "P": "Ava talked to Ruth", "Q": "Ruth swam", "R": "Ava swam" },
-    "form": "¬P∨(Q∧R)"
+    "form": "(¬P∨(Q∧R))"
   }
 ]

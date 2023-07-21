@@ -9,7 +9,7 @@ connective
     | "→"
     | "↔"
 
-predicate -> [A-Z]
+proposition -> [A-Z]
 
 ws -> null | " "
 

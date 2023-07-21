@@ -8,11 +8,11 @@ with open('app/propProblems.json') as file:
 
 
 def collect_sentences(json_data):
-    sentences = []
+    sentences = set()
     for entry in json_data:
         for key, value in entry["soa"].items():
-            sentences.append(value)
-    return sentences
+            sentences.add(value)
+    return list(sentences)
 
 
 # get em
