@@ -358,7 +358,7 @@ export default function Home() {
     return () => {
       document.removeEventListener("click", handleGeneralClick);
     };
-  }, [error, success]);
+  }, [error, success, note]);
 
   const lexiconOptionsSelect = lexiconOptions.map((item) => ({
     value: item,

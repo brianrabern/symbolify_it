@@ -9,7 +9,7 @@ const HelpWindow = ({ onClose }: any) => {
       <p>
         The task for these symbolizations problems is to provide a translation
         of the English sentence in the relevant formal language (propositional
-        or predicate logic).{" "}
+        or predicate logic).
       </p>
       <br></br>
       <p>
