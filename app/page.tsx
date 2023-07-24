@@ -12,6 +12,7 @@ import grammarPred from "./predicate_logic.js";
 import grammarProp from "./propositional_logic.js";
 import { lexiconDataProp } from "./lexiconProp";
 import { GrCaretNext } from "react-icons/gr";
+import HelpWindow from "./HelpWindow";
 
 type SOA = {
   [key: string]: string;
@@ -21,7 +22,7 @@ type Problem = {
   id: number;
   sentence: string;
   soa: SOA | any;
-  form: string;
+  form: string[];
 };
 
 type ProbCol = Problem[];
@@ -46,6 +47,8 @@ export default function Home() {
   const [errorText, setErrorText] = useState("");
   const [success, setSuccess] = useState(false);
   const [successText, setSuccessText] = useState("");
+  const [note, setNote] = useState(false);
+  const [noteText, setNoteText] = useState("");
 
   const names: string[] = lexiconDataPred[0]?.Names || [];
   const monadic: string[] = lexiconDataPred[1]?.monadicPredicates || [];
@@ -53,6 +56,12 @@ export default function Home() {
   const propositions: string[] = lexiconDataProp[0]?.Propositions || [];
 
   let lexiconOptions: string[] = [];
+
+  const [showHelp, setShowHelp] = useState(false);
+
+  const toggleHelpWindow = () => {
+    setShowHelp(!showHelp);
+  };
 
   if (logic === "pred") {
     lexiconOptions = [...names, ...monadic, ...binary];
@@ -146,6 +155,12 @@ export default function Home() {
     setUserSoa([...userSoa, { symbol: "", lexicon: "" }]);
   };
 
+  const handleRemoveEntry = (indexToRemove: number) => {
+    setUserSoa((prevUserSoa) =>
+      prevUserSoa.filter((entry, index) => index !== indexToRemove)
+    );
+  };
+
   const handleConnectiveClick = (connective: string) => {
     setUserFormula(userFormula + connective);
     document.getElementById("userInput")?.focus();
@@ -160,10 +175,10 @@ export default function Home() {
 
     //propositional logic checks
     if (logic === "prop") {
-      let alphaConSysProp = alphaConversionProp(
-        selectedProblemObj?.soa,
-        selectedProblemObj?.form
+      let alphaConSysProp = selectedProblemObj?.form.map((formula) =>
+        alphaConversionProp(selectedProblemObj?.soa, formula)
       );
+
       // check if user formula is well-formed using nearley parser for propositional logic
       try {
         const parser = new nearley.Parser(
@@ -175,13 +190,19 @@ export default function Home() {
 
         //check if user formula is an alpha variant of system formula
         let alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
-        if (alphaConUserProp == alphaConSysProp) {
+        if (alphaConSysProp?.includes(alphaConUserProp)) {
           setSuccess(true);
           setSuccessText("Your symbolization and scheme are perfect.");
-        } else if (alphaConUserProp != alphaConSysProp) {
+          if (alphaConSysProp.length > 1) {
+            setNote(true);
+            setNoteText(
+              "Note: The English sentence is ambiguous. This symbolization captures one reading."
+            );
+          }
+        } else if (!alphaConSysProp?.includes(alphaConUserProp)) {
           setError(true);
           setErrorText(
-            "That is well-formed but there is something wrong with your symbolization or scheme..."
+            "There is something wrong with your symbolization or scheme..."
           );
         }
       } catch (error: any) {
@@ -204,14 +225,19 @@ export default function Home() {
               userSoaFlat,
               userFormulaUpdated
             );
-
-            if (alphaConUserProp == alphaConSysProp) {
+            if (alphaConSysProp?.includes(alphaConUserProp)) {
               setSuccess(true);
               setSuccessText("Your symbolization and scheme are perfect.");
-            } else if (alphaConUserProp != alphaConSysProp) {
+              if (alphaConSysProp.length > 1) {
+                setNote(true);
+                setNoteText(
+                  "Note: The English sentence is ambiguous. This symbolization captures one reading."
+                );
+              }
+            } else if (!alphaConSysProp?.includes(alphaConUserProp)) {
               setError(true);
               setErrorText(
-                "That is well-formed but there is something wrong with your symbolization or scheme..."
+                "There is something wrong with your symbolization or scheme..."
               );
             }
           }
@@ -227,10 +253,10 @@ export default function Home() {
 
     // //predicate logic checks
     if (logic === "pred") {
-      let alphaConSysPred = alphaConversionPred(
-        selectedProblemObj?.soa,
-        selectedProblemObj?.form
+      let alphaConSysPred = selectedProblemObj?.form.map((formula) =>
+        alphaConversionPred(selectedProblemObj?.soa, formula)
       );
+
       // check if user formula is well-formed using nearley parser
       try {
         const parser = new nearley.Parser(
@@ -242,13 +268,19 @@ export default function Home() {
 
         //check if user formula is an alpha variant of system formula
         let alphaConUserPred = alphaConversionPred(userSoaFlat, userFormula);
-        if (alphaConUserPred == alphaConSysPred) {
+        if (alphaConSysPred?.includes(alphaConUserPred)) {
           setSuccess(true);
           setSuccessText("Your symbolization and scheme are perfect.");
-        } else if (alphaConUserPred != alphaConSysPred) {
+          if (alphaConSysPred.length > 1) {
+            setNote(true);
+            setNoteText(
+              "Note: The English sentence is ambiguous. This symbolization captures one reading."
+            );
+          }
+        } else if (!alphaConSysPred?.includes(alphaConUserPred)) {
           setError(true);
           setErrorText(
-            "That is well-formed but there is something wrong with your symbolization or scheme..."
+            "There is something wrong with your symbolization or scheme..."
           );
         }
       } catch (error: any) {
@@ -272,13 +304,19 @@ export default function Home() {
               userFormulaUpdated
             );
 
-            if (alphaConUserPred == alphaConSysPred) {
+            if (alphaConSysPred?.includes(alphaConUserPred)) {
               setSuccess(true);
               setSuccessText("Your symbolization and scheme are perfect.");
-            } else if (alphaConUserPred != alphaConSysPred) {
+              if (alphaConSysPred.length > 1) {
+                setNote(true);
+                setNoteText(
+                  "Note: The English sentence is ambiguous. This symbolization captures one reading."
+                );
+              }
+            } else if (!alphaConSysPred?.includes(alphaConUserPred)) {
               setError(true);
               setErrorText(
-                "That is well-formed but there is something wrong with your symbolization or scheme..."
+                "There is something wrong with your symbolization or scheme..."
               );
             }
           }
@@ -308,6 +346,10 @@ export default function Home() {
         setSuccess(false);
         setSuccessText("");
       }
+      if (note === true) {
+        setNote(false);
+        setNoteText("");
+      }
     };
 
     document.addEventListener("click", handleGeneralClick);
@@ -322,12 +364,6 @@ export default function Home() {
     value: item,
     label: item,
   }));
-
-  const options = [
-    { value: "chocolate", label: "Chocolate" },
-    { value: "strawberry", label: "Strawberry" },
-    { value: "vanilla", label: "Vanilla" },
-  ];
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -411,7 +447,13 @@ export default function Home() {
                 )
               }
               options={lexiconOptionsSelect}
-            />
+            />{" "}
+            <button
+              className="text-sm mt-2 h-8 px-2 bg-gray-600 hover:bg-red-500 rounded-md"
+              onClick={() => handleRemoveEntry(index)}
+            >
+              Remove
+            </button>
           </div>
         ))}
         <button
@@ -432,7 +474,7 @@ export default function Home() {
               onChange={(e) => setUserFormula(e.target.value)}
               placeholder="Formula"
             />
-          </div>
+          </div>{" "}
           {/* symbol buttons */}
           <div className="flex space-x-1 py-2">
             <button
@@ -520,7 +562,14 @@ export default function Home() {
             </button>
           </div>
         )}
+        {note && (
+          <div className="border border-t-0 border-yellow-400 rounded-b bg-yellow-100 px-4 py-3 text-yellow-700">
+            <p>{noteText}</p>
+          </div>
+        )}
       </div>
+      <button onClick={toggleHelpWindow}>Help</button>
+      {showHelp && <HelpWindow onClose={toggleHelpWindow} />}
     </main>
   );
 }
