@@ -26,11 +26,12 @@ const HelpWindow = ({ onClose }: any) => {
       </p>
       <br></br>
       <p>
-        For example, for the English sentence "Sam didn't sing" one could choose
-        "P" to stand for "Sam sang", and then enter "¬P" as the propositional
-        logic symbolization. Or for predicate logic, one could choose "a" to for
-        "Sam", "F" for "sang", and then enter "¬Fa" as the predicate logic
-        symbolization.
+        For example, for the English sentence &quot;Sam didn&apos;t sing&quot;
+        one could choose &quot;P&quot; to stand for &quot;Sam sang&quot;, and
+        then enter &quot;¬P&quot; as the propositional logic symbolization. Or
+        for predicate logic, one could choose &quot;a&quot; to for
+        &quot;Sam&quot;, &quot;F&quot; for &quot;sang&quot;, and then enter
+        &quot;¬Fa&quot; as the predicate logic symbolization.
       </p>
 
       <br></br>
