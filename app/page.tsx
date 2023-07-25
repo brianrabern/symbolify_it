@@ -139,6 +139,50 @@ export default function Home() {
     }
   };
 
+  const handleUserFormula = (e: any) => {
+    const escapeRegExp = (string: string) => {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    };
+    let value = e.target.value;
+
+    // Define the mapping of symbols and their replacements
+    const symbolMap: { [key: string]: string } = {
+      "~": "¬",
+      "\\neg": "¬",
+      "&": "∧",
+      "\\wedge": "∧",
+      "|": "∨",
+      "\\vee": "∨",
+      "->": "→",
+      ">": "→",
+      "\\to": "→",
+      "\\rightarrow": "→",
+      "<->": "↔",
+      "<>": "↔",
+      "\\leftrightarrow": "↔",
+      "\\equiv": "↔",
+      "!": "∀",
+      "\\forall": "∀",
+      "?": "∃",
+      "\\exists": "∃",
+    };
+
+    const escapedSymbolMap: { [key: string]: string } = {};
+    for (const symbol in symbolMap) {
+      escapedSymbolMap[escapeRegExp(symbol)] = symbolMap[symbol];
+    }
+
+    let updatedValue = value;
+    for (const symbol in escapedSymbolMap) {
+      updatedValue = updatedValue.replace(
+        new RegExp(symbol, "g"),
+        escapedSymbolMap[symbol]
+      );
+    }
+
+    setUserFormula(updatedValue);
+  };
+
   const handleSymbolChange = (index: number, value: string) => {
     const updatedUserSoa = [...userSoa];
     updatedUserSoa[index].symbol = value;
@@ -471,7 +515,7 @@ export default function Home() {
               id="userInput"
               className="text-black border-2 border-color-1 rounded-md p-2"
               value={userFormula}
-              onChange={(e) => setUserFormula(e.target.value)}
+              onChange={handleUserFormula}
               placeholder="Formula"
             />
           </div>{" "}
