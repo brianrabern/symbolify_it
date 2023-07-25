@@ -37,6 +37,7 @@ export default function Home() {
   const propProblemsA: ProbCol = propProblems as ProbCol;
 
   const [logic, setLogic] = useState("prop");
+  const [isSyntaxVisible, setIsSyntaxVisible] = useState(false);
   const [problemCollection, setProblemCollection] = useState<ProbCol>(
     propProblemsA as ProbCol
   );
@@ -58,6 +59,10 @@ export default function Home() {
   let lexiconOptions: string[] = [];
 
   const [showHelp, setShowHelp] = useState(false);
+
+  const toggleSyntaxVisible = () => {
+    setIsSyntaxVisible(!isSyntaxVisible);
+  };
 
   const toggleHelpWindow = () => {
     setShowHelp(!showHelp);
@@ -149,18 +154,30 @@ export default function Home() {
     const symbolMap: { [key: string]: string } = {
       "~": "¬",
       "\\neg": "¬",
+      "\\not": "¬",
       "&": "∧",
       "\\wedge": "∧",
-      "|": "∨",
+      "\\and": "∧",
+      "·": "∧",
+      "||": "∨",
+      "+": "∨",
       "\\vee": "∨",
+      "\\or": "∨",
       "->": "→",
+      "⇒": "→",
       ">": "→",
+      "⊃": "→",
       "\\to": "→",
+      "\\then": "→",
       "\\rightarrow": "→",
+      "\\supset": "→",
       "<->": "↔",
       "<>": "↔",
+      "⇔": "↔",
       "\\leftrightarrow": "↔",
+      "\\iff": "↔",
       "\\equiv": "↔",
+      "≡": "↔",
       "!": "∀",
       "\\forall": "∀",
       "?": "∃",
@@ -510,15 +527,15 @@ export default function Home() {
         {/* formula input */}
         <div className="mt-2 bg-gray-800 p-4 rounded-md w-full flex flex-col items-center">
           <h2 className="py-2 text-2xl font-bold text-gray-500">Formula</h2>
-          <div>
-            <input
-              id="userInput"
-              className="text-black border-2 border-color-1 rounded-md p-2"
-              value={userFormula}
-              onChange={handleUserFormula}
-              placeholder="Formula"
-            />
-          </div>{" "}
+
+          <input
+            id="userInput"
+            className="text-black border-2 border-color-1 rounded-md p-2"
+            value={userFormula}
+            onChange={handleUserFormula}
+            placeholder="Formula"
+          />
+
           {/* symbol buttons */}
           <div className="flex space-x-1 py-2">
             <button
@@ -568,7 +585,42 @@ export default function Home() {
               </button>
             )}
           </div>
+          <button
+            onClick={toggleSyntaxVisible}
+            className="text-white text-sm font-mono hover:bg-black"
+          >
+            syntax
+          </button>
         </div>
+
+        {isSyntaxVisible && logic === "prop" && (
+          <div className="max-w-md p-4 bg-white text-black rounded-lg shadow-md">
+            <code className="text-sm font-mono">
+              wff := proposition<br></br>
+              wff := "¬" wff<br></br>
+              wff := "(" wff connective wff ")"<br></br>
+              connective := "∧" | "∨" | "→" | "↔"<br></br>
+              proposition := [A-Z]
+            </code>
+          </div>
+        )}
+        {isSyntaxVisible && logic === "pred" && (
+          <div className="max-w-md p-6 bg-white rounded-lg shadow-md">
+            <code className="text-sm text-black font-mono">
+              wff := predicate term_list<br></br>
+              wff := "¬" wff<br></br>
+              wff := "(" wff connective wff ")"<br></br>
+              wff := quantifier variable wff <br></br>
+              term := variable | constant<br></br>
+              term_list := term | term term_list<br></br>
+              quantifier := "∀"| "∃"<br></br>
+              connective := "∧" | "∨" | "→" | "↔"<br></br>
+              predicate := [A-Z]<br></br>
+              variable := [s-z]<br></br>
+              constant := [a-r]
+            </code>
+          </div>
+        )}
 
         <button
           className="px-4 py-2 mt-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
@@ -612,7 +664,12 @@ export default function Home() {
           </div>
         )}
       </div>
-      <button onClick={toggleHelpWindow}>Help</button>
+      <button
+        className="text-white text-sm font-mono hover:bg-gray-500"
+        onClick={toggleHelpWindow}
+      >
+        help
+      </button>
       {showHelp && <HelpWindow onClose={toggleHelpWindow} />}
     </main>
   );

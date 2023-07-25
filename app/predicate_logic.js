@@ -7,7 +7,6 @@
   var grammarPred = {
     Lexer: undefined,
     ParserRules: [
-      { name: "wff", symbols: ["predicate"] },
       { name: "wff", symbols: ["predicate", "term_list"] },
       { name: "wff", symbols: [{ literal: "¬" }, "wff"] },
       {

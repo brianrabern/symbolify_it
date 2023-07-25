@@ -1,6 +1,5 @@
 wff
-    -> predicate
-    | predicate term_list
+    -> predicate term_list
     | "¬" wff
     | "(" wff ws connective ws wff ")"
     | "∀" variable wff
