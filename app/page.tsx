@@ -597,9 +597,9 @@ export default function Home() {
           <div className="max-w-md p-4 bg-white text-black rounded-lg shadow-md">
             <code className="text-sm font-mono">
               wff := proposition<br></br>
-              wff := "¬" wff<br></br>
-              wff := "(" wff connective wff ")"<br></br>
-              connective := "∧" | "∨" | "→" | "↔"<br></br>
+              wff := ¬ wff<br></br>
+              wff := ( wff connective wff )<br></br>
+              connective := ∧ | ∨ | → | ↔<br></br>
               proposition := [A-Z]
             </code>
           </div>
@@ -608,13 +608,13 @@ export default function Home() {
           <div className="max-w-md p-6 bg-white rounded-lg shadow-md">
             <code className="text-sm text-black font-mono">
               wff := predicate term_list<br></br>
-              wff := "¬" wff<br></br>
-              wff := "(" wff connective wff ")"<br></br>
+              wff := ¬ wff<br></br>
+              wff := ( wff connective wff )<br></br>
               wff := quantifier variable wff <br></br>
               term := variable | constant<br></br>
               term_list := term | term term_list<br></br>
-              quantifier := "∀"| "∃"<br></br>
-              connective := "∧" | "∨" | "→" | "↔"<br></br>
+              quantifier := ∀ | ∃<br></br>
+              connective := ∧ | ∨ | → | ↔<br></br>
               predicate := [A-Z]<br></br>
               variable := [s-z]<br></br>
               constant := [a-r]
