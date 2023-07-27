@@ -18,9 +18,12 @@ class handler(BaseHTTPRequestHandler):
             formula1 = data.get('formula1', '')
             formula2 = data.get('formula2', '')
 
+            print('Received data:', data)
             result = self.check_equivalence(formula1, formula2)
+            print('Result:', result)
             self.wfile.write(json.dumps(result).encode('utf-8'))
         except Exception as e:
+            print('Error:', e)
             self.wfile.write(f"Error yo: {str(e)}".encode('utf-8'))
 
         return

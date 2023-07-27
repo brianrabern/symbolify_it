@@ -18,8 +18,10 @@ const Z3SolverForm = () => {
         },
         body: JSON.stringify({ formula1, formula2 }),
       });
+      console.log("Response:", response);
 
       const data = await response.json();
+      console.log("Data:", data);
       setResult(data.result);
     } catch (error) {
       console.error("Error:", error);
