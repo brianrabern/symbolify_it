@@ -7,7 +7,7 @@ wff
 
 
 term -> variable | constant
-term_list -> term | term term_list
+term_list -> term | term_list term
 
 quantifier -> "∀"
 quantifier -> "∃"
