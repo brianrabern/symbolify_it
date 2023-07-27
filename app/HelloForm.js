@@ -32,7 +32,7 @@ const HelloForm = () => {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Enter your name:
+        Enter formula:
         <input
           className="text-black"
           type="text"
