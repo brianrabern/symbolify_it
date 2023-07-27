@@ -1,4 +1,5 @@
 // helloForm.js
+import React, { useState } from "react";
 
 const helloForm = () => {
   const [name, setName] = useState("");
@@ -33,6 +34,7 @@ const helloForm = () => {
       <label>
         Enter your name:
         <input
+          className="text-black"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
