@@ -1,7 +1,7 @@
 // helloForm.js
 import React, { useState } from "react";
 
-const helloForm = () => {
+const HelloForm = () => {
   const [name, setName] = useState("");
   const [greeting, setGreeting] = useState("");
 
@@ -46,4 +46,4 @@ const helloForm = () => {
   );
 };
 
-export default helloForm;
+export default HelloForm;
