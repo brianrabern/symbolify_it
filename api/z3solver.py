@@ -1,40 +1,48 @@
 from http.server import BaseHTTPRequestHandler
+import json
 import z3
 
 
 class handler(BaseHTTPRequestHandler):
 
-    def do_GET(self):
+    def do_POST(self):
         self.send_response(200)
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
 
         try:
-            # Replace this with your desired expression
-            expression = "(and P Q)"
-            result = self.solve_with_z3(expression)
-            self.wfile.write(result.encode('utf-8'))
+            # Extract the formulas from the request body
+            content_length = int(self.headers['Content-Length'])
+            post_data = self.rfile.read(content_length)
+            data = json.loads(post_data.decode('utf-8'))
+            formula1 = data.get('formula1', '')
+            formula2 = data.get('formula2', '')
+
+            result = self.check_equivalence(formula1, formula2)
+            self.wfile.write(json.dumps(result).encode('utf-8'))
         except Exception as e:
-            self.wfile.write(f"Error: {str(e)}".encode('utf-8'))
+            self.wfile.write(f"Error yo: {str(e)}".encode('utf-8'))
 
         return
 
-    def solve_with_z3(self, expression):
-        # Parse the SMT-LIB formula using Z3 parser
-        z3_formula = z3.parse_smt2_string(expression)
+    def check_equivalence(self, formula1, formula2):
+        # Parse the SMT-LIB formulas using Z3 parser
+        z3_formula1 = z3.parse_smt2_string(formula1)
+        z3_formula2 = z3.parse_smt2_string(formula2)
 
         # Create the solver
         solver = z3.Solver()
 
-        # Add the formula to the solver
-        solver.add(z3_formula)
+        # Add the formulas to the solver
+        solver.add(z3_formula1)
+        solver.add(z3_formula2)
 
-        # Check for satisfiability
+        # Check for logical equivalence
         result = solver.check()
 
         if result == z3.sat:
-            return "The formula is satisfiable."
+            return "The formulas are logically equivalent."
         elif result == z3.unsat:
-            return "The formula is unsatisfiable."
+            return "The formulas are not logically equivalent."
         else:
-            return "Unable to determine the satisfiability."
+            return "Unable to determine the equivalence."

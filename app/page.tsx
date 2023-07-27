@@ -13,6 +13,7 @@ import grammarProp from "./propositional_logic.js";
 import { lexiconDataProp } from "./lexiconProp";
 import { GrCaretNext } from "react-icons/gr";
 import HelpWindow from "./HelpWindow";
+import Z3SolverForm from "./Z3SolverForm";
 
 type SOA = {
   [key: string]: string;
@@ -226,6 +227,25 @@ export default function Home() {
     setUserFormula(userFormula + connective);
     document.getElementById("userInput")?.focus();
   };
+
+  // const checkEquiv = async () => {
+  //   // Make a POST request to the Python Serverless Function
+  //   try {
+  //     const response = await fetch("/api/hello", {
+  //       method: "POST",
+  //       body: JSON.stringify({ userFormula, formula2 }),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     const data = await response.json();
+  //     setResult(data.result);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     setResult("Error: Unable to process the request");
+  //   }
+  // };
 
   const handleCheck = () => {
     let results;
@@ -671,6 +691,11 @@ export default function Home() {
         help
       </button>
       {showHelp && <HelpWindow onClose={toggleHelpWindow} />}
+      {/* z3 test*/}
+      <div>
+        <h1>Z3 Solver</h1>
+        <Z3SolverForm />
+      </div>
     </main>
   );
 }
