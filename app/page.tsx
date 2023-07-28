@@ -697,9 +697,9 @@ export default function Home() {
         <h1>Z3 Solver</h1>
         <Z3SolverForm />
       </div> */}
-      {/* <div>
+      <div>
         <HelloForm />
-      </div> */}
+      </div>
     </main>
   );
 }
