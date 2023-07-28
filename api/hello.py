@@ -26,10 +26,9 @@ class handler(BaseHTTPRequestHandler):
     def check_formula(self, formula):
         try:
             # Parse the SMT-LIB formula using Z3 parser
-            z3_formula = z3.parse_smt2_string(formula)
+            parsed_formula = z3.parse_smt2_string(formula)
 
-            if z3_formula is None:
-                return "Error: Invalid formula format."
+            z3_formula = z3.And(*parsed_formula)
 
             print(z3_formula)
 

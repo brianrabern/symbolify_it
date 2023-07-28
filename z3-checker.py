@@ -1,30 +1,37 @@
 import z3
 
-# Declare symbolic variables
-P = z3.Bool('P')
-Q = z3.Bool('Q')
 
-# Construct the SMT-LIB formulas as strings
-formula1_str = '(and P Q)'
-formula2_str = '(not (or (not P) (not Q)))'
+def check_satisfiability(smt_script):
+    # Parse the SMT-LIB script
+    exprs = z3.parse_smt2_string(smt_script)
 
-# Parse the SMT-LIB formulas using Z3 parser
-formula1_z3 = z3.parse_smt2_string(formula1_str)
-formula2_z3 = z3.parse_smt2_string(formula2_str)
+    # Combine all expressions using the And function
+    z3_formula = z3.And(*exprs)
 
-# Create the solver
-solver = z3.Solver()
+    # Create the solver
+    solver = z3.Solver()
 
-# Add the formulas to the solver
-solver.add(formula1_z3)
-solver.add(formula2_z3)
+    # Add the formula to the solver
+    solver.add(z3_formula)
 
-# Check for logical equivalence
-result = solver.check()
+    # Check for satisfiability
+    result = solver.check()
+
+    return result
+
+
+# Example usage:
+smt_script = """
+(declare-const P Bool)
+(assert (and P (not P)))
+"""
+
+result = check_satisfiability(smt_script)
 
 if result == z3.sat:
-    print("The formulas are logically equivalent.")
+    print("Satisfiable!")
+
 elif result == z3.unsat:
-    print("The formulas are not logically equivalent.")
+    print("Unsatisfiable!")
 else:
-    print("Unable to determine the equivalence.")
+    print("Unknown result or an error occurred.")
