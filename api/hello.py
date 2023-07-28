@@ -27,6 +27,7 @@ class handler(BaseHTTPRequestHandler):
         try:
             # Parse the SMT-LIB formula using Z3 parser
             z3_formula = z3.parse_smt2_string(formula)
+            print(z3_formula)
 
             # Create the solver
             solver = z3.Solver()
