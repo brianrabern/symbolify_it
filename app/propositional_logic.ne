@@ -9,7 +9,9 @@ connective
     | "→"
     | "↔"
 
-proposition -> [A-Z]
+proposition -> [A-Z] | "P" digit
+
+digit -> [1-9] | [1-9] [0-9]
 
 ws -> null | " "
 

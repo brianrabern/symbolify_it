@@ -18,9 +18,10 @@ connective
     | "→"
     | "↔"
 
-predicate -> [A-Z]
-variable -> [s-z]
-constant -> [a-r]
+predicate -> [A-Z] | "F" digit
+variable -> [s-z] | "x" digit
+constant -> [a-r] | "a" digit
+digit -> [1-9] | [1-9] [0-9]
 
 ws -> null | " "
 

@@ -14,7 +14,7 @@ import { lexiconDataProp } from "./lexiconProp";
 import { GrCaretNext } from "react-icons/gr";
 import HelpWindow from "./HelpWindow";
 // import Z3SolverForm from "./Z3SolverForm";
-import HelloForm from "./HelloForm.js";
+// import HelloForm from "./HelloForm.js";
 
 type SOA = {
   [key: string]: string;
@@ -254,7 +254,7 @@ export default function Home() {
     for (let entry of userSoa) {
       userSoaFlat[entry.symbol] = entry.lexicon;
     }
-
+    console.log(alphaConversionPred(userSoaFlat, userFormula));
     //propositional logic checks
     if (logic === "prop") {
       let alphaConSysProp = selectedProblemObj?.form.map((formula) =>
@@ -344,10 +344,10 @@ export default function Home() {
         const parser = new nearley.Parser(
           nearley.Grammar.fromCompiled(grammarPred)
         );
-        parser.feed(userFormula);
+        parser.feed(alphaConversionPred(userSoaFlat, userFormula));
         // set results to the parsed result if successful
         results = parser.results[0];
-
+        console.log(parser.results[0]);
         //check if user formula is an alpha variant of system formula
         let alphaConUserPred = alphaConversionPred(userSoaFlat, userFormula);
         if (alphaConSysPred?.includes(alphaConUserPred)) {
@@ -697,9 +697,9 @@ export default function Home() {
         <h1>Z3 Solver</h1>
         <Z3SolverForm />
       </div> */}
-      <div>
+      {/* <div>
         <HelloForm />
-      </div>
+      </div> */}
     </main>
   );
 }
