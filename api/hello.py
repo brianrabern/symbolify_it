@@ -27,6 +27,10 @@ class handler(BaseHTTPRequestHandler):
         try:
             # Parse the SMT-LIB formula using Z3 parser
             z3_formula = z3.parse_smt2_string(formula)
+
+            if z3_formula is None:
+                return "Error: Invalid formula format."
+
             print(z3_formula)
 
             # Create the solver
