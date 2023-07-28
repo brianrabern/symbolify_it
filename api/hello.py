@@ -1,16 +1,3 @@
-# api/hello.py
-
-# from http.server import BaseHTTPRequestHandler
-
-
-# class handler(BaseHTTPRequestHandler):
-
-#     def do_GET(self):
-#         self.send_response(200)
-#         self.send_header('Content-type', 'text/plain')
-#         self.end_headers()
-#         self.wfile.write('Hello, world!'.encode('utf-8'))
-
 # hello.py
 
 from http.server import BaseHTTPRequestHandler
@@ -29,11 +16,9 @@ class handler(BaseHTTPRequestHandler):
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
             data = json.loads(post_data.decode('utf-8'))
-            name = data.get('name', '')
+            formula = data.get('formula', '')
 
-            result = self.check_formula(name)
-            # greeting = f"Hello, {name}!" if name else "Hello, world!"
-
+            result = self.check_formula(formula)
             self.wfile.write(result.encode('utf-8'))
         except Exception as e:
             self.wfile.write(f"Error: {str(e)}".encode('utf-8'))

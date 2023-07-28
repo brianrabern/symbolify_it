@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 
 const HelloForm = () => {
-  const [name, setName] = useState("");
-  const [greeting, setGreeting] = useState("");
+  const [formula, setFormula] = useState("");
+  const [result, setResult] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +14,7 @@ const HelloForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name }),
+        body: JSON.stringify({ formula }),
       });
 
       if (!response.ok) {
@@ -22,10 +22,10 @@ const HelloForm = () => {
       }
 
       const data = await response.text();
-      setGreeting(data);
+      setResult(data);
     } catch (error) {
       console.error("Error:", error);
-      setGreeting("Error: Unable to process the request");
+      setResult("Error: Unable to process the request");
     }
   };
 
@@ -36,12 +36,12 @@ const HelloForm = () => {
         <input
           className="text-black"
           type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={formula}
+          onChange={(e) => setFormula(e.target.value)}
         />
       </label>
       <button type="submit">Submit</button>
-      <div>{greeting}</div>
+      <div>{result}</div>
     </form>
   );
 };
