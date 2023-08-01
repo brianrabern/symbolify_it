@@ -14,7 +14,7 @@ import { lexiconDataProp } from "./lexiconProp";
 import { GrCaretNext } from "react-icons/gr";
 import HelpWindow from "./HelpWindow";
 // import Z3SolverForm from "./Z3SolverForm";
-// import HelloForm from "./HelloForm.js";
+import HelloForm from "./HelloForm.js";
 
 type SOA = {
   [key: string]: string;
@@ -697,9 +697,9 @@ export default function Home() {
         <h1>Z3 Solver</h1>
         <Z3SolverForm />
       </div> */}
-      {/* <div>
+      <div>
         <HelloForm />
-      </div> */}
+      </div>
     </main>
   );
 }

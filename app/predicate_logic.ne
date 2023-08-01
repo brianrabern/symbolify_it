@@ -1,13 +1,12 @@
 wff
-    -> predicate term_list
+    -> predicate term
+    | predicate term term
     | "¬" wff
     | "(" wff ws connective ws wff ")"
     | "∀" variable wff
     | "∃" variable wff
 
-
 term -> variable | constant
-term_list -> term | term_list term
 
 quantifier -> "∀"
 quantifier -> "∃"

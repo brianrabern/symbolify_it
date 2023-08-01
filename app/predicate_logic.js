@@ -7,7 +7,8 @@
   var grammarPred = {
     Lexer: undefined,
     ParserRules: [
-      { name: "wff", symbols: ["predicate", "term_list"] },
+      { name: "wff", symbols: ["predicate", "term"] },
+      { name: "wff", symbols: ["predicate", "term", "term"] },
       { name: "wff", symbols: [{ literal: "¬" }, "wff"] },
       {
         name: "wff",
@@ -25,8 +26,6 @@
       { name: "wff", symbols: [{ literal: "∃" }, "variable", "wff"] },
       { name: "term", symbols: ["variable"] },
       { name: "term", symbols: ["constant"] },
-      { name: "term_list", symbols: ["term"] },
-      { name: "term_list", symbols: ["term_list", "term"] },
       { name: "quantifier", symbols: [{ literal: "∀" }] },
       { name: "quantifier", symbols: [{ literal: "∃" }] },
       { name: "connective", symbols: [{ literal: "∧" }] },
