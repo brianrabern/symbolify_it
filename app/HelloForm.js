@@ -44,19 +44,30 @@ const HelloForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Enter formula:
-        <input
-          className="text-black"
-          type="text"
-          value={formula}
-          onChange={(e) => setFormula(e.target.value)}
-        />
-      </label>
-      <button type="submit">Submit</button>
-      <div>{result}</div>
-    </form>
+    <div>
+      <br />
+      <hr></hr>
+      <br />
+      <form onSubmit={handleSubmit}>
+        <h1>Testing for Z3 solver API (under construction)</h1>
+        <label>
+          Enter formula:
+          <input
+            className="text-black"
+            type="text"
+            value={formula}
+            onChange={(e) => setFormula(e.target.value)}
+          />
+        </label>
+        <button
+          className="px-4 py-1 mt-4 bg-red-500 hover:bg-blue-600 text-white rounded-md"
+          type="submit"
+        >
+          Z3 API
+        </button>
+        <div>{result}</div>
+      </form>
+    </div>
   );
 };
 
