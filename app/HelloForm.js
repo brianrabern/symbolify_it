@@ -1,5 +1,7 @@
 // helloForm.js
 import React, { useState } from "react";
+import { astToSmt2Prop } from "./astToSmt2Prop.js";
+import { generateSMTScriptProp } from "./generateSMTScriptProp.js";
 
 const HelloForm = () => {
   const [formula, setFormula] = useState("");
@@ -7,14 +9,15 @@ const HelloForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    let smtFormula = astToSmt2Prop(formula);
+    let script = generateSMTScriptProp(smtFormula);
     try {
       const response = await fetch("/api/hello", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ formula }),
+        body: JSON.stringify({ script }),
       });
 
       if (!response.ok) {

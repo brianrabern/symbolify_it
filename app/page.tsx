@@ -13,6 +13,7 @@ import grammarProp from "./propositional_logic.js";
 import { lexiconDataProp } from "./lexiconProp";
 import { GrCaretNext } from "react-icons/gr";
 import HelpWindow from "./HelpWindow";
+
 // import Z3SolverForm from "./Z3SolverForm";
 import HelloForm from "./HelloForm.js";
 
