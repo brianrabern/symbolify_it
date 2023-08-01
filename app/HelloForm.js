@@ -1,9 +1,9 @@
 // helloForm.js
 import React, { useState } from "react";
-import astToSmt2Prop from "./astToSmt2Prop.js";
-import generateSMTScriptProp from "./generateSMTScriptProp.js";
-import nearley from "nearley";
-import grammarProp from "./propositional_logic.js";
+// import astToSmt2Prop from "./astToSmt2Prop.js";
+// import generateSMTScriptProp from "./generateSMTScriptProp.js";
+// import nearley from "nearley";
+// import grammarProp from "./propositional_logic.js";
 
 const HelloForm = () => {
   const [formula, setFormula] = useState("");
@@ -12,23 +12,23 @@ const HelloForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const parser = new nearley.Parser(
-      nearley.Grammar.fromCompiled(grammarProp)
-    );
+    // const parser = new nearley.Parser(
+    //   nearley.Grammar.fromCompiled(grammarProp)
+    // );
 
-    const pform = parser.feed(formula).results[0];
-    const { smt2, propositions } = astToSmt2Prop(pform);
-    console.log(formula);
-    console.log(smt2);
-    const script = generateSMTScriptProp(smt2, propositions);
-    console.log(script);
+    // const pform = parser.feed(formula).results[0];
+    // const { smt2, propositions } = astToSmt2Prop(pform);
+    // console.log(formula);
+    // console.log(smt2);
+    // const script = generateSMTScriptProp(smt2, propositions);
+    // console.log(script);
     try {
       const response = await fetch("/api/hello", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ script }),
+        body: JSON.stringify({ formula }),
       });
 
       if (!response.ok) {
