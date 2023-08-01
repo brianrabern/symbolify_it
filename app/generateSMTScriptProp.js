@@ -5,7 +5,7 @@ export default function generateSMTScriptProp(
   function generateDeclarations(variables) {
     let declarations = "";
     variables.forEach((variable) => {
-      declarations += `(declare-const ${variable} Bool)\n`;
+      declarations += `(declare-fun ${variable} () Bool))\n`;
     });
     return declarations;
   }

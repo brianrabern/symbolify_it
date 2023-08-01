@@ -18,8 +18,10 @@ const HelloForm = () => {
 
     const pform = parser.feed(formula).results[0];
     const { smt2, propositions } = astToSmt2Prop(pform);
+    console.log(formula);
+    console.log(smt2);
     const script = generateSMTScriptProp(smt2, propositions);
-
+    console.log(script);
     try {
       const response = await fetch("/api/hello", {
         method: "POST",
