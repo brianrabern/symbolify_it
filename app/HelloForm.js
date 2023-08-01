@@ -1,7 +1,9 @@
 // helloForm.js
 import React, { useState } from "react";
-import { astToSmt2Prop } from "./astToSmt2Prop.js";
-import { generateSMTScriptProp } from "./generateSMTScriptProp.js";
+import astToSmt2Prop from "./astToSmt2Prop.js";
+import generateSMTScriptProp from "./generateSMTScriptProp.js";
+import nearley from "nearley";
+import grammarProp from "./propositional_logic.js";
 
 const HelloForm = () => {
   const [formula, setFormula] = useState("");
@@ -9,8 +11,15 @@ const HelloForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let smtFormula = astToSmt2Prop(formula);
-    let script = generateSMTScriptProp(smtFormula);
+
+    const parser = new nearley.Parser(
+      nearley.Grammar.fromCompiled(grammarProp)
+    );
+
+    const pform = parser.feed(formula).results[0];
+    const { smt2, propositions } = astToSmt2Prop(pform);
+    const script = generateSMTScriptProp(smt2, propositions);
+
     try {
       const response = await fetch("/api/hello", {
         method: "POST",

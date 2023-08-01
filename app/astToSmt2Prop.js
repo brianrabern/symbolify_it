@@ -1,5 +1,5 @@
 // Abstract syntax tree (Nearley.js) to SMT-LIB converter for propositional logic
-export function astToSmt2Prop(ast) {
+export default function astToSmt2Prop(ast) {
   // Helper function to map connective symbols to SMT-LIB format
   function mapConnectiveSmt(connective) {
     const connectiveMap = {
