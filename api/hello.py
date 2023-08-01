@@ -1,7 +1,6 @@
 # hello.py
 
 from http.server import BaseHTTPRequestHandler
-import json
 import z3
 
 
@@ -15,8 +14,8 @@ class handler(BaseHTTPRequestHandler):
         try:
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
-            data = json.loads(post_data.decode('utf-8'))
-            formula = data.get('formula', '')
+            # Read the plain text data from the request body
+            formula = post_data.decode('utf-8')
 
             result = self.check_formula(formula)
             self.wfile.write(result.encode('utf-8'))
@@ -28,12 +27,15 @@ class handler(BaseHTTPRequestHandler):
             # Parse the SMT-LIB formula using Z3 parser
             parsed_formula = z3.parse_smt2_string(formula)
 
+            z3_formula = z3.And(*parsed_formula)
+
+            print(z3_formula)
+
             # Create the solver
             solver = z3.Solver()
 
-            # Add the individual formulas to the solver
-            for sub_formula in parsed_formula:
-                solver.add(sub_formula)
+            # Add the formula to the solver
+            solver.add(z3_formula)
 
             # Check for satisfiability
             result = solver.check()

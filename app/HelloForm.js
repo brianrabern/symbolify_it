@@ -28,7 +28,7 @@ const HelloForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ script }),
+        body: script,
       });
 
       if (!response.ok) {

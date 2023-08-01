@@ -2,11 +2,12 @@ import z3
 
 
 def check_satisfiability(smt_script):
-    # Parse the SMT-LIB script
-    exprs = z3.parse_smt2_string(smt_script)
+    # Parse the SMT-LIB formula using Z3 parser
+    parsed_formula = z3.parse_smt2_string(smt_script)
 
-    # Combine all expressions using the And function
-    z3_formula = z3.And(*exprs)
+    z3_formula = z3.And(*parsed_formula)
+
+    print(z3_formula)
 
     # Create the solver
     solver = z3.Solver()
@@ -25,6 +26,12 @@ smt_script = """
 (declare-const P Bool)
 (assert (and P (not P)))
 """
+
+
+# """
+# (declare-const P Bool)
+# (assert (and P (not P)))
+# """
 
 result = check_satisfiability(smt_script)
 
