@@ -25,18 +25,17 @@ class handler(BaseHTTPRequestHandler):
 
     def check_formula(self, formula):
         try:
+            # Combine all the assertions into a single conjunction
+            combined_formula = f"(and {formula})"
+            print(combined_formula)
             # Parse the SMT-LIB formula using Z3 parser
-            parsed_formula = z3.parse_smt2_string(formula)
-
-            z3_formula = z3.And(*parsed_formula)
-
-            print(z3_formula)
+            parsed_formula = z3.parse_smt2_string(combined_formula)
 
             # Create the solver
             solver = z3.Solver()
 
             # Add the formula to the solver
-            solver.add(z3_formula)
+            solver.add(parsed_formula)
 
             # Check for satisfiability
             result = solver.check()
