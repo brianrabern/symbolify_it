@@ -16,6 +16,7 @@ import HelpWindow from "./HelpWindow";
 
 // import Z3SolverForm from "./Z3SolverForm";
 import HelloForm from "./HelloForm.js";
+import generateSMTScriptProp from "./generateSMTScriptProp";
 
 type SOA = {
   [key: string]: string;
@@ -248,6 +249,31 @@ export default function Home() {
   //     setResult("Error: Unable to process the request");
   //   }
   // };
+  async function processSmtPairs(userSmt, sysSmtps) {
+    const results = [];
+  
+    for (const sysSmt of sysSmtps) {
+      let script = generateSMTScriptProp(userSmt, sysSmt);
+      const result = await checkEquivalence(userSmt, smtUserDecs, sysSmt, smtSysDecs);
+      results.push(result);
+    }
+  
+    return results;
+  }
+  
+  // (async () => {
+  //   const userSmt = smtUser;
+  //   const sysSmtps = alphaConSysProp?.map((formula) => astToSmt2Prop(formula));
+    
+  //   const results = await processSmtPairs(userSmt, sysSmtps);
+  
+  //   if (results.includes(true)) {
+  //     // Do something when at least one result is true
+  //   } else {
+  //     // Do something when all results are false
+  //   }
+  // })();
+  
 
   const handleCheck = () => {
     let results;
@@ -260,8 +286,9 @@ export default function Home() {
     if (logic === "prop") {
       let alphaConSysProp = selectedProblemObj?.form.map((formula) =>
         alphaConversionProp(selectedProblemObj?.soa, formula)
-      );
-
+      );//list of alpha variants of system formulas
+      let smtSysProps = alphaConSysProp?.map((formula) => astToSmt2Prop(formula));//list of smt formulas and props of system formulas
+      
       // check if user formula is well-formed using nearley parser for propositional logic
       try {
         const parser = new nearley.Parser(
@@ -270,9 +297,9 @@ export default function Home() {
         parser.feed(userFormula);
         // set results to the parsed result if successful
         results = parser.results[0];
-
-        //check if user formula is an alpha variant of system formula
+      
         let alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
+        //check if user formula is a simple alpha-variant of system formula
         if (alphaConSysProp?.includes(alphaConUserProp)) {
           setSuccess(true);
           setSuccessText("Your symbolization and scheme are perfect.");
@@ -282,7 +309,15 @@ export default function Home() {
               "Note: The English sentence is ambiguous. This symbolization captures one reading."
             );
           }
-        } else if (!alphaConSysProp?.includes(alphaConUserProp)) {
+        } else if (0==1){ //check if user formula is logically equivalent to one of the system formulas
+          console.log("logically equivalant")
+          // take alphaConUserProp apply astToSmt2Prop to it
+          // take each formula in alphaConSysProp and apply astToSmt2Prop to it
+          // for each formula in alphaConSysProp generate a Smt script that checks whether it is equivlenat to user formula
+          // if it is, then set success to true
+
+        }
+        else if (!alphaConSysProp?.includes(alphaConUserProp)) {
           setError(true);
           setErrorText(
             "There is something wrong with your symbolization or scheme..."
