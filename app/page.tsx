@@ -258,13 +258,12 @@ export default function Home() {
 
   async function processSmtPairs(userSmt, sysSmts) {
     const results = [];
-    console.log("userSmt process:", userSmt);
-    console.log("sysSmt process:", sysSmts);
     for (const sysSmt of sysSmts) {
       let script = generateSMTScriptProp(userSmt, sysSmt);
+      console.log("script: ", script);
       const result = await checkEquiv(script);
+      console.log("result: ", result);
       results.push(result);
-      console.log("processSMT results: ", results);
     }
 
     // Check the contents of the results array
