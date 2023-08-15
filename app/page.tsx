@@ -267,10 +267,10 @@ export default function Home() {
     }
 
     // Check the contents of the results array
-    if (results.includes("True")) {
-      return true; // At least one "True" result found
-    } else if (results.every((result) => result === "False")) {
-      return false; // All results are "False"
+    if (results.includes("unsat")) {
+      return true; // at least one equivalant result found
+    } else if (results.every((result) => result === "sat")) {
+      return false; // no equivalant result found
     } else {
       console.error("Error: Mixed results encountered");
     }
@@ -346,6 +346,8 @@ export default function Home() {
 
       let sysSmts = sysAsts?.map((ast) => astToSmt2Prop(ast)); //get list of system smt formulas and props of system formulas
       console.log("sysSmts: ", sysSmts);
+
+      console.log("equiv?: ", processSmtPairs(userSmt, sysSmts));
 
       if (processSmtPairs(userSmt, sysSmts)) {
         setSuccess(true);

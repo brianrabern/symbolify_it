@@ -41,9 +41,9 @@ class handler(BaseHTTPRequestHandler):
             result = solver.check()
 
             if result == z3.sat:
-                return "True"
+                return "sat"
             elif result == z3.unsat:
-                return "False"
+                return "unsat"
             else:
                 return "Unable to determine the satisfiability."
         except Exception as e:
