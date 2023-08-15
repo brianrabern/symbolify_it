@@ -264,6 +264,7 @@ export default function Home() {
       const result = await checkEquiv(script);
       console.log("result: ", result);
       results.push(result);
+      console.log("results: ", results);
     }
 
     // Check the contents of the results array
@@ -272,7 +273,7 @@ export default function Home() {
     } else if (results.every((result) => result === "sat")) {
       return false; // no equivalant result found
     } else {
-      console.error("Error: Mixed results encountered");
+      console.log("Error: Mixed results encountered");
     }
   }
 
@@ -292,7 +293,7 @@ export default function Home() {
     return parser.results[0];
   };
 
-  const checkProp = () => {
+  const checkProp = async () => {
     //check if well-formed (or well-formed with added brackets)
     let isWellFormed = syntaxCheck(userFormula, grammarProp)[0];
     if (!isWellFormed) {
@@ -348,8 +349,9 @@ export default function Home() {
       console.log("sysSmts: ", sysSmts);
 
       console.log("equiv?: ", processSmtPairs(userSmt, sysSmts));
-
-      if (processSmtPairs(userSmt, sysSmts)) {
+      const equiv = await processSmtPairs(userSmt, sysSmts);
+      if (equiv) {
+        console.log("success");
         setSuccess(true);
         setSuccessText(
           "Your symbolization is correct. \nIt might be deviant but it is logically equivalent to a correct answer."
@@ -360,6 +362,12 @@ export default function Home() {
             "Note: The English sentence is ambiguous. This symbolization captures one reading."
           );
         }
+      } else if (!equiv) {
+        console.log("error");
+        setError(true);
+        setErrorText(
+          "Your symbolization is not logically equivalent to a correct answer"
+        );
       }
     } else {
       setError(true);
