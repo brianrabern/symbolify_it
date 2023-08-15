@@ -293,15 +293,17 @@ export default function Home() {
     return parser.results[0];
   };
 
+  console.log("userFormula: ", userFormula);
   const checkProp = async () => {
     //check if well-formed (or well-formed with added brackets)
+
     let isWellFormed = syntaxCheck(userFormula, grammarProp);
     if (!isWellFormed) {
       const userFormulaBrackets = "(" + userFormula + ")";
       isWellFormed = syntaxCheck(userFormulaBrackets, grammarProp);
-      isWellFormed
-        ? setUserFormula(userFormulaBrackets)
-        : setUserFormula(userFormula);
+      if (isWellFormed) {
+        setUserFormula(userFormulaBrackets);
+      }
     }
 
     if (!isWellFormed) {
