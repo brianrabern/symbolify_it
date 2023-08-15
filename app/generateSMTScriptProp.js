@@ -1,6 +1,7 @@
 export default function generateSMTScriptProp(userSmt, sysSmt) {
+  const declarationsSet = new Set(); // track declared propositions
+
   function generateDeclarations(propositions) {
-    const declarationsSet = new Set(); // track declared propositions
     let declarations = "";
 
     propositions.forEach((proposition) => {
