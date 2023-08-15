@@ -1,8 +1,6 @@
-export default function generateSMTScriptProp(
-  userSmt,sysSmt
-) {
-  let {userSmtFormula,userPropositionLetters} = userSmt;
-  let {sysSmtFormula,sysPropositionLetters} = sysSmt;
+export default function generateSMTScriptProp(userSmt, sysSmt) {
+  let { userSmtFormula, userPropositionLetters } = userSmt;
+  let { sysSmtFormula, sysPropositionLetters } = sysSmt;
   function generateDeclarations(propositions) {
     let declarations = "";
     propositions.forEach((proposition) => {
@@ -11,15 +9,15 @@ export default function generateSMTScriptProp(
     return declarations;
   }
 
-  const declarationsString = generateDeclarations(userPropositionLetters) + generateDeclarations(sysPropositionLetters);
+  const declarationsString =
+    generateDeclarations(userPropositionLetters) +
+    generateDeclarations(sysPropositionLetters);
 
-  return `${declarationsString}(assert ${smtFormula})`;
+  return `${declarationsString}(assert (not (= ${userSmtFormula} ${sysSmtFormula})))`;
 }
-`${declarationsString}(assert (not (= ${userSmtFormula} ${sysSmtFormula})))`
 
 // (assert (not (= Formula1 Formula2)))
 //for example: p and ~~p
 // assume not equivalent: ~(p iff ~~p)
 // if sat then not equivalent
 // if unsat then equivalent
-

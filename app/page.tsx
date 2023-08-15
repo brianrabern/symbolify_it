@@ -13,7 +13,7 @@ import grammarProp from "./propositional_logic.js";
 import { lexiconDataProp } from "./lexiconProp";
 import { GrCaretNext } from "react-icons/gr";
 import HelpWindow from "./HelpWindow";
-
+import astToSmt2Prop from "./astToSmt2Prop.js";
 // import Z3SolverForm from "./Z3SolverForm";
 import HelloForm from "./HelloForm.js";
 import generateSMTScriptProp from "./generateSMTScriptProp";
@@ -231,49 +231,48 @@ export default function Home() {
     document.getElementById("userInput")?.focus();
   };
 
-  // const checkEquiv = async () => {
-  //   // Make a POST request to the Python Serverless Function
-  //   try {
-  //     const response = await fetch("/api/hello", {
-  //       method: "POST",
-  //       body: JSON.stringify({ userFormula, formula2 }),
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
+  const checkEquiv = async (smtScript: string) => {
+    let data = ""; // Initialize data with a default value
 
-  //     const data = await response.json();
-  //     setResult(data.result);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //     setResult("Error: Unable to process the request");
-  //   }
-  // };
+    try {
+      const response = await fetch("/api/hello", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: smtScript,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch the data.");
+      }
+
+      data = await response.text(); // Assign the response data to 'data'
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    return data; // Return the value of 'data'
+  };
+
   async function processSmtPairs(userSmt, sysSmtps) {
     const results = [];
-  
+
     for (const sysSmt of sysSmtps) {
       let script = generateSMTScriptProp(userSmt, sysSmt);
-      const result = await checkEquivalence(userSmt, smtUserDecs, sysSmt, smtSysDecs);
+      const result = await checkEquiv(script);
       results.push(result);
     }
-  
-    return results;
+
+    // Check the contents of the results array
+    if (results.includes("True")) {
+      return true; // At least one "True" result found
+    } else if (results.every((result) => result === "False")) {
+      return false; // All results are "False"
+    } else {
+      console.error("Error: Mixed results encountered");
+    }
   }
-  
-  // (async () => {
-  //   const userSmt = smtUser;
-  //   const sysSmtps = alphaConSysProp?.map((formula) => astToSmt2Prop(formula));
-    
-  //   const results = await processSmtPairs(userSmt, sysSmtps);
-  
-  //   if (results.includes(true)) {
-  //     // Do something when at least one result is true
-  //   } else {
-  //     // Do something when all results are false
-  //   }
-  // })();
-  
 
   const handleCheck = () => {
     let results;
@@ -281,14 +280,13 @@ export default function Home() {
     for (let entry of userSoa) {
       userSoaFlat[entry.symbol] = entry.lexicon;
     }
-    console.log(alphaConversionPred(userSoaFlat, userFormula));
+
     //propositional logic checks
     if (logic === "prop") {
-      let alphaConSysProp = selectedProblemObj?.form.map((formula) =>
+      let alphaConSysProps = selectedProblemObj?.form.map((formula) =>
         alphaConversionProp(selectedProblemObj?.soa, formula)
-      );//list of alpha variants of system formulas
-      let smtSysProps = alphaConSysProp?.map((formula) => astToSmt2Prop(formula));//list of smt formulas and props of system formulas
-      
+      ); //list of alpha variants of system formulas
+
       // check if user formula is well-formed using nearley parser for propositional logic
       try {
         const parser = new nearley.Parser(
@@ -297,27 +295,38 @@ export default function Home() {
         parser.feed(userFormula);
         // set results to the parsed result if successful
         results = parser.results[0];
-      
+
         let alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
+
         //check if user formula is a simple alpha-variant of system formula
-        if (alphaConSysProp?.includes(alphaConUserProp)) {
+        if (alphaConSysProps?.includes(alphaConUserProp)) {
           setSuccess(true);
           setSuccessText("Your symbolization and scheme are perfect.");
-          if (alphaConSysProp.length > 1) {
+          if (alphaConSysProps.length > 1) {
             setNote(true);
             setNoteText(
               "Note: The English sentence is ambiguous. This symbolization captures one reading."
             );
           }
-        } else if (0==1){ //check if user formula is logically equivalent to one of the system formulas
-          console.log("logically equivalant")
-          // take alphaConUserProp apply astToSmt2Prop to it
-          // take each formula in alphaConSysProp and apply astToSmt2Prop to it
-          // for each formula in alphaConSysProp generate a Smt script that checks whether it is equivlenat to user formula
-          // if it is, then set success to true
-
-        }
-        else if (!alphaConSysProp?.includes(alphaConUserProp)) {
+        } else if (!alphaConSysProps?.includes(alphaConUserProp)) {
+          let smtSysProps = alphaConSysProps?.map((formula) =>
+            astToSmt2Prop(formula)
+          ); //list of system smt formulas and props of system formulas
+          let smtUserProp = astToSmt2Prop(alphaConUserProp); //user smt formulas and props of user formulas
+          if (processSmtPairs(smtUserProp, smtSysProps)) {
+            setSuccess(true);
+            setSuccessText(
+              "Your symbolization and scheme are logically equivelant to a correct answer."
+            );
+            if (alphaConSysProps.length > 1) {
+              setNote(true);
+              setNoteText(
+                "Note: The English sentence is ambiguous. This symbolization captures one reading."
+              );
+            }
+          }
+          //check if user formula is logically equivalent to one of the system formulas
+        } else {
           setError(true);
           setErrorText(
             "There is something wrong with your symbolization or scheme..."
@@ -343,16 +352,16 @@ export default function Home() {
               userSoaFlat,
               userFormulaUpdated
             );
-            if (alphaConSysProp?.includes(alphaConUserProp)) {
+            if (alphaConSysProps?.includes(alphaConUserProp)) {
               setSuccess(true);
               setSuccessText("Your symbolization and scheme are perfect.");
-              if (alphaConSysProp.length > 1) {
+              if (alphaConSysProps.length > 1) {
                 setNote(true);
                 setNoteText(
                   "Note: The English sentence is ambiguous. This symbolization captures one reading."
                 );
               }
-            } else if (!alphaConSysProp?.includes(alphaConUserProp)) {
+            } else if (!alphaConSysProps?.includes(alphaConUserProp)) {
               setError(true);
               setErrorText(
                 "There is something wrong with your symbolization or scheme..."
