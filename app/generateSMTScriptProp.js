@@ -1,9 +1,15 @@
 export default function generateSMTScriptProp(userSmt, sysSmt) {
   function generateDeclarations(propositions) {
+    const declarationsSet = new Set(); // track declared propositions
     let declarations = "";
+
     propositions.forEach((proposition) => {
-      declarations += `(declare-const ${proposition} Bool)\n`;
+      if (!declarationsSet.has(proposition)) {
+        declarations += `(declare-const ${proposition} Bool)\n`;
+        declarationsSet.add(proposition); // mark proposition as declared
+      }
     });
+
     return declarations;
   }
 
