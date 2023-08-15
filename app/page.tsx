@@ -231,8 +231,9 @@ export default function Home() {
     document.getElementById("userInput")?.focus();
   };
 
+  //send to Z3 API to check for logical equivalence
   const checkEquiv = async (smtScript: string) => {
-    let data = ""; // Initialize data with a default value
+    let data = "";
 
     try {
       const response = await fetch("/api/hello", {
@@ -247,12 +248,12 @@ export default function Home() {
         throw new Error("Failed to fetch the data.");
       }
 
-      data = await response.text(); // Assign the response data to 'data'
+      data = await response.text();
     } catch (error) {
       console.error("Error:", error);
     }
 
-    return data; // Return the value of 'data'
+    return data;
   };
 
   async function processSmtPairs(userSmt, sysSmtps) {
@@ -274,188 +275,286 @@ export default function Home() {
     }
   }
 
-  const handleCheck = () => {
-    let results;
+  const syntaxCheck = (formula, grammar) => {
+    try {
+      const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
+      parser.feed(formula);
+      return [parser.results.length === 1, parser.results[0]];
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const formulaToAst = (formula, grammar) => {
+    const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
+    parser.feed(formula);
+    return parser.results[0];
+  };
+
+  const checkProp = () => {
+    //check if well-formed (or well-formed with added brackets)
+    let isWellFormed = syntaxCheck(userFormula, grammarProp)[0];
+    if (!isWellFormed) {
+      const userFormulaBrackets = "(" + userFormula + ")";
+      isWellFormed = syntaxCheck(userFormulaBrackets, grammarProp)[0];
+      isWellFormed
+        ? setUserFormula(userFormulaBrackets)
+        : setUserFormula(userFormula);
+    }
+
+    if (!isWellFormed) {
+      setError(true);
+      setErrorText("Your input is not well-formed. Check the syntax.");
+      return;
+    }
+
+    //get userSoa
     let userSoaFlat: SOA = {};
     for (let entry of userSoa) {
       userSoaFlat[entry.symbol] = entry.lexicon;
     }
+    //alpha convert user formula
+    let alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
+    //list of alpha variants of system formulas
+    let alphaConSysProps = selectedProblemObj?.form.map((formula) =>
+      alphaConversionProp(selectedProblemObj?.soa, formula)
+    );
 
-    //propositional logic checks
-    if (logic === "prop") {
-      let alphaConSysProps = selectedProblemObj?.form.map((formula) =>
-        alphaConversionProp(selectedProblemObj?.soa, formula)
-      ); //list of alpha variants of system formulas
-
-      // check if user formula is well-formed using nearley parser for propositional logic
-      try {
-        const parser = new nearley.Parser(
-          nearley.Grammar.fromCompiled(grammarProp)
+    //check if user formula is a simple alpha-variant of system formula
+    if (alphaConSysProps?.includes(alphaConUserProp)) {
+      setSuccess(true);
+      setSuccessText("Your symbolization and scheme are perfect.");
+      if (alphaConSysProps.length > 1) {
+        setNote(true);
+        setNoteText(
+          "Note: The English sentence is ambiguous. This symbolization captures one reading."
         );
-        parser.feed(userFormula);
-        // set results to the parsed result if successful
-        results = parser.results[0];
+      }
+    } else if (!alphaConSysProps?.includes(alphaConUserProp)) {
+      //if not a simple alpha variant, check if alpha conversion is logically equivalent to one of the system formula alpha conversions
 
-        let alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
+      let userAst = formulaToAst(alphaConUserProp, grammarProp); // get user ast
+      console.log("userAst: ", userAst);
+      let userSmt = astToSmt2Prop(userAst); //get user smt formula
+      console.log("userSmt: ", userSmt);
 
-        //check if user formula is a simple alpha-variant of system formula
-        if (alphaConSysProps?.includes(alphaConUserProp)) {
-          setSuccess(true);
-          setSuccessText("Your symbolization and scheme are perfect.");
-          if (alphaConSysProps.length > 1) {
-            setNote(true);
-            setNoteText(
-              "Note: The English sentence is ambiguous. This symbolization captures one reading."
-            );
-          }
-        } else if (!alphaConSysProps?.includes(alphaConUserProp)) {
-          let smtSysProps = alphaConSysProps?.map((formula) =>
-            astToSmt2Prop(formula)
-          ); //list of system smt formulas and props of system formulas
-          let smtUserProp = astToSmt2Prop(alphaConUserProp); //user smt formulas and props of user formulas
-          if (processSmtPairs(smtUserProp, smtSysProps)) {
-            setSuccess(true);
-            setSuccessText(
-              "Your symbolization and scheme are logically equivelant to a correct answer."
-            );
-            if (alphaConSysProps.length > 1) {
-              setNote(true);
-              setNoteText(
-                "Note: The English sentence is ambiguous. This symbolization captures one reading."
-              );
-            }
-          }
-          //check if user formula is logically equivalent to one of the system formulas
-        } else {
-          setError(true);
-          setErrorText(
-            "There is something wrong with your symbolization or scheme..."
+      let sysAsts = alphaConSysProps?.map((formula) => {
+        return formulaToAst(formula, grammarProp);
+      }); //get list of system asts
+      console.log("sysAsts: ", sysAsts);
+
+      let sysSmts = sysAsts?.map((ast) => astToSmt2Prop(ast)); //get list of system smt formulas and props of system formulas
+      console.log("sysSmts: ", sysSmts);
+
+      if (processSmtPairs(userSmt, sysSmts)) {
+        setSuccess(true);
+        setSuccessText(
+          "Your symbolization and scheme are logically equivelant to a correct answer."
+        );
+        if (alphaConSysProps.length > 1) {
+          setNote(true);
+          setNoteText(
+            "Note: The English sentence is ambiguous. This symbolization captures one reading."
           );
-        }
-      } catch (error: any) {
-        // if there's an error, try parsing with added parentheses
-        try {
-          const parser = new nearley.Parser(
-            nearley.Grammar.fromCompiled(grammarProp)
-          );
-          parser.feed("(" + userFormula + ")");
-
-          // add parentheses to the user formula if successful
-          if (parser.results[0] != 0) {
-            let userFormulaUpdated = "(" + userFormula + ")";
-            setUserFormula(userFormulaUpdated);
-            console.log("userFormulaUpdated: ", userFormulaUpdated);
-            results = parser.results[0];
-
-            //check if user formula is an alpha variant of system formula
-            let alphaConUserProp = alphaConversionProp(
-              userSoaFlat,
-              userFormulaUpdated
-            );
-            if (alphaConSysProps?.includes(alphaConUserProp)) {
-              setSuccess(true);
-              setSuccessText("Your symbolization and scheme are perfect.");
-              if (alphaConSysProps.length > 1) {
-                setNote(true);
-                setNoteText(
-                  "Note: The English sentence is ambiguous. This symbolization captures one reading."
-                );
-              }
-            } else if (!alphaConSysProps?.includes(alphaConUserProp)) {
-              setError(true);
-              setErrorText(
-                "There is something wrong with your symbolization or scheme..."
-              );
-            }
-          }
-        } catch (nestedError) {
-          // handle the error when both attempts fail
-          setError(true);
-          setErrorText("Your formula is not well-formed.");
-          console.log("Parsing error:", error.message);
-          console.log("Parsing error with parentheses:", nestedError);
         }
       }
+    } else {
+      setError(true);
+      setErrorText(
+        "There is something wrong with your symbolization or scheme..."
+      );
+    }
+    // console.log("well formed?: ", isWellFormed);
+    // console.log("alphaConUserProp : ", alphaConUserProp);
+    // console.log("alphaConSysProps : ", alphaConSysProps);
+  };
+
+  //   let alphaConSysProps = selectedProblemObj?.form.map((formula) =>
+  //   alphaConversionProp(selectedProblemObj?.soa, formula)
+  // ); //list of alpha variants of system formulas
+
+  // // check if user formula is well-formed using nearley parser for propositional logic
+  // try {
+  //   const parser = new nearley.Parser(
+  //     nearley.Grammar.fromCompiled(grammarProp)
+  //   );
+  //   parser.feed(userFormula);
+  //   // set results to the parsed result if successful
+  //   // results = parser.results[0];
+
+  //   let alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
+
+  //   //check if user formula is a simple alpha-variant of system formula
+  //   if (alphaConSysProps?.includes(alphaConUserProp)) {
+  //     setSuccess(true);
+  //     setSuccessText("Your symbolization and scheme are perfect.");
+  //     if (alphaConSysProps.length > 1) {
+  //       setNote(true);
+  //       setNoteText(
+  //         "Note: The English sentence is ambiguous. This symbolization captures one reading."
+  //       );
+  //     }
+  //   } else if (!alphaConSysProps?.includes(alphaConUserProp)) {
+  //     let smtSysProps = alphaConSysProps?.map((formula) =>
+  //       astToSmt2Prop(formula)
+  //     ); //list of system smt formulas and props of system formulas
+  //     let smtUserProp = astToSmt2Prop(alphaConUserProp); //user smt formulas and props of user formulas
+  //     if (processSmtPairs(smtUserProp, smtSysProps)) {
+  //       setSuccess(true);
+  //       setSuccessText(
+  //         "Your symbolization and scheme are logically equivelant to a correct answer."
+  //       );
+  //       if (alphaConSysProps.length > 1) {
+  //         setNote(true);
+  //         setNoteText(
+  //           "Note: The English sentence is ambiguous. This symbolization captures one reading."
+  //         );
+  //       }
+  //     }
+  //     //check if user formula is logically equivalent to one of the system formulas
+  //   } else {
+  //     setError(true);
+  //     setErrorText(
+  //       "There is something wrong with your symbolization or scheme..."
+  //     );
+  //   }
+  // } catch (error: any) {
+  //   // if there's an error, try parsing with added parentheses
+  //   try {
+  //     const parser = new nearley.Parser(
+  //       nearley.Grammar.fromCompiled(grammarProp)
+  //     );
+  //     parser.feed("(" + userFormula + ")");
+
+  //     // add parentheses to the user formula if successful
+  //     if (parser.results[0] != 0) {
+  //       let userFormulaUpdated = "(" + userFormula + ")";
+  //       setUserFormula(userFormulaUpdated);
+  //       console.log("userFormulaUpdated: ", userFormulaUpdated);
+  //       // results = parser.results[0];
+
+  //       //check if user formula is an alpha variant of system formula
+  //       let alphaConUserProp = alphaConversionProp(
+  //         userSoaFlat,
+  //         userFormulaUpdated
+  //       );
+  //       if (alphaConSysProps?.includes(alphaConUserProp)) {
+  //         setSuccess(true);
+  //         setSuccessText("Your symbolization and scheme are perfect.");
+  //         if (alphaConSysProps.length > 1) {
+  //           setNote(true);
+  //           setNoteText(
+  //             "Note: The English sentence is ambiguous. This symbolization captures one reading."
+  //           );
+  //         }
+  //       } else if (!alphaConSysProps?.includes(alphaConUserProp)) {
+  //         setError(true);
+  //         setErrorText(
+  //           "There is something wrong with your symbolization or scheme..."
+  //         );
+  //       }
+  //     }
+  //   } catch (nestedError) {
+  //     // handle the error when both attempts fail
+  //     setError(true);
+  //     setErrorText("Your formula is not well-formed.");
+  //     console.log("Parsing error:", error.message);
+  //     console.log("Parsing error with parentheses:", nestedError);
+  //   }
+  // }
+
+  const checkPred = () => {
+    console.log("checkPred");
+  };
+
+  const handleCheck = () => {
+    //propositional logic checks
+    if (logic === "prop") {
+      checkProp();
+    }
+
+    if (logic === "pred") {
+      checkPred();
     }
 
     // //predicate logic checks
-    if (logic === "pred") {
-      let alphaConSysPred = selectedProblemObj?.form.map((formula) =>
-        alphaConversionPred(selectedProblemObj?.soa, formula)
-      );
+    // if (logic === "pred") {
+    //   let alphaConSysPred = selectedProblemObj?.form.map((formula) =>
+    //     alphaConversionPred(selectedProblemObj?.soa, formula)
+    //   );
 
-      // check if user formula is well-formed using nearley parser
-      try {
-        const parser = new nearley.Parser(
-          nearley.Grammar.fromCompiled(grammarPred)
-        );
-        parser.feed(alphaConversionPred(userSoaFlat, userFormula));
-        // set results to the parsed result if successful
-        results = parser.results[0];
-        console.log(parser.results[0]);
-        //check if user formula is an alpha variant of system formula
-        let alphaConUserPred = alphaConversionPred(userSoaFlat, userFormula);
-        if (alphaConSysPred?.includes(alphaConUserPred)) {
-          setSuccess(true);
-          setSuccessText("Your symbolization and scheme are perfect.");
-          if (alphaConSysPred.length > 1) {
-            setNote(true);
-            setNoteText(
-              "Note: The English sentence is ambiguous. This symbolization captures one reading."
-            );
-          }
-        } else if (!alphaConSysPred?.includes(alphaConUserPred)) {
-          setError(true);
-          setErrorText(
-            "There is something wrong with your symbolization or scheme..."
-          );
-        }
-      } catch (error: any) {
-        // if there's an error, try parsing with added parentheses
-        try {
-          const parser = new nearley.Parser(
-            nearley.Grammar.fromCompiled(grammarPred)
-          );
-          parser.feed("(" + userFormula + ")");
+    //   // check if user formula is well-formed using nearley parser
+    //   try {
+    //     const parser = new nearley.Parser(
+    //       nearley.Grammar.fromCompiled(grammarPred)
+    //     );
+    //     parser.feed(alphaConversionPred(userSoaFlat, userFormula));
+    //     // set results to the parsed result if successful
+    //     results = parser.results[0];
+    //     console.log(parser.results[0]);
+    //     //check if user formula is an alpha variant of system formula
+    //     let alphaConUserPred = alphaConversionPred(userSoaFlat, userFormula);
+    //     if (alphaConSysPred?.includes(alphaConUserPred)) {
+    //       setSuccess(true);
+    //       setSuccessText("Your symbolization and scheme are perfect.");
+    //       if (alphaConSysPred.length > 1) {
+    //         setNote(true);
+    //         setNoteText(
+    //           "Note: The English sentence is ambiguous. This symbolization captures one reading."
+    //         );
+    //       }
+    //     } else if (!alphaConSysPred?.includes(alphaConUserPred)) {
+    //       setError(true);
+    //       setErrorText(
+    //         "There is something wrong with your symbolization or scheme..."
+    //       );
+    //     }
+    //   } catch (error: any) {
+    //     // if there's an error, try parsing with added parentheses
+    //     try {
+    //       const parser = new nearley.Parser(
+    //         nearley.Grammar.fromCompiled(grammarPred)
+    //       );
+    //       parser.feed("(" + userFormula + ")");
 
-          // add parentheses to the user formula if successful
-          if (parser.results[0] != 0) {
-            let userFormulaUpdated = "(" + userFormula + ")";
-            setUserFormula(userFormulaUpdated);
-            console.log("userFormulaUpdated: ", userFormulaUpdated);
-            results = parser.results[0];
+    //       // add parentheses to the user formula if successful
+    //       if (parser.results[0] != 0) {
+    //         let userFormulaUpdated = "(" + userFormula + ")";
+    //         setUserFormula(userFormulaUpdated);
+    //         console.log("userFormulaUpdated: ", userFormulaUpdated);
+    //         results = parser.results[0];
 
-            //check if user formula is an alpha variant of system formula
-            let alphaConUserPred = alphaConversionPred(
-              userSoaFlat,
-              userFormulaUpdated
-            );
+    //         //check if user formula is an alpha variant of system formula
+    //         let alphaConUserPred = alphaConversionPred(
+    //           userSoaFlat,
+    //           userFormulaUpdated
+    //         );
 
-            if (alphaConSysPred?.includes(alphaConUserPred)) {
-              setSuccess(true);
-              setSuccessText("Your symbolization and scheme are perfect.");
-              if (alphaConSysPred.length > 1) {
-                setNote(true);
-                setNoteText(
-                  "Note: The English sentence is ambiguous. This symbolization captures one reading."
-                );
-              }
-            } else if (!alphaConSysPred?.includes(alphaConUserPred)) {
-              setError(true);
-              setErrorText(
-                "There is something wrong with your symbolization or scheme..."
-              );
-            }
-          }
-        } catch (nestedError) {
-          // handle the error when both attempts fail
-          setError(true);
-          setErrorText("Your formula is not well-formed.");
-          console.log("Parsing error:", error.message);
-          console.log("Parsing error with parentheses:", nestedError);
-        }
-      }
-    }
+    //         if (alphaConSysPred?.includes(alphaConUserPred)) {
+    //           setSuccess(true);
+    //           setSuccessText("Your symbolization and scheme are perfect.");
+    //           if (alphaConSysPred.length > 1) {
+    //             setNote(true);
+    //             setNoteText(
+    //               "Note: The English sentence is ambiguous. This symbolization captures one reading."
+    //             );
+    //           }
+    //         } else if (!alphaConSysPred?.includes(alphaConUserPred)) {
+    //           setError(true);
+    //           setErrorText(
+    //             "There is something wrong with your symbolization or scheme..."
+    //           );
+    //         }
+    //       }
+    //     } catch (nestedError) {
+    //       // handle the error when both attempts fail
+    //       setError(true);
+    //       setErrorText("Your formula is not well-formed.");
+    //       console.log("Parsing error:", error.message);
+    //       console.log("Parsing error with parentheses:", nestedError);
+    //     }
+    //   }
+    // }
   };
 
   const selectedProblemObj = problemCollection.find(
