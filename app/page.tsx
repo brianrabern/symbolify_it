@@ -258,7 +258,8 @@ export default function Home() {
 
   async function processSmtPairs(userSmt, sysSmts) {
     const results = [];
-
+    console.log("userSmt process:", userSmt);
+    console.log("sysSmt process:", sysSmts);
     for (const sysSmt of sysSmts) {
       let script = generateSMTScriptProp(userSmt, sysSmt);
       const result = await checkEquiv(script);
@@ -350,7 +351,7 @@ export default function Home() {
       if (processSmtPairs(userSmt, sysSmts)) {
         setSuccess(true);
         setSuccessText(
-          "Your symbolization is corret. \nIt might be deviant but it is logically equivalent to a correct answer."
+          "Your symbolization is correct. \nIt might be deviant but it is logically equivalent to a correct answer."
         );
         if (alphaConSysProps.length > 1) {
           setNote(true);

@@ -1,6 +1,4 @@
 export default function generateSMTScriptProp(userSmt, sysSmt) {
-  let { userSmtFormula, userPropositionLetters } = userSmt;
-  let { sysSmtFormula, sysPropositionLetters } = sysSmt;
   function generateDeclarations(propositions) {
     let declarations = "";
     propositions.forEach((proposition) => {
@@ -10,10 +8,10 @@ export default function generateSMTScriptProp(userSmt, sysSmt) {
   }
 
   const declarationsString =
-    generateDeclarations(userPropositionLetters) +
-    generateDeclarations(sysPropositionLetters);
+    generateDeclarations(userSmt.propositions) +
+    generateDeclarations(sysSmt.propositions);
 
-  return `${declarationsString}(assert (not (= ${userSmtFormula} ${sysSmtFormula})))`;
+  return `${declarationsString}(assert (not (= ${userSmt.smt2} ${sysSmt.smt2})))`;
 }
 
 // (assert (not (= Formula1 Formula2)))
