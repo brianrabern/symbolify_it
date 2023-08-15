@@ -15,7 +15,7 @@ import { GrCaretNext } from "react-icons/gr";
 import HelpWindow from "./HelpWindow";
 import astToSmt2Prop from "./astToSmt2Prop.js";
 // import Z3SolverForm from "./Z3SolverForm";
-import HelloForm from "./HelloForm.js";
+// import HelloForm from "./HelloForm.js";
 import generateSMTScriptProp from "./generateSMTScriptProp";
 
 type SOA = {
@@ -236,7 +236,7 @@ export default function Home() {
     let data = "";
 
     try {
-      const response = await fetch("/api/hello", {
+      const response = await fetch("/api/z3_solver", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -256,13 +256,14 @@ export default function Home() {
     return data;
   };
 
-  async function processSmtPairs(userSmt, sysSmtps) {
+  async function processSmtPairs(userSmt, sysSmts) {
     const results = [];
 
-    for (const sysSmt of sysSmtps) {
+    for (const sysSmt of sysSmts) {
       let script = generateSMTScriptProp(userSmt, sysSmt);
       const result = await checkEquiv(script);
       results.push(result);
+      console.log("processSMT results: ", results);
     }
 
     // Check the contents of the results array
@@ -349,7 +350,7 @@ export default function Home() {
       if (processSmtPairs(userSmt, sysSmts)) {
         setSuccess(true);
         setSuccessText(
-          "Your symbolization and scheme are logically equivelant to a correct answer."
+          "Your symbolization is corret. \nIt might be deviant but it is logically equivalent to a correct answer."
         );
         if (alphaConSysProps.length > 1) {
           setNote(true);
@@ -841,9 +842,9 @@ export default function Home() {
         <h1>Z3 Solver</h1>
         <Z3SolverForm />
       </div> */}
-      <div>
+      {/* <div>
         <HelloForm />
-      </div>
+      </div> */}
     </main>
   );
 }

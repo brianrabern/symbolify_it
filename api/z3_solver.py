@@ -1,4 +1,4 @@
-# hello.py
+# z3_solver.py
 
 from http.server import BaseHTTPRequestHandler
 import z3
