@@ -281,7 +281,7 @@ export default function Home() {
     try {
       const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
       parser.feed(formula);
-      return [parser.results.length === 1, parser.results[0]];
+      return parser.results.length === 1;
     } catch (error) {
       return false;
     }
@@ -295,10 +295,10 @@ export default function Home() {
 
   const checkProp = async () => {
     //check if well-formed (or well-formed with added brackets)
-    let isWellFormed = syntaxCheck(userFormula, grammarProp)[0];
+    let isWellFormed = syntaxCheck(userFormula, grammarProp);
     if (!isWellFormed) {
       const userFormulaBrackets = "(" + userFormula + ")";
-      isWellFormed = syntaxCheck(userFormulaBrackets, grammarProp)[0];
+      isWellFormed = syntaxCheck(userFormulaBrackets, grammarProp);
       isWellFormed
         ? setUserFormula(userFormulaBrackets)
         : setUserFormula(userFormula);
@@ -354,7 +354,7 @@ export default function Home() {
         console.log("success");
         setSuccess(true);
         setSuccessText(
-          "Your symbolization is correct. \nIt might be deviant but it is logically equivalent to a correct answer."
+          "Your symbolization is correct. It might be deviant but it is logically equivalent to a correct answer."
         );
         if (alphaConSysProps.length > 1) {
           setNote(true);
