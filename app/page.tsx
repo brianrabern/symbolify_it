@@ -296,13 +296,25 @@ export default function Home() {
   console.log("userFormula: ", userFormula);
   const checkProp = async () => {
     //check if well-formed (or well-formed with added brackets)
-
+    //get userSoa
+    let userSoaFlat: SOA = {};
+    for (let entry of userSoa) {
+      userSoaFlat[entry.symbol] = entry.lexicon;
+    }
+    let alphaConUserProp = "";
     let isWellFormed = syntaxCheck(userFormula, grammarProp);
+    if (isWellFormed) {
+      alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
+    }
     if (!isWellFormed) {
       const userFormulaBrackets = "(" + userFormula + ")";
       isWellFormed = syntaxCheck(userFormulaBrackets, grammarProp);
       if (isWellFormed) {
         setUserFormula(userFormulaBrackets);
+        alphaConUserProp = alphaConversionProp(
+          userSoaFlat,
+          userFormulaBrackets
+        );
       }
     }
 
@@ -312,15 +324,6 @@ export default function Home() {
       return;
     }
 
-    //get userSoa
-    let userSoaFlat: SOA = {};
-    for (let entry of userSoa) {
-      userSoaFlat[entry.symbol] = entry.lexicon;
-    }
-    //alpha convert user formula
-
-    let alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
-    // let alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
     //list of alpha variants of system formulas
     let alphaConSysProps = selectedProblemObj?.form.map((formula) =>
       alphaConversionProp(selectedProblemObj?.soa, formula)
