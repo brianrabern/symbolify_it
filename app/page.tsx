@@ -320,10 +320,8 @@ export default function Home() {
     }
     //alpha convert user formula
 
-    useEffect(() => {
-      let alpha = alphaConversionProp(userSoaFlat, userFormula);
-      setAlphaConUserProp(alpha); //set alphaConUserProp allowing userFormula to be updated
-    }, [userFormula]);
+    let alpha = alphaConversionProp(userSoaFlat, userFormula);
+    setAlphaConUserProp(alpha); //set alphaConUserProp allowing userFormula to be updated
 
     //list of alpha variants of system formulas
     let alphaConSysProps = selectedProblemObj?.form.map((formula) =>
