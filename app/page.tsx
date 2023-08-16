@@ -47,6 +47,7 @@ export default function Home() {
   );
   const [selectedProblem, setSelectedProblem] = useState(1);
   const [userFormula, setUserFormula] = useState("");
+  const [alphaConUserProp, setAlphaConUserProp] = useState("");
   const [userSoa, setUserSoa] = useState([{ symbol: "", lexicon: "" }]);
   const [error, setError] = useState(false);
   const [errorText, setErrorText] = useState("");
@@ -318,7 +319,12 @@ export default function Home() {
       userSoaFlat[entry.symbol] = entry.lexicon;
     }
     //alpha convert user formula
-    let alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
+
+    useEffect(() => {
+      let alpha = alphaConversionProp(userSoaFlat, userFormula);
+      setAlphaConUserProp(alpha); //set alphaConUserProp allowing userFormula to be updated
+    }, [userFormula]);
+
     //list of alpha variants of system formulas
     let alphaConSysProps = selectedProblemObj?.form.map((formula) =>
       alphaConversionProp(selectedProblemObj?.soa, formula)
