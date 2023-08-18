@@ -16,6 +16,7 @@ import astToSmt2Pred from "./astToSmt2Pred.js";
 import generateSMTScriptProp from "./generateSMTScriptProp.js";
 import generateSMTScriptPred from "./generateSMTScriptPred.js";
 import HelpWindow from "./HelpWindow";
+import LoadingSpinner from "./LoadingSpinner";
 import { GrCaretNext } from "react-icons/gr";
 
 type SOA = {
@@ -53,6 +54,7 @@ export default function Home() {
   const [successText, setSuccessText] = useState("");
   const [note, setNote] = useState(false);
   const [noteText, setNoteText] = useState("");
+  const [apiIsLoading, setApiIsLoading] = useState(true);
 
   const names: string[] = lexiconDataPred[0]?.Names || [];
   const monadic: string[] = lexiconDataPred[1]?.monadicPredicates || [];
@@ -232,6 +234,7 @@ export default function Home() {
 
   //send to Z3 API to check for logical equivalence
   const checkEquiv = async (smtScript: string) => {
+    setApiIsLoading(true);
     let data = "";
 
     try {
@@ -248,8 +251,10 @@ export default function Home() {
       }
 
       data = await response.text();
+      setApiIsLoading(false);
     } catch (error) {
       console.error("Error:", error);
+      setApiIsLoading(false);
     }
 
     return data;
@@ -516,12 +521,11 @@ export default function Home() {
 
     const coorespond = userSoa.every((item) => {
       const symbolCharCode = item.symbol.charCodeAt(0);
-      if (
-        logic == "prop" &&
-        symbolCharCode >= "A".charCodeAt(0) &&
-        symbolCharCode <= "Z".charCodeAt(0)
-      )
-        return propositions.includes(item.lexicon);
+      if (logic == "prop")
+        return (
+          symbolCharCode >= "A".charCodeAt(0) &&
+          symbolCharCode <= "Z".charCodeAt(0)
+        );
       else if (
         logic == "pred" &&
         symbolCharCode >= "a".charCodeAt(0) &&
@@ -816,6 +820,8 @@ export default function Home() {
         >
           Check
         </button>
+        {apiIsLoading && <LoadingSpinner />}
+
         <br></br>
         {error && (
           <div
