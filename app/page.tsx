@@ -14,9 +14,11 @@ import { lexiconDataProp } from "./lexiconProp";
 import { GrCaretNext } from "react-icons/gr";
 import HelpWindow from "./HelpWindow";
 import astToSmt2Prop from "./astToSmt2Prop.js";
+import astToSmt2Pred from "./astToSmt2Pred.js";
 // import Z3SolverForm from "./Z3SolverForm";
 // import HelloForm from "./HelloForm.js";
-import generateSMTScriptProp from "./generateSMTScriptProp";
+import generateSMTScriptProp from "./generateSMTScriptProp.js";
+import generateSMTScriptPred from "./generateSMTScriptPred.js";
 
 type SOA = {
   [key: string]: string;
@@ -256,15 +258,17 @@ export default function Home() {
     return data;
   };
 
-  async function processSmtPairs(userSmt, sysSmts) {
+  async function processSmtPairs(userSmt, sysSmts, type) {
     const results = [];
     for (const sysSmt of sysSmts) {
-      let script = generateSMTScriptProp(userSmt, sysSmt);
-      console.log("script: ", script);
+      let script;
+      if (type === "prop") {
+        script = generateSMTScriptProp(userSmt, sysSmt);
+      } else if (type === "pred") {
+        script = generateSMTScriptPred(userSmt, sysSmt);
+      }
       const result = await checkEquiv(script);
-      console.log("result: ", result);
       results.push(result);
-      console.log("results: ", results);
     }
 
     // Check the contents of the results array
@@ -293,7 +297,6 @@ export default function Home() {
     return parser.results[0];
   };
 
-  console.log("userFormula: ", userFormula);
   const checkProp = async () => {
     //check if well-formed (or well-formed with added brackets)
     //get userSoa
@@ -355,8 +358,7 @@ export default function Home() {
       let sysSmts = sysAsts?.map((ast) => astToSmt2Prop(ast)); //get list of system smt formulas and props of system formulas
       console.log("sysSmts: ", sysSmts);
 
-      console.log("equiv?: ", processSmtPairs(userSmt, sysSmts));
-      const equiv = await processSmtPairs(userSmt, sysSmts);
+      const equiv = await processSmtPairs(userSmt, sysSmts, "prop");
       if (equiv) {
         console.log("success");
         setSuccess(true);
@@ -382,9 +384,6 @@ export default function Home() {
         "There is something wrong with your symbolization or scheme..."
       );
     }
-    // console.log("well formed?: ", isWellFormed);
-    // console.log("alphaConUserProp : ", alphaConUserProp);
-    // console.log("alphaConSysProps : ", alphaConSysProps);
   };
 
   //   let alphaConSysProps = selectedProblemObj?.form.map((formula) =>
@@ -481,8 +480,98 @@ export default function Home() {
   //   }
   // }
 
-  const checkPred = () => {
+  const checkPred = async () => {
     console.log("checkPred");
+    //check if well-formed (or well-formed with added brackets)
+    //get userSoa
+    let userSoaFlat: SOA = {};
+    for (let entry of userSoa) {
+      userSoaFlat[entry.symbol] = entry.lexicon;
+    }
+    let alphaConUserPred = "";
+    let isWellFormed = syntaxCheck(userFormula, grammarPred);
+    if (isWellFormed) {
+      alphaConUserPred = alphaConversionPred(userSoaFlat, userFormula);
+    }
+    if (!isWellFormed) {
+      const userFormulaBrackets = "(" + userFormula + ")";
+      isWellFormed = syntaxCheck(userFormulaBrackets, grammarPred);
+      if (isWellFormed) {
+        setUserFormula(userFormulaBrackets);
+        alphaConUserPred = alphaConversionPred(
+          userSoaFlat,
+          userFormulaBrackets
+        );
+      }
+    }
+
+    if (!isWellFormed) {
+      setError(true);
+      setErrorText("Your input is not well-formed. Check the syntax.");
+      return;
+    }
+
+    //list of alpha variants of system formulas
+    let alphaConSysPreds = selectedProblemObj?.form.map((formula) =>
+      alphaConversionPred(selectedProblemObj?.soa, formula)
+    );
+
+    //check if user formula is a simple alpha-variant of system formula
+    if (alphaConSysPreds?.includes(alphaConUserPred)) {
+      setSuccess(true);
+      setSuccessText("Your symbolization and scheme are perfect.");
+      if (alphaConSysPreds.length > 1) {
+        setNote(true);
+        setNoteText(
+          "Note: The English sentence is ambiguous. This symbolization captures one reading."
+        );
+      }
+    } else if (!alphaConSysPreds?.includes(alphaConUserPred)) {
+      //if not a simple alpha variant, check if alpha conversion is logically equivalent to one of the system formula alpha conversions
+
+      let userAst = formulaToAst(alphaConUserPred, grammarPred); // get user ast
+      console.log("userAst: ", userAst);
+      let userSmt = astToSmt2Pred(userAst); //get user smt formula
+      console.log("userSmt: ", userSmt);
+
+      let sysAsts = alphaConSysPreds?.map((formula) => {
+        return formulaToAst(formula, grammarPred);
+      }); //get list of system asts
+      console.log("sysAsts: ", sysAsts);
+
+      let sysSmts = sysAsts?.map((ast) => astToSmt2Pred(ast)); //get list of system smt formulas and props of system formulas
+      console.log("sysSmts: ", sysSmts);
+
+      // console.log("equiv?: ", processSmtPairs(userSmt, sysSmts));
+      const equiv = await processSmtPairs(userSmt, sysSmts, "pred");
+      if (equiv) {
+        console.log("success");
+        setSuccess(true);
+        setSuccessText(
+          "Your symbolization is correct. It might be deviant but it is logically equivalent to a correct answer."
+        );
+        if (alphaConSysPreds.length > 1) {
+          setNote(true);
+          setNoteText(
+            "Note: The English sentence is ambiguous. This symbolization captures one reading."
+          );
+        }
+      } else if (!equiv) {
+        console.log("error");
+        setError(true);
+        setErrorText(
+          "Your symbolization is not logically equivalent to a correct answer"
+        );
+      }
+    } else {
+      setError(true);
+      setErrorText(
+        "There is something wrong with your symbolization or scheme..."
+      );
+    }
+    // console.log("well formed?: ", isWellFormed);
+    // console.log("alphaConUserProp : ", alphaConUserProp);
+    // console.log("alphaConSysProps : ", alphaConSysProps);
   };
 
   const handleCheck = () => {
