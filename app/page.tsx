@@ -54,7 +54,7 @@ export default function Home() {
   const [successText, setSuccessText] = useState("");
   const [note, setNote] = useState(false);
   const [noteText, setNoteText] = useState("");
-  const [apiIsLoading, setApiIsLoading] = useState(true);
+  const [apiIsLoading, setApiIsLoading] = useState(false);
 
   const names: string[] = lexiconDataPred[0]?.Names || [];
   const monadic: string[] = lexiconDataPred[1]?.monadicPredicates || [];
