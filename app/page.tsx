@@ -270,6 +270,7 @@ export default function Home() {
       const result = await checkEquiv(script);
       results.push(result);
     }
+    console.log("results: ", results); //debugging
 
     // Check the contents of the results array
     if (results.includes("unsat")) {
