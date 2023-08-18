@@ -70,9 +70,9 @@ export default function astToSmt2Pred(ast) {
       // Case 4: Quantification formula
       console.log("ast: ", ast);
       const quantifier = ast[0];
-      const variablePrefix = ast[1][0][0];
+      const variablePrefix = ast[1][0];
       console.log("variablePrefix: ", variablePrefix);
-      const variableDigits = ast[1][0][1] ? ast[1][0][1].join("") : "";
+      const variableDigits = ast[1][1] ? ast[1][1].join("") : "";
       console.log("variableDigits: ", variableDigits);
       const variable = variablePrefix + variableDigits;
       console.log("variable: ", variable);
