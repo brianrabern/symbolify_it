@@ -68,8 +68,14 @@ export default function astToSmt2Pred(ast) {
       return { smt2: `(not ${subFormula.smt2})` };
     } else if (ast.length === 3 && (ast[0] === "∀" || ast[0] === "∃")) {
       // Case 4: Quantification formula
+      console.log("ast: ", ast);
       const quantifier = ast[0];
-      const variable = ast[1][0];
+      const variablePrefix = ast[1][0][0];
+      console.log("variablePrefix: ", variablePrefix);
+      const variableDigits = ast[1][0][1] ? ast[1][0][1].join("") : "";
+      console.log("variableDigits: ", variableDigits);
+      const variable = variablePrefix + variableDigits;
+      console.log("variable: ", variable);
       const subFormula = processAst(ast[2]);
       const smt2Quantifier = mapConnectiveSmt(quantifier);
       const quantifiedFormula = `(${smt2Quantifier} ((${variable} Object)) ${subFormula.smt2})`;
