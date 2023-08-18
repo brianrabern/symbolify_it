@@ -51,8 +51,7 @@ export default function generateSMTScriptPred(userSmt, sysSmt) {
     generateBinaryPredDeclarations(userSmt.binaryPredicates) +
     generateBinaryPredDeclarations(sysSmt.binaryPredicates);
 
-  console.log(
-    "smt script: "`${declarationsString}(assert (not (= ${userSmt.smt2} ${sysSmt.smt2})))`
-  );
+  let x = `${declarationsString}(assert (not (= ${userSmt.smt2} ${sysSmt.smt2})))`;
+  console.log("smt script: ", x);
   return `${declarationsString}(assert (not (= ${userSmt.smt2} ${sysSmt.smt2})))`;
 }
