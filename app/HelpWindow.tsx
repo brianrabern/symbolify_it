@@ -39,7 +39,7 @@ const HelpWindow = ({ onClose }: any) => {
 
       <br></br>
       <p>
-        The logical sumbols can be entered by clicking the button or by typing
+        The logical symbols can be entered by clicking the button or by typing
         the relevant keys on your keyboard, for example:{" "}
       </p>
       <br></br>

@@ -1,3 +1,5 @@
+# this script was just for development and testing purposes. see api/z3-solver.py for the actual script
+
 import z3
 
 

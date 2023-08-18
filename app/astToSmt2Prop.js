@@ -56,17 +56,3 @@ export default function astToSmt2Prop(ast) {
   const result = processAst(ast);
   return { smt2: result.smt2, propositions: result.propositions };
 }
-
-// Example usage:
-// import nearley from "nearley";
-// import grammarProp from "./propositional_logic.js";
-// const parserProp = new nearley.Parser(
-//   nearley.Grammar.fromCompiled(grammarProp)
-// );
-// const wffProp = "(P45 ∧ ¬Q)";
-// const parsedAst1 = parserProp.feed(wffProp).results[0];
-
-// const test = astToSmt2Prop(parsedAst1);
-// console.log(test);
-// const { smt2, propositions } = astToSmt2Prop(parsedAst1);
-// console.log(generateSMTScriptProp(smt2, propositions));

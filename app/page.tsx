@@ -2,23 +2,21 @@
 
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import predProblems from "./predProblems.json";
-import propProblems from "./propProblems.json";
-import { lexiconDataPred } from "./lexiconPred.js";
-import { alphaConversionPred } from "./alphaConversionPred.js";
-import { alphaConversionProp } from "./alphaConversionProp.js";
 import nearley from "nearley";
-import grammarPred from "./predicate_logic.js";
 import grammarProp from "./propositional_logic.js";
+import grammarPred from "./predicate_logic.js";
+import propProblems from "./propProblems.json";
+import predProblems from "./predProblems.json";
 import { lexiconDataProp } from "./lexiconProp";
-import { GrCaretNext } from "react-icons/gr";
-import HelpWindow from "./HelpWindow";
+import { lexiconDataPred } from "./lexiconPred.js";
+import { alphaConversionProp } from "./alphaConversionProp.js";
+import { alphaConversionPred } from "./alphaConversionPred.js";
 import astToSmt2Prop from "./astToSmt2Prop.js";
 import astToSmt2Pred from "./astToSmt2Pred.js";
-// import Z3SolverForm from "./Z3SolverForm";
-// import HelloForm from "./HelloForm.js";
 import generateSMTScriptProp from "./generateSMTScriptProp.js";
 import generateSMTScriptPred from "./generateSMTScriptPred.js";
+import HelpWindow from "./HelpWindow";
+import { GrCaretNext } from "react-icons/gr";
 
 type SOA = {
   [key: string]: string;
@@ -270,7 +268,6 @@ export default function Home() {
       const result = await checkEquiv(script);
       results.push(result);
     }
-    console.log("results: ", results); //debugging
 
     // Check the contents of the results array
     if (results.includes("unsat")) {
@@ -387,100 +384,6 @@ export default function Home() {
     }
   };
 
-  //   let alphaConSysProps = selectedProblemObj?.form.map((formula) =>
-  //   alphaConversionProp(selectedProblemObj?.soa, formula)
-  // ); //list of alpha variants of system formulas
-
-  // // check if user formula is well-formed using nearley parser for propositional logic
-  // try {
-  //   const parser = new nearley.Parser(
-  //     nearley.Grammar.fromCompiled(grammarProp)
-  //   );
-  //   parser.feed(userFormula);
-  //   // set results to the parsed result if successful
-  //   // results = parser.results[0];
-
-  //   let alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
-
-  //   //check if user formula is a simple alpha-variant of system formula
-  //   if (alphaConSysProps?.includes(alphaConUserProp)) {
-  //     setSuccess(true);
-  //     setSuccessText("Your symbolization and scheme are perfect.");
-  //     if (alphaConSysProps.length > 1) {
-  //       setNote(true);
-  //       setNoteText(
-  //         "Note: The English sentence is ambiguous. This symbolization captures one reading."
-  //       );
-  //     }
-  //   } else if (!alphaConSysProps?.includes(alphaConUserProp)) {
-  //     let smtSysProps = alphaConSysProps?.map((formula) =>
-  //       astToSmt2Prop(formula)
-  //     ); //list of system smt formulas and props of system formulas
-  //     let smtUserProp = astToSmt2Prop(alphaConUserProp); //user smt formulas and props of user formulas
-  //     if (processSmtPairs(smtUserProp, smtSysProps)) {
-  //       setSuccess(true);
-  //       setSuccessText(
-  //         "Your symbolization and scheme are logically equivelant to a correct answer."
-  //       );
-  //       if (alphaConSysProps.length > 1) {
-  //         setNote(true);
-  //         setNoteText(
-  //           "Note: The English sentence is ambiguous. This symbolization captures one reading."
-  //         );
-  //       }
-  //     }
-  //     //check if user formula is logically equivalent to one of the system formulas
-  //   } else {
-  //     setError(true);
-  //     setErrorText(
-  //       "There is something wrong with your symbolization or scheme..."
-  //     );
-  //   }
-  // } catch (error: any) {
-  //   // if there's an error, try parsing with added parentheses
-  //   try {
-  //     const parser = new nearley.Parser(
-  //       nearley.Grammar.fromCompiled(grammarProp)
-  //     );
-  //     parser.feed("(" + userFormula + ")");
-
-  //     // add parentheses to the user formula if successful
-  //     if (parser.results[0] != 0) {
-  //       let userFormulaUpdated = "(" + userFormula + ")";
-  //       setUserFormula(userFormulaUpdated);
-  //       console.log("userFormulaUpdated: ", userFormulaUpdated);
-  //       // results = parser.results[0];
-
-  //       //check if user formula is an alpha variant of system formula
-  //       let alphaConUserProp = alphaConversionProp(
-  //         userSoaFlat,
-  //         userFormulaUpdated
-  //       );
-  //       if (alphaConSysProps?.includes(alphaConUserProp)) {
-  //         setSuccess(true);
-  //         setSuccessText("Your symbolization and scheme are perfect.");
-  //         if (alphaConSysProps.length > 1) {
-  //           setNote(true);
-  //           setNoteText(
-  //             "Note: The English sentence is ambiguous. This symbolization captures one reading."
-  //           );
-  //         }
-  //       } else if (!alphaConSysProps?.includes(alphaConUserProp)) {
-  //         setError(true);
-  //         setErrorText(
-  //           "There is something wrong with your symbolization or scheme..."
-  //         );
-  //       }
-  //     }
-  //   } catch (nestedError) {
-  //     // handle the error when both attempts fail
-  //     setError(true);
-  //     setErrorText("Your formula is not well-formed.");
-  //     console.log("Parsing error:", error.message);
-  //     console.log("Parsing error with parentheses:", nestedError);
-  //   }
-  // }
-
   const checkPred = async () => {
     console.log("checkPred");
     //check if well-formed (or well-formed with added brackets)
@@ -570,9 +473,6 @@ export default function Home() {
         "There is something wrong with your symbolization or scheme..."
       );
     }
-    // console.log("well formed?: ", isWellFormed);
-    // console.log("alphaConUserProp : ", alphaConUserProp);
-    // console.log("alphaConSysProps : ", alphaConSysProps);
   };
 
   const handleCheck = () => {
@@ -584,85 +484,6 @@ export default function Home() {
     if (logic === "pred") {
       checkPred();
     }
-
-    // //predicate logic checks
-    // if (logic === "pred") {
-    //   let alphaConSysPred = selectedProblemObj?.form.map((formula) =>
-    //     alphaConversionPred(selectedProblemObj?.soa, formula)
-    //   );
-
-    //   // check if user formula is well-formed using nearley parser
-    //   try {
-    //     const parser = new nearley.Parser(
-    //       nearley.Grammar.fromCompiled(grammarPred)
-    //     );
-    //     parser.feed(alphaConversionPred(userSoaFlat, userFormula));
-    //     // set results to the parsed result if successful
-    //     results = parser.results[0];
-    //     console.log(parser.results[0]);
-    //     //check if user formula is an alpha variant of system formula
-    //     let alphaConUserPred = alphaConversionPred(userSoaFlat, userFormula);
-    //     if (alphaConSysPred?.includes(alphaConUserPred)) {
-    //       setSuccess(true);
-    //       setSuccessText("Your symbolization and scheme are perfect.");
-    //       if (alphaConSysPred.length > 1) {
-    //         setNote(true);
-    //         setNoteText(
-    //           "Note: The English sentence is ambiguous. This symbolization captures one reading."
-    //         );
-    //       }
-    //     } else if (!alphaConSysPred?.includes(alphaConUserPred)) {
-    //       setError(true);
-    //       setErrorText(
-    //         "There is something wrong with your symbolization or scheme..."
-    //       );
-    //     }
-    //   } catch (error: any) {
-    //     // if there's an error, try parsing with added parentheses
-    //     try {
-    //       const parser = new nearley.Parser(
-    //         nearley.Grammar.fromCompiled(grammarPred)
-    //       );
-    //       parser.feed("(" + userFormula + ")");
-
-    //       // add parentheses to the user formula if successful
-    //       if (parser.results[0] != 0) {
-    //         let userFormulaUpdated = "(" + userFormula + ")";
-    //         setUserFormula(userFormulaUpdated);
-    //         console.log("userFormulaUpdated: ", userFormulaUpdated);
-    //         results = parser.results[0];
-
-    //         //check if user formula is an alpha variant of system formula
-    //         let alphaConUserPred = alphaConversionPred(
-    //           userSoaFlat,
-    //           userFormulaUpdated
-    //         );
-
-    //         if (alphaConSysPred?.includes(alphaConUserPred)) {
-    //           setSuccess(true);
-    //           setSuccessText("Your symbolization and scheme are perfect.");
-    //           if (alphaConSysPred.length > 1) {
-    //             setNote(true);
-    //             setNoteText(
-    //               "Note: The English sentence is ambiguous. This symbolization captures one reading."
-    //             );
-    //           }
-    //         } else if (!alphaConSysPred?.includes(alphaConUserPred)) {
-    //           setError(true);
-    //           setErrorText(
-    //             "There is something wrong with your symbolization or scheme..."
-    //           );
-    //         }
-    //       }
-    //     } catch (nestedError) {
-    //       // handle the error when both attempts fail
-    //       setError(true);
-    //       setErrorText("Your formula is not well-formed.");
-    //       console.log("Parsing error:", error.message);
-    //       console.log("Parsing error with parentheses:", nestedError);
-    //     }
-    //   }
-    // }
   };
 
   const selectedProblemObj = problemCollection.find(
@@ -944,14 +765,6 @@ export default function Home() {
         help
       </button>
       {showHelp && <HelpWindow onClose={toggleHelpWindow} />}
-      {/* z3 test*/}
-      {/* <div>
-        <h1>Z3 Solver</h1>
-        <Z3SolverForm />
-      </div> */}
-      {/* <div>
-        <HelloForm />
-      </div> */}
     </main>
   );
 }
