@@ -39,7 +39,6 @@ type Entry = {
 export default function Home() {
   const predProblemsA: ProbCol = predProblems as ProbCol;
   const propProblemsA: ProbCol = propProblems as ProbCol;
-
   const [logic, setLogic] = useState("prop");
   const [isSyntaxVisible, setIsSyntaxVisible] = useState(false);
   const [problemCollection, setProblemCollection] = useState<ProbCol>(
@@ -296,16 +295,22 @@ export default function Home() {
   };
 
   const checkProp = async () => {
+    console.log("checkProp1");
     //check if well-formed (or well-formed with added brackets)
     //get userSoa
     let userSoaFlat: SOA = {};
     for (let entry of userSoa) {
       userSoaFlat[entry.symbol] = entry.lexicon;
     }
+    console.log("userSoaFlat: ", userSoaFlat);
+
     let alphaConUserProp = "";
+    console.log("userFormula: ", userFormula);
     let isWellFormed = syntaxCheck(userFormula, grammarProp);
+    console.log("isWellFormed: ", isWellFormed);
     if (isWellFormed) {
       alphaConUserProp = alphaConversionProp(userSoaFlat, userFormula);
+      console.log("alphaConUserProp: ", alphaConUserProp);
     }
     if (!isWellFormed) {
       const userFormulaBrackets = "(" + userFormula + ")";
@@ -321,7 +326,13 @@ export default function Home() {
 
     if (!isWellFormed) {
       setError(true);
-      setErrorText("Your input is not well-formed. Check the syntax.");
+      setErrorText(
+        "Your input is not well-formed for propositional logic. Check the syntax."
+      );
+      if (syntaxCheck(userFormula, grammarPred)) {
+        setNote(true);
+        setNoteText("Note: Your input is a formula of predicate logic.");
+      }
       return;
     }
 
@@ -411,7 +422,13 @@ export default function Home() {
 
     if (!isWellFormed) {
       setError(true);
-      setErrorText("Your input is not well-formed. Check the syntax.");
+      setErrorText(
+        "Your input is not well-formed for predicate logic. Check the syntax."
+      );
+      if (syntaxCheck(userFormula, grammarProp)) {
+        setNote(true);
+        setNoteText("Note: Your input is a formula of propositional logic.");
+      }
       return;
     }
 
@@ -475,14 +492,91 @@ export default function Home() {
     }
   };
 
-  const handleCheck = () => {
-    //propositional logic checks
-    if (logic === "prop") {
-      checkProp();
+  const soaCheck = () => {
+    function noteAboutWff() {
+      const wellFormedProp =
+        syntaxCheck(userFormula, grammarProp) ||
+        syntaxCheck("(" + userFormula + ")", grammarProp);
+      const wellFormedPred =
+        syntaxCheck(userFormula, grammarPred) ||
+        syntaxCheck("(" + userFormula + ")", grammarPred);
+      if (wellFormedProp) {
+        setNote(true);
+        setNoteText("Note: Your input is a formula of propositional logic.");
+      } else if (wellFormedPred) {
+        setNote(true);
+        setNoteText("Note: Your input is a formula of predicate logic.");
+      } else {
+        setNote(true);
+        setNoteText("Note: Your input is also not a well-formed formula.");
+      }
     }
+    const missingSymbol = userSoa.some((item) => item.symbol === "");
+    const missingLexicon = userSoa.some((item) => item.lexicon === "");
 
-    if (logic === "pred") {
-      checkPred();
+    const coorespond = userSoa.every((item) => {
+      const symbolCharCode = item.symbol.charCodeAt(0);
+      if (
+        logic == "prop" &&
+        symbolCharCode >= "A".charCodeAt(0) &&
+        symbolCharCode <= "Z".charCodeAt(0)
+      )
+        return propositions.includes(item.lexicon);
+      else if (
+        logic == "pred" &&
+        symbolCharCode >= "a".charCodeAt(0) &&
+        symbolCharCode <= "r".charCodeAt(0)
+      ) {
+        return names.includes(item.lexicon);
+      } else if (
+        logic == "pred" &&
+        symbolCharCode >= "A".charCodeAt(0) &&
+        symbolCharCode <= "Z".charCodeAt(0)
+      ) {
+        return monadic.includes(item.lexicon) || binary.includes(item.lexicon);
+      } else {
+        return true;
+      }
+    });
+
+    if (missingSymbol && missingLexicon) {
+      setError(true);
+      setErrorText(
+        "A symbol and English expression are missing in the scheme of abbreviation."
+      );
+      noteAboutWff();
+      return true;
+    } else if (missingSymbol) {
+      setError(true);
+      setErrorText("A symbol is missing in the scheme of abbreviation.");
+      noteAboutWff();
+      return true;
+    } else if (missingLexicon) {
+      setError(true);
+      setErrorText(
+        "An English expression is missing in the scheme of abbreviation."
+      );
+      noteAboutWff();
+      return true;
+    } else if (!coorespond) {
+      setError(true);
+      setErrorText(
+        "There is a mismatch between a symbol type and the English expression type."
+      );
+      noteAboutWff();
+      return true;
+    }
+  };
+
+  const handleCheck = () => {
+    if (logic === "prop") {
+      if (!soaCheck()) {
+        checkProp();
+      }
+    } else if (logic === "pred") {
+      if (!soaCheck()) {
+        checkPred();
+      }
     }
   };
 
