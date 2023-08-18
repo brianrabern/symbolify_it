@@ -69,7 +69,7 @@ export default function astToSmt2Pred(ast) {
     } else if (ast.length === 3 && (ast[0] === "∀" || ast[0] === "∃")) {
       // Case 4: Quantification formula
       const quantifier = ast[0];
-      const variable = ast[1];
+      const variable = ast[1][0];
       const subFormula = processAst(ast[2]);
       const smt2Quantifier = mapConnectiveSmt(quantifier);
       const quantifiedFormula = `(${smt2Quantifier} ((${variable} Object)) ${subFormula.smt2})`;
