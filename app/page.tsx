@@ -619,252 +619,273 @@ export default function Home() {
   }));
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-        <div className="flex items-center space-x-3">
-          <p className="text-sm font-medium text-gray-900 dark:text-gray-300 mb-1">
-            Propositional Logic
-          </p>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              onClick={toggleLogic}
-              className="sr-only peer"
-            />
-            <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-yellow-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-black after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>{" "}
-          </label>
-          <span className="text-sm font-medium text-gray-900 dark:text-gray-300">
-            Predicate Logic
-          </span>
-        </div>
-
-        <div className="absolute top-4 right-4">
-          <p className="text-blue-500"> Select a sentence</p>
-
-          <select
-            value={selectedProblem}
-            onChange={handleProblemChange}
-            className="text-black border border-gray-300 rounded-md p-1 mr-2 mb-2"
-          >
-            {problemCollection.map((problem, index) => (
-              <option key={problem.id} value={problem.id}>
-                {problem.id}. {problem.sentence}
-              </option>
-            ))}
-          </select>
-
-          <button
-            onClick={handleRandomProblem}
-            className="text-sm mt-4 px-2 py-2 bg-yellow-500 text-black rounded-md hover:bg-gray-600 focus:outline-none"
-          >
-            Random problem
-          </button>
-        </div>
-      </div>
-      <br></br>
-      <br></br>
-      <br></br>
-      {/* sentence to be symbolized */}
-
-      <h2 className="text-4xl font-bold">{selectedProblemObj?.sentence}</h2>
-
-      {/* scheme of abbreviation */}
-      <div className="bg-gray-800 p-4 rounded-md w-full flex flex-col items-center">
-        <h2 className="py-2 text-2xl font-bold text-gray-500">
-          Scheme of Abbreviation
-        </h2>
-        {userSoa.map((entry, index) => (
-          <div key={index} className="flex space-x-4 py-1">
-            <input
-              className="text-black border border-gray-300 rounded-md p-2 h-10 w-24 mt-2"
-              type="text"
-              value={entry.symbol}
-              onChange={(e) => handleSymbolChange(index, e.target.value)}
-              placeholder="Symbol"
-            />
-            <span className="mt-2 mx-4 text-2xl font-bold">:</span>
-            <Select
-              id="lexicon"
-              className="text-black rounded-md p-2 w-64"
-              value={
-                entry.lexicon
-                  ? lexiconOptionsSelect.find(
-                      (option) => option.value === entry.lexicon
-                    )
-                  : null
-              }
-              onChange={(selectedOption) =>
-                handleLexiconChange(
-                  index,
-                  selectedOption ? selectedOption.value : ""
-                )
-              }
-              options={lexiconOptionsSelect}
-            />{" "}
-            <button
-              className="text-sm mt-2 h-8 px-2 bg-gray-600 hover:bg-red-500 rounded-md"
-              onClick={() => handleRemoveEntry(index)}
-            >
-              Remove
-            </button>
-          </div>
-        ))}
-        <button
-          className="px-4 py-2 mt-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
-          onClick={handleAddEntry}
-        >
-          Add Entry
-        </button>
-
-        {/* formula input */}
-        <div className="mt-2 bg-gray-800 p-4 rounded-md w-full flex flex-col items-center">
-          <h2 className="py-2 text-2xl font-bold text-gray-500">Formula</h2>
-
-          <input
-            id="userInput"
-            className="text-black border-2 border-color-1 rounded-md p-2"
-            value={userFormula}
-            onChange={handleUserFormula}
-            placeholder="Formula"
+    <>
+      {/* Navigation Bar */}
+      <nav className="bg-gray-900 dark:bg-gray-800 p-4 fixed w-full z-50 flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          <img
+            src="/logo.png" // Replace with the actual path to your logo image
+            alt="Symbolify_It Logo"
+            className="h-12 w-10"
+            title="let us calculate!"
           />
-
-          {/* symbol buttons */}
-          <div className="flex space-x-1 py-2">
-            <button
-              onClick={() => handleConnectiveClick("¬")}
-              className="text-xs px-1 py-1 border rounded-md hover:bg-black"
-            >
-              ¬
-            </button>
-            <button
-              onClick={() => handleConnectiveClick("∧")}
-              className="text-xs px-1 py-1 border rounded-md hover:bg-black"
-            >
-              ∧
-            </button>
-            <button
-              onClick={() => handleConnectiveClick("∨")}
-              className="text-xs px-1 py-1 border rounded-md hover:bg-black"
-            >
-              ∨
-            </button>
-            <button
-              onClick={() => handleConnectiveClick("→")}
-              className="text-xs px-1 py-1 border rounded-md hover:bg-black"
-            >
-              →
-            </button>
-            <button
-              onClick={() => handleConnectiveClick("↔")}
-              className="text-xs px-1 py-1 border rounded-md hover:bg-black"
-            >
-              ↔
-            </button>
-            {logic === "pred" && (
-              <button
-                onClick={() => handleConnectiveClick("∀")}
-                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
-              >
-                ∀
-              </button>
-            )}
-            {logic === "pred" && (
-              <button
-                onClick={() => handleConnectiveClick("∃")}
-                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
-              >
-                ∃
-              </button>
-            )}
+          <div>
+            <h1 className="text-2xl font-bold text-yellow-500">symbolify_it</h1>
+            <p className="text-gray-500 text-sm">
+              an interface for symbolization problems
+            </p>
           </div>
-          <button
-            onClick={toggleSyntaxVisible}
-            className="text-white text-sm font-mono hover:bg-black"
-          >
-            syntax
-          </button>
         </div>
-
-        {isSyntaxVisible && logic === "prop" && (
-          <div className="max-w-md p-4 bg-white text-black rounded-lg shadow-md">
-            <code className="text-sm font-mono">
-              wff := proposition<br></br>
-              wff := ¬ wff<br></br>
-              wff := ( wff connective wff )<br></br>
-              connective := ∧ | ∨ | → | ↔<br></br>
-              proposition := [A-Z]
-            </code>
+      </nav>
+      {/* Spacer */}
+      <div className="h-16"></div>{" "}
+      <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        <div>
+          <div className="flex items-center space-x-3 mb-3">
+            <p className="text-sm font-medium text-gray-900 dark:text-gray-300 mb-1">
+              Propositional Logic
+            </p>
+            <label className="relative inline-flex items-center cursor-pointer">
+              <input
+                type="checkbox"
+                onClick={toggleLogic}
+                className="sr-only peer"
+              />
+              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-yellow-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-black after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>{" "}
+            </label>
+            <span className="text-sm font-medium text-gray-900 dark:text-gray-300">
+              Predicate Logic
+            </span>
           </div>
-        )}
-        {isSyntaxVisible && logic === "pred" && (
-          <div className="max-w-md p-6 bg-white rounded-lg shadow-md">
-            <code className="text-sm text-black font-mono">
-              wff := predicate term_list<br></br>
-              wff := ¬ wff<br></br>
-              wff := ( wff connective wff )<br></br>
-              wff := quantifier variable wff <br></br>
-              term := variable | constant<br></br>
-              term_list := term | term term_list<br></br>
-              quantifier := ∀ | ∃<br></br>
-              connective := ∧ | ∨ | → | ↔<br></br>
-              predicate := [A-Z]<br></br>
-              variable := [s-z]<br></br>
-              constant := [a-r]
-            </code>
-          </div>
-        )}
-
-        <button
-          className="px-4 py-2 mt-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
-          onClick={handleCheck}
-        >
-          Check
-        </button>
-        {apiIsLoading && <LoadingSpinner />}
-
-        <br></br>
-        {error && (
-          <div
-            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-            role="alert"
-          >
-            <strong className="font-bold">Hmm. </strong>
-            <span className="block sm:inline">{errorText}</span>
-            <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
-          </div>
-        )}
-
-        {success && (
-          <div className="relative">
-            <div role="alert">
-              <div className="bg-green-500 text-white font-bold rounded-t px-4 py-2">
-                Correct!
-              </div>
-              <div className="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700">
-                <p>{successText}</p>
-              </div>
-            </div>{" "}
-            <button
-              onClick={handleNext}
-              className="absolute right-0 top-0 mt-2 mr-2 bg-green-800 text-white px-2 py-1 rounded"
+          <div className="flex items-center justify-between">
+            <select
+              value={selectedProblem}
+              onChange={handleProblemChange}
+              className="text-black border border-gray-300 rounded-md p-1 mr-2 mb-2"
             >
-              <GrCaretNext />
+              {problemCollection.map((problem, index) => (
+                <option key={problem.id} value={problem.id}>
+                  {problem.id}. {problem.sentence}
+                </option>
+              ))}
+            </select>
+
+            <button
+              onClick={handleRandomProblem}
+              className="text-sm mb-2 px-2 py-1 bg-yellow-500 text-black rounded-md hover:bg-gray-600 focus:outline-none"
+            >
+              Random sentence
             </button>
           </div>
-        )}
-        {note && (
-          <div className="border border-t-0 border-yellow-400 rounded-b bg-yellow-100 px-4 py-3 text-yellow-700">
-            <p>{noteText}</p>
+        </div>
+        <br></br>
+        <br></br>
+        <br></br>
+        {/* sentence to be symbolized */}
+
+        <h2 className="text-4xl font-bold">{selectedProblemObj?.sentence}</h2>
+
+        {/* scheme of abbreviation */}
+        <div className="bg-gray-800 p-4 rounded-md w-full flex flex-col items-center">
+          <h2 className="py-2 text-2xl font-bold text-gray-500">
+            Scheme of Abbreviation
+          </h2>
+          {userSoa.map((entry, index) => (
+            <div key={index} className="flex space-x-4 py-1">
+              <input
+                className="text-black border border-gray-300 rounded-md p-2 h-10 w-24 mt-2"
+                type="text"
+                value={entry.symbol}
+                onChange={(e) => handleSymbolChange(index, e.target.value)}
+                placeholder="Symbol"
+              />
+              <span className="mt-2 mx-4 text-2xl font-bold">:</span>
+              <Select
+                id="lexicon"
+                className="text-black rounded-md p-2 w-64"
+                value={
+                  entry.lexicon
+                    ? lexiconOptionsSelect.find(
+                        (option) => option.value === entry.lexicon
+                      )
+                    : null
+                }
+                onChange={(selectedOption) =>
+                  handleLexiconChange(
+                    index,
+                    selectedOption ? selectedOption.value : ""
+                  )
+                }
+                options={lexiconOptionsSelect}
+              />{" "}
+              <button
+                className="text-sm mt-2 h-8 px-2 bg-gray-600 hover:bg-red-500 rounded-md"
+                onClick={() => handleRemoveEntry(index)}
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+          <button
+            className="px-4 py-2 mt-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+            onClick={handleAddEntry}
+          >
+            Add Entry
+          </button>
+
+          {/* formula input */}
+          <div className="mt-2 bg-gray-800 p-4 rounded-md w-full flex flex-col items-center">
+            <h2 className="py-2 text-2xl font-bold text-gray-500">Formula</h2>
+
+            <input
+              id="userInput"
+              className="text-black border-2 border-color-1 rounded-md p-2"
+              value={userFormula}
+              onChange={handleUserFormula}
+              placeholder="Formula"
+            />
+
+            {/* symbol buttons */}
+            <div className="flex space-x-1 py-2">
+              <button
+                onClick={() => handleConnectiveClick("¬")}
+                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+              >
+                ¬
+              </button>
+              <button
+                onClick={() => handleConnectiveClick("∧")}
+                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+              >
+                ∧
+              </button>
+              <button
+                onClick={() => handleConnectiveClick("∨")}
+                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+              >
+                ∨
+              </button>
+              <button
+                onClick={() => handleConnectiveClick("→")}
+                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+              >
+                →
+              </button>
+              <button
+                onClick={() => handleConnectiveClick("↔")}
+                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+              >
+                ↔
+              </button>
+              {logic === "pred" && (
+                <button
+                  onClick={() => handleConnectiveClick("∀")}
+                  className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+                >
+                  ∀
+                </button>
+              )}
+              {logic === "pred" && (
+                <button
+                  onClick={() => handleConnectiveClick("∃")}
+                  className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+                >
+                  ∃
+                </button>
+              )}
+            </div>
+            <button
+              onClick={toggleSyntaxVisible}
+              className="text-white text-sm font-mono hover:bg-black"
+            >
+              syntax
+            </button>
           </div>
-        )}
+
+          {isSyntaxVisible && logic === "prop" && (
+            <div className="max-w-md p-4 bg-white text-black rounded-lg shadow-md">
+              <code className="text-sm font-mono">
+                wff := proposition<br></br>
+                wff := ¬ wff<br></br>
+                wff := ( wff connective wff )<br></br>
+                connective := ∧ | ∨ | → | ↔<br></br>
+                proposition := [A-Z]
+              </code>
+            </div>
+          )}
+          {isSyntaxVisible && logic === "pred" && (
+            <div className="max-w-md p-6 bg-white rounded-lg shadow-md">
+              <code className="text-sm text-black font-mono">
+                wff := predicate term_list<br></br>
+                wff := ¬ wff<br></br>
+                wff := ( wff connective wff )<br></br>
+                wff := quantifier variable wff <br></br>
+                term := variable | constant<br></br>
+                term_list := term | term term_list<br></br>
+                quantifier := ∀ | ∃<br></br>
+                connective := ∧ | ∨ | → | ↔<br></br>
+                predicate := [A-Z]<br></br>
+                variable := [s-z]<br></br>
+                constant := [a-r]
+              </code>
+            </div>
+          )}
+
+          <button
+            className="px-4 py-2 mt-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+            onClick={handleCheck}
+          >
+            Check
+          </button>
+          {apiIsLoading && <LoadingSpinner />}
+
+          <br></br>
+          {error && (
+            <div
+              className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+              role="alert"
+            >
+              <strong className="font-bold">Hmm. </strong>
+              <span className="block sm:inline">{errorText}</span>
+              <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+            </div>
+          )}
+
+          {success && (
+            <div className="relative">
+              <div role="alert">
+                <div className="bg-green-500 text-white font-bold rounded-t px-4 py-2">
+                  Correct!
+                </div>
+                <div className="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700">
+                  <p>{successText}</p>
+                </div>
+              </div>{" "}
+              <button
+                onClick={handleNext}
+                className="absolute right-0 top-0 mt-2 mr-2 bg-green-800 text-white px-2 py-1 rounded"
+              >
+                <GrCaretNext />
+              </button>
+            </div>
+          )}
+          {note && (
+            <div className="border border-t-0 border-yellow-400 rounded-b bg-yellow-100 px-4 py-3 text-yellow-700">
+              <p>{noteText}</p>
+            </div>
+          )}
+        </div>
+        <button
+          className="text-white text-sm font-mono hover:bg-gray-500"
+          onClick={toggleHelpWindow}
+        >
+          help
+        </button>
+        {showHelp && <HelpWindow onClose={toggleHelpWindow} />}
+      </main>{" "}
+      <div className="text-gray-500 text-sm mt-8 mr-2 mb-2 text-right">
+        brian.rabern@gmail.com
       </div>
-      <button
-        className="text-white text-sm font-mono hover:bg-gray-500"
-        onClick={toggleHelpWindow}
-      >
-        help
-      </button>
-      {showHelp && <HelpWindow onClose={toggleHelpWindow} />}
-    </main>
+    </>
   );
 }
