@@ -639,12 +639,12 @@ export default function Home() {
         </div>
       </nav>
       {/* Spacer */}
-      <div className="bg-gray-100 p-4 min-w-[400px] min-h-[100px]"></div>
-      <main className="p-2 md:p-8 lg:p-12 bg-gray-100 min-h-screen">
+      <div className="bg-gray-100 dark:bg-black p-4 min-w-[400px] min-h-[100px]"></div>
+      <main className="p-2 md:p-8 lg:p-12 bg-gray-100 min-h-screen dark:bg-black">
       {/* <main className="p-24"> */}
       
           <div className="flex items-center space-x-3 mb-3">
-            <p className="text-sm font-medium text-gray-900 mb-1">
+            <p className="text-sm font-medium text-gray-900 dark:text-gray-200 mb-1">
               Propositional
             </p>
             <label className="relative inline-flex items-center cursor-pointer">
@@ -655,7 +655,7 @@ export default function Home() {
               />
               <div className="w-14 h-7 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-yellow-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-black after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>{" "}
             </label>
-            <span className="text-sm font-medium text-gray-900">
+            <span className="text-sm font-medium text-gray-900 dark:text-gray-200">
               Predicate
             </span>
           </div>
@@ -888,7 +888,7 @@ export default function Home() {
         </div>
         <div className="mt-6 flex justify-center">
         <button
-          className="text-black text-sm font-mono hover:bg-gray-500"
+          className="text-black dark:text-gray-200 text-sm font-mono hover:bg-gray-500"
           onClick={toggleHelpWindow}
         >
           help?
