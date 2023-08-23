@@ -2,7 +2,7 @@ import React from "react";
 
 const HelpWindow = ({ onClose }: any) => {
   return (
-    <div className="bg-gray-300 text-black rounded-lg p-8 shadow-lg ">
+    <div className="bg-gray-300 text-black rounded-lg p-8 shadow-lg w-full">
       <h2 className="text-bold text-lg">Instructions</h2>
       <hr></hr>
       <br></br>

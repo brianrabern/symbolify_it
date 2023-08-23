@@ -87,6 +87,7 @@ export default function Home() {
     } else {
       setLogic("prop");
       setProblemCollection(propProblemsA as ProbCol);
+      setSelectedProblem(1);
     }
     console.log(logic);
     setUserFormula("");
@@ -638,12 +639,13 @@ export default function Home() {
         </div>
       </nav>
       {/* Spacer */}
-      <div className="h-16"></div>{" "}
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div>
+      <div className="bg-gray-100 p-4 min-w-[400px] min-h-[100px]"></div>
+      <main className="p-2 md:p-8 lg:p-12 bg-gray-100 min-h-screen">
+      {/* <main className="p-24"> */}
+      
           <div className="flex items-center space-x-3 mb-3">
             <p className="text-sm font-medium text-gray-900 dark:text-gray-300 mb-1">
-              Propositional Logic
+              Propositional
             </p>
             <label className="relative inline-flex items-center cursor-pointer">
               <input
@@ -651,17 +653,18 @@ export default function Home() {
                 onClick={toggleLogic}
                 className="sr-only peer"
               />
-              <div className="w-14 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-yellow-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-black after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>{" "}
+              <div className="w-14 h-7 bg-gray-400 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-yellow-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[4px] after:bg-black after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>{" "}
             </label>
             <span className="text-sm font-medium text-gray-900 dark:text-gray-300">
-              Predicate Logic
+              Predicate
             </span>
           </div>
-          <div className="flex items-center justify-between">
+
+          <div>
             <select
               value={selectedProblem}
               onChange={handleProblemChange}
-              className="text-black border border-gray-300 rounded-md p-1 mr-2 mb-2"
+              className="text-black border border-gray-300 rounded-md p-1 mr-2 mb-2 max-w-full w-96 sm:w-96"
             >
               {problemCollection.map((problem, index) => (
                 <option key={problem.id} value={problem.id}>
@@ -677,21 +680,24 @@ export default function Home() {
               Random sentence
             </button>
           </div>
-        </div>
+        
         <br></br>
         <br></br>
         <br></br>
+        <div className="max-w-screen-md">
         {/* sentence to be symbolized */}
-
-        <h2 className="text-4xl font-bold">{selectedProblemObj?.sentence}</h2>
-
+        <div className="mb-2">
+            <div className="bg-yellow-500 p-4 rounded-md min-w-[400px]">
+        <h2 className="text-2xl font-bold">{selectedProblemObj?.sentence}</h2>
+        </div></div>
         {/* scheme of abbreviation */}
-        <div className="bg-gray-800 p-4 rounded-md w-full flex flex-col items-center">
-          <h2 className="py-2 text-2xl font-bold text-gray-500">
+        <div>
+        <div className="bg-gray-800 p-4 rounded-md min-w-[400px]">
+          <h2 className="py-2 text-xl font-bold text-gray-400 flex justify-center">
             Scheme of Abbreviation
           </h2>
           {userSoa.map((entry, index) => (
-            <div key={index} className="flex space-x-4 py-1">
+            <div key={index} className="flex space-x-4 py-1 justify-center">
               <input
                 className="text-black border border-gray-300 rounded-md p-2 h-10 w-24 mt-2"
                 type="text"
@@ -699,7 +705,7 @@ export default function Home() {
                 onChange={(e) => handleSymbolChange(index, e.target.value)}
                 placeholder="Symbol"
               />
-              <span className="mt-2 mx-4 text-2xl font-bold">:</span>
+              <span className="text-white mt-2 mx-4 text-2xl font-bold">:</span>
               <Select
                 id="lexicon"
                 className="text-black rounded-md p-2 w-64"
@@ -727,60 +733,62 @@ export default function Home() {
             </div>
           ))}
           <button
-            className="px-4 py-2 mt-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+            className="text-sm px-4 py-2 mt-4 bg-blue-400 hover:bg-blue-600 text-white rounded-md"
             onClick={handleAddEntry}
           >
             Add Entry
           </button>
-
+</div>
           {/* formula input */}
-          <div className="mt-2 bg-gray-800 p-4 rounded-md w-full flex flex-col items-center">
-            <h2 className="py-2 text-2xl font-bold text-gray-500">Formula</h2>
-
+          <div>
+          <div className="mt-2 bg-gray-800 p-4 rounded-md min-w-[400px]">
+            <h2 className="py-2 text-xl font-bold text-gray-400 flex justify-center">Formula</h2>
+<div className="flex justify-center">
             <input
               id="userInput"
-              className="text-black border-2 border-color-1 rounded-md p-2"
+              className="text-black w-64 border-2 border-color-1 rounded-md p-2"
               value={userFormula}
               onChange={handleUserFormula}
               placeholder="Formula"
-            />
+            /></div>
 
             {/* symbol buttons */}
-            <div className="flex space-x-1 py-2">
+            <div className="max-w-sm mx-auto">
+            <div className="flex space-x-1 px-3 py-2 text-white">
               <button
                 onClick={() => handleConnectiveClick("¬")}
-                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+                className="flex-grow text-xs px-1 py-1 border rounded-md hover:bg-black"
               >
-                ¬
+                ¬ 
               </button>
               <button
                 onClick={() => handleConnectiveClick("∧")}
-                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+                className="flex-grow text-xs px-1 py-1 border rounded-md hover:bg-black"
               >
                 ∧
               </button>
               <button
                 onClick={() => handleConnectiveClick("∨")}
-                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+                className="flex-grow text-xs px-1 py-1 border rounded-md hover:bg-black"
               >
                 ∨
               </button>
               <button
                 onClick={() => handleConnectiveClick("→")}
-                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+                className="flex-grow text-xs px-1 py-1 border rounded-md hover:bg-black"
               >
                 →
               </button>
               <button
                 onClick={() => handleConnectiveClick("↔")}
-                className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+                className="flex-grow text-xs px-1 py-1 border rounded-md hover:bg-black"
               >
                 ↔
               </button>
               {logic === "pred" && (
                 <button
                   onClick={() => handleConnectiveClick("∀")}
-                  className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+                  className="flex-grow text-xs px-1 py-1 border rounded-md hover:bg-black"
                 >
                   ∀
                 </button>
@@ -788,20 +796,23 @@ export default function Home() {
               {logic === "pred" && (
                 <button
                   onClick={() => handleConnectiveClick("∃")}
-                  className="text-xs px-1 py-1 border rounded-md hover:bg-black"
+                  className=" flex-grow text-xs px-1 py-1 border rounded-md hover:bg-black"
                 >
                   ∃
                 </button>
               )}
             </div>
+            </div>
+            <div className="flex justify-center">
             <button
               onClick={toggleSyntaxVisible}
               className="text-white text-sm font-mono hover:bg-black"
             >
               syntax
             </button>
+            </div>
           </div>
-
+          
           {isSyntaxVisible && logic === "prop" && (
             <div className="max-w-md p-4 bg-white text-black rounded-lg shadow-md">
               <code className="text-sm font-mono">
@@ -832,7 +843,7 @@ export default function Home() {
           )}
 
           <button
-            className="px-4 py-2 mt-4 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+            className="mx-2 px-4 py-2 mt-4 mb-2 bg-blue-400 hover:bg-yellow-600 text-white rounded-md"
             onClick={handleCheck}
           >
             Check
@@ -875,14 +886,16 @@ export default function Home() {
             </div>
           )}
         </div>
+        <div className="mt-6 flex justify-center">
         <button
-          className="text-white text-sm font-mono hover:bg-gray-500"
+          className="text-black text-sm font-mono hover:bg-gray-500"
           onClick={toggleHelpWindow}
         >
-          help
-        </button>
+          help?
+        </button></div>
         {showHelp && <HelpWindow onClose={toggleHelpWindow} />}
-      </main>{" "}
+        </div></div>
+        </main>
       <div className="text-gray-500 text-sm mt-8 mr-2 mb-2 text-right">
         brian.rabern@gmail.com
       </div>
