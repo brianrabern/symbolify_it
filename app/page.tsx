@@ -13,7 +13,7 @@ import { alphaConversionProp } from "./alphaConversionProp.js";
 import { alphaConversionPred } from "./alphaConversionPred.js";
 import astToSmt2Prop from "./astToSmt2Prop.js";
 import astToSmt2Pred from "./astToSmt2Pred.js";
-import generateSMTScriptProp from "./generateSMTScriptProp.js";
+import generateSMTScriptProp from "./generateSMTScriptProp";
 import generateSMTScriptPred from "./generateSMTScriptPred.js";
 import HelpWindow from "./HelpWindow";
 import LoadingSpinner from "./LoadingSpinner";
