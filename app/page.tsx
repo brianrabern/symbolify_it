@@ -35,15 +35,19 @@ type Entry = {
   lexicon: string;
 };
 
-const predProblemsA: Problem[] = predProblems as Problem[] as const;
-const propProblemsA: Problem[] = propProblems as Problem[] as const;
+const problems = {
+  "pred": predProblems,
+  "prop": propProblems,
+} as const;
+
+const names: string[] = lexiconDataPred[0]?.Names || [];
+const monadic: string[] = lexiconDataPred[1]?.monadicPredicates || [];
+const binary: string[] = lexiconDataPred[2]?.binaryPredicates || [];
+const propositions: string[] = lexiconDataProp[0]?.Propositions || [];
 
 export default function Home() {
   // user interaction
-  const [logic, setLogic] = useState("prop");
-  const [problemCollection, setProblemCollection] = useState<Problem[]>(
-    propProblemsA
-  );
+  const [logic, setLogic] = useState<keyof typeof problems>("prop");
   const [selectedProblem, setSelectedProblem] = useState(1);
   const [userFormula, setUserFormula] = useState("");
   const [userSoa, setUserSoa] = useState([{ symbol: "", lexicon: "" }]);
@@ -58,11 +62,7 @@ export default function Home() {
   const [isSyntaxVisible, setIsSyntaxVisible] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
 
-  const names: string[] = lexiconDataPred[0]?.Names || [];
-  const monadic: string[] = lexiconDataPred[1]?.monadicPredicates || [];
-  const binary: string[] = lexiconDataPred[2]?.binaryPredicates || [];
-  const propositions: string[] = lexiconDataProp[0]?.Propositions || [];
-
+  // display
   let lexiconOptions: string[] = [];
 
   const toggleSyntaxVisible = () => {
@@ -82,17 +82,16 @@ export default function Home() {
   const toggleLogic = (event: any) => {
     if (logic === "prop") {
       setLogic("pred");
-      setProblemCollection(predProblemsA as Problem[]);
       setSelectedProblem(propProblems.length + 1);
     } else {
       setLogic("prop");
-      setProblemCollection(propProblemsA as Problem[]);
       setSelectedProblem(1);
     }
     console.log(logic);
     setUserFormula("");
     setUserSoa([{ symbol: "", lexicon: "" }]);
   };
+
   console.log(logic);
   const handleProblemChange = (event: any) => {
     const selectedProblem = parseInt(event.target.value);
@@ -117,8 +116,8 @@ export default function Home() {
     } else {
       do {
         randomIndex = getRandomNumber(
-          propProblemsA.length + 1,
-          propProblemsA.length + predProblemsA.length
+          problems.prop.length + 1,
+          problems.prop.length + problems.pred.length
         );
       } while (randomIndex === selectedProblem);
       setSelectedProblem(randomIndex);
@@ -129,23 +128,21 @@ export default function Home() {
   const handleNext = () => {
     setUserFormula("");
     setUserSoa([{ symbol: "", lexicon: "" }]);
-    if (logic === "prop" && selectedProblem < propProblemsA.length) {
+    if (logic === "prop" && selectedProblem < problems.prop.length) {
       setSelectedProblem(selectedProblem + 1);
-    } else if (logic === "prop" && selectedProblem === propProblemsA.length) {
+    } else if (logic === "prop" && selectedProblem === problems.prop.length) {
       setLogic("pred");
-      setProblemCollection(predProblemsA);
-      setSelectedProblem(propProblemsA.length + 1);
+      setSelectedProblem(problems.prop.length + 1);
     } else if (
       logic === "pred" &&
-      selectedProblem < propProblemsA.length + predProblemsA.length
+      selectedProblem < problems.prop.length + problems.pred.length
     ) {
       setSelectedProblem(selectedProblem + 1);
     } else if (
       logic === "pred" &&
-      selectedProblem === propProblemsA.length + predProblemsA.length
+      selectedProblem === problems.prop.length + problems.pred.length
     ) {
       setLogic("prop");
-      setProblemCollection(propProblemsA);
       setSelectedProblem(1);
     }
   };
@@ -576,7 +573,7 @@ export default function Home() {
     }
   };
 
-  const selectedProblemObj = problemCollection.find(
+  const selectedProblemObj = problems[logic].find(
     (problem) => problem.id === selectedProblem
   );
 
@@ -654,7 +651,7 @@ export default function Home() {
             onChange={handleProblemChange}
             className="text-black border border-gray-300 rounded-md p-1 mr-2 mb-2 max-w-full w-96 sm:w-96"
           >
-            {problemCollection.map((problem, index) => (
+            {problems[logic].map((problem, index) => (
               <option key={problem.id} value={problem.id}>
                 {problem.id}. {problem.sentence}
               </option>
