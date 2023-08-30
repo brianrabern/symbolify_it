@@ -10,7 +10,7 @@ import predProblems from "./predProblems.json";
 import { lexiconDataProp } from "./lexiconProp";
 import { lexiconDataPred } from "./lexiconPred.js";
 import { alphaConversionProp } from "./alphaConversionProp.js";
-import { alphaConversionPred } from "./alphaConversionPred.js";
+import { alphaConversionPred } from "./alphaConversionPred";
 import astToSmt2Prop from "./astToSmt2Prop.js";
 import astToSmt2Pred from "./astToSmt2Pred.js";
 import { generateSMTScriptProp } from "./generateSMTScriptProp";
@@ -35,18 +35,18 @@ type Entry = {
   lexicon: string;
 };
 
-const problems = {
-  "pred": predProblems,
-  "prop": propProblems,
-} as const;
+const problems: { pred: Problem[], prop: Problem[] } = {
+  pred: predProblems as Problem[],
+  prop: propProblems as Problem[],
+} as const; // get rid of these assertions once the files are TS
 
 const names: string[] = lexiconDataPred[0]?.Names || [];
 const monadic: string[] = lexiconDataPred[1]?.monadicPredicates || [];
 const binary: string[] = lexiconDataPred[2]?.binaryPredicates || [];
 
-const lexiconOptions: { [key: keyof typeof problems]: string[] } = {
-  "pred": [...names, ...monadic, ...binary],
-  "prop": lexiconDataProp[0]?.Propositions || [],
+const lexiconOptions: { pred: string[], prop: string[] } = {
+  pred: [...names, ...monadic, ...binary] as string[],
+  prop: [ ...lexiconDataProp[0]?.Propositions || [] ] as string[],
 } as const;
 
 export default function Home() {
