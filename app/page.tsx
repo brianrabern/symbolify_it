@@ -43,7 +43,11 @@ const problems = {
 const names: string[] = lexiconDataPred[0]?.Names || [];
 const monadic: string[] = lexiconDataPred[1]?.monadicPredicates || [];
 const binary: string[] = lexiconDataPred[2]?.binaryPredicates || [];
-const propositions: string[] = lexiconDataProp[0]?.Propositions || [];
+
+const lexiconOptions: { [key: keyof typeof problems]: string[] } = {
+  "pred": [...names, ...monadic, ...binary],
+  "prop": lexiconDataProp[0]?.Propositions || [],
+} as const;
 
 export default function Home() {
   // user interaction
@@ -62,9 +66,6 @@ export default function Home() {
   const [isSyntaxVisible, setIsSyntaxVisible] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
 
-  // display
-  let lexiconOptions: string[] = [];
-
   const toggleSyntaxVisible = () => {
     setIsSyntaxVisible(!isSyntaxVisible);
   };
@@ -72,12 +73,6 @@ export default function Home() {
   const toggleHelpWindow = () => {
     setShowHelp(!showHelp);
   };
-
-  if (logic === "pred") {
-    lexiconOptions = [...names, ...monadic, ...binary];
-  } else if (logic === "prop") {
-    lexiconOptions = [...propositions];
-  }
 
   const toggleLogic = (event: any) => {
     if (logic === "prop") {
@@ -599,7 +594,7 @@ export default function Home() {
     };
   }, [error, success, note]);
 
-  const lexiconOptionsSelect = lexiconOptions.map((item) => ({
+  const lexiconOptionsSelect = lexiconOptions[logic].map((item) => ({
     value: item,
     label: item,
   }));
