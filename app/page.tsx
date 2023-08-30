@@ -30,21 +30,19 @@ type Problem = {
   form: string[];
 };
 
-type ProbCol = Problem[];
-
 type Entry = {
   symbol: string;
   lexicon: string;
 };
 
-const predProblemsA: ProbCol = predProblems as ProbCol as const;
-const propProblemsA: ProbCol = propProblems as ProbCol as const;
+const predProblemsA: Problem[] = predProblems as Problem[] as const;
+const propProblemsA: Problem[] = propProblems as Problem[] as const;
 
 export default function Home() {
   // user interaction
   const [logic, setLogic] = useState("prop");
-  const [problemCollection, setProblemCollection] = useState<ProbCol>(
-    propProblemsA as ProbCol
+  const [problemCollection, setProblemCollection] = useState<Problem[]>(
+    propProblemsA
   );
   const [selectedProblem, setSelectedProblem] = useState(1);
   const [userFormula, setUserFormula] = useState("");
@@ -84,11 +82,11 @@ export default function Home() {
   const toggleLogic = (event: any) => {
     if (logic === "prop") {
       setLogic("pred");
-      setProblemCollection(predProblemsA as ProbCol);
+      setProblemCollection(predProblemsA as Problem[]);
       setSelectedProblem(propProblems.length + 1);
     } else {
       setLogic("prop");
-      setProblemCollection(propProblemsA as ProbCol);
+      setProblemCollection(propProblemsA as Problem[]);
       setSelectedProblem(1);
     }
     console.log(logic);
