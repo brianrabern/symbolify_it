@@ -10,10 +10,10 @@ import predProblems from "./predProblems.json";
 import { lexiconDataProp } from "./lexiconProp";
 import { lexiconDataPred } from "./lexiconPred.js";
 import { alphaConversionProp } from "./alphaConversionProp.js";
-import { alphaConversionPred } from "./alphaConversionPred.js";
+import { alphaConversionPred } from "./alphaConversionPred";
 import astToSmt2Prop from "./astToSmt2Prop.js";
 import astToSmt2Pred from "./astToSmt2Pred.js";
-import generateSMTScriptProp from "./generateSMTScriptProp.js";
+import { generateSMTScriptProp } from "./generateSMTScriptProp";
 import generateSMTScriptPred from "./generateSMTScriptPred.js";
 import HelpWindow from "./HelpWindow";
 import LoadingSpinner from "./LoadingSpinner";
@@ -30,39 +30,40 @@ type Problem = {
   form: string[];
 };
 
-type ProbCol = Problem[];
-
 type Entry = {
   symbol: string;
   lexicon: string;
 };
 
+const problems: { pred: Problem[], prop: Problem[] } = {
+  pred: predProblems as Problem[],
+  prop: propProblems as Problem[],
+} as const; // get rid of these assertions once the files are TS
+
+const names: string[] = lexiconDataPred[0]?.Names || [];
+const monadic: string[] = lexiconDataPred[1]?.monadicPredicates || [];
+const binary: string[] = lexiconDataPred[2]?.binaryPredicates || [];
+
+const lexiconOptions: { pred: string[], prop: string[] } = {
+  pred: [...names, ...monadic, ...binary] as string[],
+  prop: [ ...lexiconDataProp[0]?.Propositions || [] ] as string[],
+} as const;
+
 export default function Home() {
-  const predProblemsA: ProbCol = predProblems as ProbCol;
-  const propProblemsA: ProbCol = propProblems as ProbCol;
-  const [logic, setLogic] = useState("prop");
-  const [isSyntaxVisible, setIsSyntaxVisible] = useState(false);
-  const [problemCollection, setProblemCollection] = useState<ProbCol>(
-    propProblemsA as ProbCol
-  );
+  // user interaction
+  const [logic, setLogic] = useState<keyof typeof problems>("prop");
   const [selectedProblem, setSelectedProblem] = useState(1);
   const [userFormula, setUserFormula] = useState("");
   const [userSoa, setUserSoa] = useState([{ symbol: "", lexicon: "" }]);
-  const [error, setError] = useState(false);
-  const [errorText, setErrorText] = useState("");
-  const [success, setSuccess] = useState(false);
-  const [successText, setSuccessText] = useState("");
-  const [note, setNote] = useState(false);
-  const [noteText, setNoteText] = useState("");
+
+  // feedback
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [note, setNote] = useState<string | null>(null);
   const [apiIsLoading, setApiIsLoading] = useState(false);
 
-  const names: string[] = lexiconDataPred[0]?.Names || [];
-  const monadic: string[] = lexiconDataPred[1]?.monadicPredicates || [];
-  const binary: string[] = lexiconDataPred[2]?.binaryPredicates || [];
-  const propositions: string[] = lexiconDataProp[0]?.Propositions || [];
-
-  let lexiconOptions: string[] = [];
-
+  // help
+  const [isSyntaxVisible, setIsSyntaxVisible] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
 
   const toggleSyntaxVisible = () => {
@@ -73,26 +74,19 @@ export default function Home() {
     setShowHelp(!showHelp);
   };
 
-  if (logic === "pred") {
-    lexiconOptions = [...names, ...monadic, ...binary];
-  } else if (logic === "prop") {
-    lexiconOptions = [...propositions];
-  }
-
   const toggleLogic = (event: any) => {
     if (logic === "prop") {
       setLogic("pred");
-      setProblemCollection(predProblemsA as ProbCol);
       setSelectedProblem(propProblems.length + 1);
     } else {
       setLogic("prop");
-      setProblemCollection(propProblemsA as ProbCol);
       setSelectedProblem(1);
     }
     console.log(logic);
     setUserFormula("");
     setUserSoa([{ symbol: "", lexicon: "" }]);
   };
+
   console.log(logic);
   const handleProblemChange = (event: any) => {
     const selectedProblem = parseInt(event.target.value);
@@ -117,8 +111,8 @@ export default function Home() {
     } else {
       do {
         randomIndex = getRandomNumber(
-          propProblemsA.length + 1,
-          propProblemsA.length + predProblemsA.length
+          problems.prop.length + 1,
+          problems.prop.length + problems.pred.length
         );
       } while (randomIndex === selectedProblem);
       setSelectedProblem(randomIndex);
@@ -129,23 +123,21 @@ export default function Home() {
   const handleNext = () => {
     setUserFormula("");
     setUserSoa([{ symbol: "", lexicon: "" }]);
-    if (logic === "prop" && selectedProblem < propProblemsA.length) {
+    if (logic === "prop" && selectedProblem < problems.prop.length) {
       setSelectedProblem(selectedProblem + 1);
-    } else if (logic === "prop" && selectedProblem === propProblemsA.length) {
+    } else if (logic === "prop" && selectedProblem === problems.prop.length) {
       setLogic("pred");
-      setProblemCollection(predProblemsA);
-      setSelectedProblem(propProblemsA.length + 1);
+      setSelectedProblem(problems.prop.length + 1);
     } else if (
       logic === "pred" &&
-      selectedProblem < propProblemsA.length + predProblemsA.length
+      selectedProblem < problems.prop.length + problems.pred.length
     ) {
       setSelectedProblem(selectedProblem + 1);
     } else if (
       logic === "pred" &&
-      selectedProblem === propProblemsA.length + predProblemsA.length
+      selectedProblem === problems.prop.length + problems.pred.length
     ) {
       setLogic("prop");
-      setProblemCollection(propProblemsA);
       setSelectedProblem(1);
     }
   };
@@ -253,8 +245,8 @@ export default function Home() {
 
       data = await response.text();
       setApiIsLoading(false);
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (e) {
+      console.error("Error:", e);
       setApiIsLoading(false);
     }
 
@@ -289,7 +281,7 @@ export default function Home() {
       const parser = new nearley.Parser(nearley.Grammar.fromCompiled(grammar));
       parser.feed(formula);
       return parser.results.length === 1;
-    } catch (error) {
+    } catch (e) {
       return false;
     }
   };
@@ -331,13 +323,11 @@ export default function Home() {
     }
 
     if (!isWellFormed) {
-      setError(true);
-      setErrorText(
+      setError(
         "Your input is not well-formed for propositional logic. Check the syntax."
       );
       if (syntaxCheck(userFormula, grammarPred)) {
-        setNote(true);
-        setNoteText("Note: Your input is a formula of predicate logic.");
+        setNote("Note: Your input is a formula of predicate logic.");
       }
       return;
     }
@@ -349,11 +339,9 @@ export default function Home() {
 
     //check if user formula is a simple alpha-variant of system formula
     if (alphaConSysProps?.includes(alphaConUserProp)) {
-      setSuccess(true);
-      setSuccessText("Your symbolization and scheme are perfect.");
+      setSuccess("Your symbolization and scheme are perfect.");
       if (alphaConSysProps.length > 1) {
-        setNote(true);
-        setNoteText(
+        setNote(
           "Note: The English sentence is ambiguous. This symbolization captures one reading."
         );
       }
@@ -376,26 +364,22 @@ export default function Home() {
       const equiv = await processSmtPairs(userSmt, sysSmts, "prop");
       if (equiv) {
         console.log("success");
-        setSuccess(true);
-        setSuccessText(
+        setSuccess(
           "Your symbolization is correct. It might be deviant but it is logically equivalent to a correct answer."
         );
         if (alphaConSysProps.length > 1) {
-          setNote(true);
-          setNoteText(
+          setNote(
             "Note: The English sentence is ambiguous. This symbolization captures one reading."
           );
         }
       } else if (!equiv) {
         console.log("error");
-        setError(true);
-        setErrorText(
+        setError(
           "Your symbolization is not logically equivalent to a correct answer"
         );
       }
     } else {
-      setError(true);
-      setErrorText(
+      setError(
         "There is something wrong with your symbolization or scheme..."
       );
     }
@@ -427,13 +411,11 @@ export default function Home() {
     }
 
     if (!isWellFormed) {
-      setError(true);
-      setErrorText(
+      setError(
         "Your input is not well-formed for predicate logic. Check the syntax."
       );
       if (syntaxCheck(userFormula, grammarProp)) {
-        setNote(true);
-        setNoteText("Note: Your input is a formula of propositional logic.");
+        setNote("Note: Your input is a formula of propositional logic.");
       }
       return;
     }
@@ -445,11 +427,9 @@ export default function Home() {
 
     //check if user formula is a simple alpha-variant of system formula
     if (alphaConSysPreds?.includes(alphaConUserPred)) {
-      setSuccess(true);
-      setSuccessText("Your symbolization and scheme are perfect.");
+      setSuccess("Your symbolization and scheme are perfect.");
       if (alphaConSysPreds.length > 1) {
-        setNote(true);
-        setNoteText(
+        setNote(
           "Note: The English sentence is ambiguous. This symbolization captures one reading."
         );
       }
@@ -473,26 +453,22 @@ export default function Home() {
       const equiv = await processSmtPairs(userSmt, sysSmts, "pred");
       if (equiv) {
         console.log("success");
-        setSuccess(true);
-        setSuccessText(
+        setSuccess(
           "Your symbolization is correct. It might be deviant but it is logically equivalent to a correct answer."
         );
         if (alphaConSysPreds.length > 1) {
-          setNote(true);
-          setNoteText(
+          setNote(
             "Note: The English sentence is ambiguous. This symbolization captures one reading."
           );
         }
       } else if (!equiv) {
         console.log("error");
-        setError(true);
-        setErrorText(
+        setError(
           "Your symbolization is not logically equivalent to a correct answer"
         );
       }
     } else {
-      setError(true);
-      setErrorText(
+      setError(
         "There is something wrong with your symbolization or scheme..."
       );
     }
@@ -507,14 +483,11 @@ export default function Home() {
         syntaxCheck(userFormula, grammarPred) ||
         syntaxCheck("(" + userFormula + ")", grammarPred);
       if (wellFormedProp) {
-        setNote(true);
-        setNoteText("Note: Your input is a formula of propositional logic.");
+        setNote("Note: Your input is a formula of propositional logic.");
       } else if (wellFormedPred) {
-        setNote(true);
-        setNoteText("Note: Your input is a formula of predicate logic.");
+        setNote("Note: Your input is a formula of predicate logic.");
       } else {
-        setNote(true);
-        setNoteText("Note: Your input is also not a well-formed formula.");
+        setNote("Note: Your input is also not a well-formed formula.");
       }
     }
     const missingSymbol = userSoa.some((item) => item.symbol === "");
@@ -559,27 +532,23 @@ export default function Home() {
     });
 
     if (missingSymbol && missingLexicon) {
-      setError(true);
-      setErrorText(
+      setError(
         "A symbol and English expression are missing in the scheme of abbreviation."
       );
       noteAboutWff();
       return true;
     } else if (missingSymbol) {
-      setError(true);
-      setErrorText("A symbol is missing in the scheme of abbreviation.");
+      setError("A symbol is missing in the scheme of abbreviation.");
       noteAboutWff();
       return true;
     } else if (missingLexicon) {
-      setError(true);
-      setErrorText(
+      setError(
         "An English expression is missing in the scheme of abbreviation."
       );
       noteAboutWff();
       return true;
     } else if (!coorespond) {
-      setError(true);
-      setErrorText(
+      setError(
         "There is a mismatch between a symbol type and the English expression type."
       );
       noteAboutWff();
@@ -599,24 +568,21 @@ export default function Home() {
     }
   };
 
-  const selectedProblemObj = problemCollection.find(
+  const selectedProblemObj = problems[logic].find(
     (problem) => problem.id === selectedProblem
   );
 
   //messages go away when user clicks anywhere
   useEffect(() => {
     const handleGeneralClick = (e: any) => {
-      if (error === true) {
-        setError(false);
-        setErrorText("");
+      if (error) {
+        setError(null);
       }
-      if (success === true) {
-        setSuccess(false);
-        setSuccessText("");
+      if (success) {
+        setSuccess(null);
       }
-      if (note === true) {
-        setNote(false);
-        setNoteText("");
+      if (note) {
+        setNote(null);
       }
     };
 
@@ -628,7 +594,7 @@ export default function Home() {
     };
   }, [error, success, note]);
 
-  const lexiconOptionsSelect = lexiconOptions.map((item) => ({
+  const lexiconOptionsSelect = lexiconOptions[logic].map((item) => ({
     value: item,
     label: item,
   }));
@@ -680,7 +646,7 @@ export default function Home() {
             onChange={handleProblemChange}
             className="text-black border border-gray-300 rounded-md p-1 mr-2 mb-2 max-w-full w-96 sm:w-96"
           >
-            {problemCollection.map((problem, index) => (
+            {problems[logic].map((problem, index) => (
               <option key={problem.id} value={problem.id}>
                 {problem.id}. {problem.sentence}
               </option>
@@ -879,7 +845,7 @@ export default function Home() {
                   role="alert"
                 >
                   <strong className="font-bold">Hmm. </strong>
-                  <span className="block sm:inline">{errorText}</span>
+                  <span className="block sm:inline">{error}</span>
                   <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
                 </div>
               )}
@@ -891,7 +857,7 @@ export default function Home() {
                       Correct!
                     </div>
                     <div className="border border-t-0 border-green-400 rounded-b bg-green-100 px-4 py-3 text-green-700">
-                      <p>{successText}</p>
+                      <p>{success}</p>
                     </div>
                   </div>{" "}
                   <button
@@ -904,7 +870,7 @@ export default function Home() {
               )}
               {note && (
                 <div className="border border-t-0 border-yellow-400 rounded-b bg-yellow-100 px-4 py-3 text-yellow-700">
-                  <p>{noteText}</p>
+                  <p>{note}</p>
                 </div>
               )}
             </div>
